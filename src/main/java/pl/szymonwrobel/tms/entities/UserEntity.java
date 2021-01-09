@@ -69,21 +69,21 @@ public class UserEntity {
         return this;
     }
 
-    public UserType getUsertype() {
+    public UserType getUserType() {
         return userType;
     }
 
-    public UserEntity setUsertype(UserType usertype) {
+    public UserEntity setUserType(UserType usertype) {
         this.userType = usertype;
         return this;
     }
 
-    public Boolean getActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public UserEntity setActive(Boolean active) {
-        isActive = active;
+    public UserEntity setIsActive(Boolean isActive) {
+        isActive = isActive;
         return this;
     }
 
