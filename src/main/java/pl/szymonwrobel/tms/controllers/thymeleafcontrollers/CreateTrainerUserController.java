@@ -5,27 +5,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.szymonwrobel.tms.dtos.UserDTO;
-import pl.szymonwrobel.tms.entities.UserEntity;
 import pl.szymonwrobel.tms.services.UserService;
 
 @Controller
-public class CreateUserController {
+public class CreateTrainerUserController {
 
     private final UserService userService;
 
-    public CreateUserController(UserService userService) {
+    public CreateTrainerUserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/adduser")
-    public String createUser(Model model) {
+    @GetMapping("/addtraineruser")
+    public String createTrainerUser(Model model) {
         model.addAttribute("userdto", new UserDTO());
-        return "adduser";
+        return "addtraineruser";
     }
 
-    @PostMapping("/adduser")
-    public String postCreateUser(Model model, UserDTO userDTO) {
-        userService.createUser(userDTO);
+    @PostMapping("/addtraineruser")
+    public String postCreateTrainerUser(Model model, UserDTO userDTO) {
+        userService.createTrainerUser(userDTO);
         return "redirect:/";
     }
 

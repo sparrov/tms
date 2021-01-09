@@ -83,7 +83,7 @@ public class UserEntity {
     }
 
     public UserEntity setIsActive(Boolean isActive) {
-        isActive = isActive;
+        this.isActive = isActive;
         return this;
     }
 

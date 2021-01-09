@@ -16,17 +16,10 @@ public class InitialDataService implements CommandLineRunner {
         this.userRepository = userRepository;
     }
 
-    private UserEntity adminUser1;
-    private UserEntity adminUser2;
-    private UserEntity trainer1;
-    private UserEntity trainer2;
-    private UserEntity student1;
-    private UserEntity student2;
+    private UserEntity adminUser;
 
     public void createSampleUsers() {
-        adminUser1 = userRepository.save(new UserEntity(null, "admin1", "test", UserType.ADMIN, true, "Administator", "Admistratorski"));
-        adminUser1 = userRepository.save(new UserEntity(null, "trainer1", "test", UserType.TRAINER, true, "Trener", "Trenerski"));
-        adminUser1 = userRepository.save(new UserEntity(null, "student1", "test", UserType.STUDENT, true, "Student", "Studentski"));
+        adminUser = userRepository.save(new UserEntity(null, "admin", "test", UserType.ADMIN, true, "Administator", "Admistratorski"));
     }
 
     @Override

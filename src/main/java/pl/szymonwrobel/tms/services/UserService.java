@@ -17,7 +17,7 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public void createUser(UserDTO userDTO){
+    public void createTrainerUser(UserDTO userDTO){
         UserEntity userEntity = userMapper.mapDtoToEntity(userDTO);
         userRepository.save(userEntity);
     }
