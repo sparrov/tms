@@ -6,6 +6,7 @@
 </head>
 <body>
 <h3>Dodaj nowego prowadzącego:</h3>
+
 <form method="post" th:action="@{/addtraineruser}" th:object="${userdto}">
     <label for="loginInput">Nazwa użtkownika:</label>
     <input id="loginInput" type="text" th:field="*{login}"><br><br>
@@ -19,7 +20,7 @@
     <select id="isActiveSelect" th:field="*{isActive}">
         <option th:value="true" selected>Aktywne</option>
         <option th:value="false">Nieaktywne</option>
-    </select>
+    </select><br><br>
     <div>
         <button type="submit">Dodaj</button>
     </div>
