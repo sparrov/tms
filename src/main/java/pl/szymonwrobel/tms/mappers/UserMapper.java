@@ -3,6 +3,7 @@ package pl.szymonwrobel.tms.mappers;
 import org.springframework.stereotype.Component;
 import pl.szymonwrobel.tms.dtos.UserDTO;
 import pl.szymonwrobel.tms.entities.UserEntity;
+import pl.szymonwrobel.tms.enums.UserType;
 import pl.szymonwrobel.tms.services.SecurityService;
 
 @Component
@@ -40,7 +41,7 @@ public class UserMapper {
         userEntity.setFirstName(userDTO.getFirstName());
         userEntity.setLastName(userDTO.getLastName());
         userEntity.setIsActive(userDTO.getIsActive());
-        userEntity.setUserType(userDTO.getUserType());
+        userEntity.setUserType(UserType.TRAINER);
         return userEntity;
     }
 
