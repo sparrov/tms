@@ -3,9 +3,23 @@ package pl.szymonwrobel.tms.mappers;
 import org.springframework.stereotype.Component;
 import pl.szymonwrobel.tms.dtos.UserDTO;
 import pl.szymonwrobel.tms.entities.UserEntity;
+import pl.szymonwrobel.tms.services.SecurityService;
 
 @Component
 public class UserMapper {
+
+/*    private final UserService userService;
+
+    public UserMapper(@Lazy UserService userService) {//dlaczego @Lazy? Czy nie lepiej odseparować enkoder?
+        this.userService = userService;
+    }*/
+
+    private final SecurityService securityService;
+
+    public UserMapper(SecurityService securityService) {
+        this.securityService = securityService;
+    }
+
 
     public UserDTO mapEntityToDto(UserEntity userEntity) {
         final UserDTO userDTO = new UserDTO();
@@ -19,9 +33,10 @@ public class UserMapper {
     }
 
     public UserEntity mapDtoToEntity(UserDTO userDTO){
+
         final UserEntity userEntity = new UserEntity();
         userEntity.setLogin(userDTO.getLogin());
-        userEntity.setPassword(userDTO.getPassword());
+        userEntity.setPassword(securityService.encodeUserPassword(userDTO));
         userEntity.setFirstName(userDTO.getFirstName());
         userEntity.setLastName(userDTO.getLastName());
         userEntity.setIsActive(userDTO.getIsActive());

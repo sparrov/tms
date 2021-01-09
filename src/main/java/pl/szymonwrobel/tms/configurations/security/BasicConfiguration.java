@@ -1,4 +1,4 @@
-package pl.szymonwrobel.tms.configurations;
+package pl.szymonwrobel.tms.configurations.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
