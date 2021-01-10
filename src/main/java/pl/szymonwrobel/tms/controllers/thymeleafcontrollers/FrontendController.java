@@ -1,6 +1,5 @@
 package pl.szymonwrobel.tms.controllers.thymeleafcontrollers;
 
-import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +11,28 @@ import pl.szymonwrobel.tms.services.UserService;
 import java.util.List;
 
 @Controller
-public class TrainerUsersThController {
-
+public class FrontendController {
     private final UserService userService;
 
-    public TrainerUsersThController(UserService userService) {
+    public FrontendController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/")
+    public String getHomePage(Model model){
+        return "index";
+    }
+
+    @GetMapping("/addtraineruser")
+    public String createTrainerUser(Model model) {
+        model.addAttribute("traineruserdto", new UserDTO());
+        return "addtraineruser";
+    }
+
+    @PostMapping("/addtraineruser")
+    public String postCreateTrainerUser(Model model, UserDTO userDTO) {
+        userService.createTrainerUser(userDTO);
+        return "redirect:/";
     }
 
     @GetMapping("/trainerusers")
@@ -31,5 +46,11 @@ public class TrainerUsersThController {
     public String deleteUser(Model model, @PathVariable Long id) {
         userService.deleteUser(id);
         return "redirect:/trainerusers";
+    }
+
+    @GetMapping("/registerstudentuser")
+    public String registerStudentUser(Model model){
+        model.addAttribute("studentuserdto", new UserDTO());
+        return "registerstudentuser";
     }
 }

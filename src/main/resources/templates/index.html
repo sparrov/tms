@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TMS - Training Mangament System</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{style.css}"/>
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page" th:text="home"></li>
+    </ol>
+</nav>
+
+<h1>Panel użytkownika</h1>
+
+<a class="btn btn-primary btn-lg" th:href="@{/addtraineruser}">Dodaj trenera</a>
+<a class="btn btn-primary btn-lg" th:href="@{/trainerusers}">Lista trenerów</a>
+<a class="btn btn-primary btn-lg" th:href="@{/registerstudentuser}">Rejestracja nowego uczestnika</a>
+
+</body>
+</html>
