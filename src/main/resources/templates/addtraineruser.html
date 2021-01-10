@@ -2,29 +2,63 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add trainer user</title>
+    <title>TMS - Add trainer user</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{style.css}"/>
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 </head>
 <body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{/}" th:text="home"></a></li>
+        <li class="breadcrumb-item active" aria-current="page" th:text="addtraineruser"></li>
+    </ol>
+</nav>
+
 <h3>Dodaj nowego prowadzącego:</h3>
-
-<form method="post" th:action="@{/addtraineruser}" th:object="${userdto}">
-    <label for="loginInput">Nazwa użtkownika:</label>
-    <input id="loginInput" type="text" th:field="*{login}"><br><br>
-    <label for="passwordInput">Hasło:</label>
-    <input id="passwordInput" type="password" th:field="*{password}"><br><br>
-    <label for="firstNameInput">Imię:</label>
-    <input id="firstNameInput" type="text" th:field="*{firstName}"><br><br>
-    <label for="lastNameInput">Nazwisko:</label>
-    <input id="lastNameInput" type="text" th:field="*{lastName}"><br><br>
-    <label for="isActiveSelect">Aktywność konta:</label>
-    <select id="isActiveSelect" th:field="*{isActive}">
-        <option th:value="true" selected>Aktywne</option>
-        <option th:value="false">Nieaktywne</option>
-    </select><br><br>
-    <div>
-        <button type="submit">Dodaj</button>
-    </div>
-
-</form>
+<div class="form">
+    <form method="post" th:action="@{/addtraineruser}" th:object="${userdto}">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="loginInput">Nazwa użtkownika:</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="loginInput" type="text" th:field="*{login}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="passwordInput">Hasło:</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="passwordInput" type="password" th:field="*{password}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="firstNameInput">Imię:</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="firstNameInput" type="text" th:field="*{firstName}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="lastNameInput">Nazwisko:</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="lastNameInput" type="text" th:field="*{lastName}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="isActiveSelect">Aktywność konta:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="isActiveSelect" th:field="*{isActive}">
+                    <option th:value="true" selected>Aktywne</option>
+                    <option th:value="false">Nieaktywne</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary btn-lg">Dodaj</button>
+            </div>
+        </div>
+    </form>
+</div>
 </body>
 </html>

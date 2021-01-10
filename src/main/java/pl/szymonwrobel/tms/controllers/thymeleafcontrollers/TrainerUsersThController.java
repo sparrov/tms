@@ -30,6 +30,6 @@ public class TrainerUsersThController {
     @GetMapping("/trainerusers/{id}/delete")
     public String deleteUser(Model model, @PathVariable Long id) {
         userService.deleteUser(id);
-        return "trainerusers";
+        return "redirect:/trainerusers";
     }
 }

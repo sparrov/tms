@@ -2,10 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All trainer users</title>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} "/>
+    <title>TMS - All trainer users</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{style.css}"/>
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 </head>
 <body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{/}" th:text="home"></a></li>
+        <li class="breadcrumb-item active" aria-current="page" th:text="trainerusers"></li>
+    </ol>
+</nav>
 <h3>Lista trenerów:</h3>
 
 <table class="table table-hover">
@@ -26,24 +36,9 @@
         <th scope="row" th:text="${trainerUser.lastName}"></th>
         <th scope="row" th:text="${trainerUser.isActive}"></th>
         <th scope="row" th:text="${trainerUser.userType}"></th>
-        <th scope="row"><button><a th:href="@{/trainerusers/{id}/delete(id=${trainerUser.id})}">Usuń</a></button></th>
+        <th scope="row"><a class="btn btn-secondary btn-lg" th:href="@{/trainerusers/{id}/delete(id=${trainerUser.id})}">Usuń</a></th>
     </tr>
     </tbody>
 </table>
-
-<!--<div th:each="allTrainerUsers : ${listOfAllTrainerUsers}">
-    <div th:text="${allTrainerUsers.id}"></div>
-    <div th:text="${allTrainerUsers.login}"></div>
-    <div th:text="${allTrainerUsers.firstName}"></div>
-    <div th:text="${allTrainerUsers.lastName}"></div>
-    <div th:text="${allTrainerUsers.userType}"></div>
-    <div th:text="${allTrainerUsers.isActive}"></div>
-    <div><button>Usuń</button></div>
-</div>-->
-
-
-<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
 </body>
 </html>
