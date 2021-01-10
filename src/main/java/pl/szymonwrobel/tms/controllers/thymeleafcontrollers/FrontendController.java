@@ -53,4 +53,10 @@ public class FrontendController {
         model.addAttribute("studentuserdto", new UserDTO());
         return "registerstudentuser";
     }
+
+    @PostMapping("/registerstudentuser")
+    public String postRegisterStudentUser(UserDTO userDTO){
+        userService.registerStudentUser(userDTO);
+        return "redirect:/";
+    }
 }

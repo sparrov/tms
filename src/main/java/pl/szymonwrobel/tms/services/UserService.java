@@ -26,6 +26,11 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
+    public void registerStudentUser(UserDTO userDTO) {
+        UserEntity userEntity = userMapper.mapDtoToEntity(userDTO);
+        userRepository.save(userEntity);
+    }
+
     public List<UserDTO> getAllTrainerUsers() {
         final List<UserEntity> allTrainerUsersEntities = userRepository
                 .findAllByUserType(UserType.TRAINER);
@@ -40,4 +45,6 @@ public class UserService {
     public void deleteUser(Long id){
         userRepository.deleteById(id);
     }
+
+
 }
