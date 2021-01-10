@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All trainer users</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css} "/>
+</head>
+<body>
+<h3>Lista trenerów:</h3>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Login</th>
+        <th scope="col">Imię</th>
+        <th scope="col">Nazwisko</th>
+        <th scope="col">Aktywność</th>
+        <th scope="col">Typ konta</th>
+        <th scope="col">Usuń</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="trainerUser : ${listOfAllTrainerUsers}">
+        <th scope="row" th:text="${trainerUser.login}"></th>
+        <th scope="row" th:text="${trainerUser.firstName}"></th>
+        <th scope="row" th:text="${trainerUser.lastName}"></th>
+        <th scope="row" th:text="${trainerUser.isActive}"></th>
+        <th scope="row" th:text="${trainerUser.userType}"></th>
+        <th scope="row"><button><a th:href="@{/trainerusers/{id}/delete(id=${trainerUser.id})}">Usuń</a></button></th>
+    </tr>
+    </tbody>
+</table>
+
+<!--<div th:each="allTrainerUsers : ${listOfAllTrainerUsers}">
+    <div th:text="${allTrainerUsers.id}"></div>
+    <div th:text="${allTrainerUsers.login}"></div>
+    <div th:text="${allTrainerUsers.firstName}"></div>
+    <div th:text="${allTrainerUsers.lastName}"></div>
+    <div th:text="${allTrainerUsers.userType}"></div>
+    <div th:text="${allTrainerUsers.isActive}"></div>
+    <div><button>Usuń</button></div>
+</div>-->
+
+
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+</body>
+</html>

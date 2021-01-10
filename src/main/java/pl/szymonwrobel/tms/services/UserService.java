@@ -30,10 +30,14 @@ public class UserService {
         final List<UserEntity> allTrainerUsersEntities = userRepository
                 .findAllByUserType(UserType.TRAINER);
 
-        final List<UserDTO> allTrainerUsersDTO = allTrainerUsersEntities
+        final List<UserDTO> allTrainerUsersDTOs = allTrainerUsersEntities
                 .stream()
                 .map(userMapper::mapEntityToDto)
                 .collect(Collectors.toList());
-        return allTrainerUsersDTO;
+        return allTrainerUsersDTOs;
+    }
+
+    public void deleteUser(Long id){
+        userRepository.deleteById(id);
     }
 }
