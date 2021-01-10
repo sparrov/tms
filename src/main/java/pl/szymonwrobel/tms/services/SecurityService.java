@@ -16,6 +16,13 @@ public class SecurityService {
         this.userRepository = userRepository;
     }
 
+    public String encodeUserPassword(String plainPassword){
+        int strength = 10; // work factor of bcrypt
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());
+        String encodedPassword = bCryptPasswordEncoder.encode(plainPassword);
+        return encodedPassword;
+    }
+
     public String encodeUserPassword(UserDTO userDTO){
         int strength = 10; // work factor of bcrypt
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());

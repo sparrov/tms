@@ -11,15 +11,18 @@ import pl.szymonwrobel.tms.repositories.UserRepository;
 public class InitialDataService implements CommandLineRunner {
 
     private final UserRepository userRepository;
+    private final SecurityService securityService;
 
-    public InitialDataService(UserRepository userRepository) {
+    public InitialDataService(UserRepository userRepository, SecurityService securityService) {
         this.userRepository = userRepository;
+        this.securityService = securityService;
     }
 
     private UserEntity adminUser;
 
     public void createSampleUsers() {
-        adminUser = userRepository.save(new UserEntity(null, "admin", "test", UserType.ADMIN, true, "Administator", "Admistratorski"));
+        adminUser = new UserEntity(null, "admin", securityService.encodeUserPassword("test"), UserType.ADMIN, true, "Administator", "Admistratorski");
+        userRepository.save(adminUser);
     }
 
     @Override

@@ -9,12 +9,6 @@ import pl.szymonwrobel.tms.services.SecurityService;
 @Component
 public class UserMapper {
 
-/*    private final UserService userService;
-
-    public UserMapper(@Lazy UserService userService) {//dlaczego @Lazy? Czy nie lepiej odseparować enkoder?
-        this.userService = userService;
-    }*/
-
     private final SecurityService securityService;
 
     public UserMapper(SecurityService securityService) {
@@ -24,6 +18,7 @@ public class UserMapper {
 
     public UserDTO mapEntityToDto(UserEntity userEntity) {
         final UserDTO userDTO = new UserDTO();
+        userDTO.setId(userEntity.getId());
         userDTO.setLogin(userEntity.getLogin());
         userDTO.setPassword(userEntity.getPassword());
         userDTO.setFirstName(userEntity.getFirstName());

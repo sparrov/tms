@@ -1,16 +1,41 @@
 package pl.szymonwrobel.tms.dtos;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pl.szymonwrobel.tms.enums.UserType;
 
 public class UserDTO {
 
+    private Long id;
     private String login;
+    @JsonIgnore
     private String password;
     private String firstName;
     private String lastName;
     private Boolean isActive;
     private UserType userType;
+
+    public UserDTO() {
+    }
+
+    public UserDTO(Long id, String login, String password, String firstName, String lastName, Boolean isActive, UserType userType) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.isActive = isActive;
+        this.userType = userType;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public UserDTO setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public String getLogin() {
         return login;
