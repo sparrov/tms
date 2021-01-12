@@ -21,22 +21,25 @@
 <table class="table table-hover">
     <thead>
     <tr>
+        <th scope="col">Lp.</th>
         <th scope="col">Login</th>
         <th scope="col">Imię</th>
         <th scope="col">Nazwisko</th>
-        <th scope="col">Aktywność</th>
+        <th scope="col">Status</th>
         <th scope="col">Typ konta</th>
-        <th scope="col">Usuń</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="trainerUser : ${listOfAllTrainerUsers}">
+        <th scope="row" th:text="${trainerUserStat.index+1}"></th>
         <th scope="row" th:text="${trainerUser.login}"></th>
         <th scope="row" th:text="${trainerUser.firstName}"></th>
         <th scope="row" th:text="${trainerUser.lastName}"></th>
         <th scope="row" th:text="${trainerUser.isActive}"></th>
         <th scope="row" th:text="${trainerUser.userType}"></th>
-        <th scope="row"><a class="btn btn-secondary btn-lg" th:href="@{/trainerusers/{id}/delete(id=${trainerUser.id})}">Usuń</a></th>
+        <th scope="row"><a class="btn btn-secondary btn-lg"
+                           th:href="@{/trainerusers/{id}/delete(id=${trainerUser.id})}">Usuń</a></th>
     </tr>
     </tbody>
 </table>
