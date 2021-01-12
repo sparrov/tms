@@ -51,4 +51,13 @@ public class UserService {
     }
 
 
+    public List<StudentUserDTO> getAllStudentUsers() {
+        List<UserEntity> allStudentUsersEntities = userRepository.findAllByUserType(UserType.STUDENT);
+
+        final List<StudentUserDTO> allStudentUsersDTOs = allStudentUsersEntities
+                .stream()
+                .map(studentUserMapper::mapEntityToDto)
+                .collect(Collectors.toList());
+        return allStudentUsersDTOs;
+    }
 }

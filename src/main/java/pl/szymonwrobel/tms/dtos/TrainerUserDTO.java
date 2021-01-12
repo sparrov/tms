@@ -81,7 +81,7 @@ public class TrainerUserDTO {
         return this;
     }
 
-    public String getUserType() {
+    public String getUserTypeDescription() {
         return userTypeDescription;
     }
 

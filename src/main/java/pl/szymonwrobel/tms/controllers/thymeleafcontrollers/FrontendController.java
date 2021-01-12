@@ -1,5 +1,6 @@
 package pl.szymonwrobel.tms.controllers.thymeleafcontrollers;
 
+import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +45,7 @@ public class FrontendController {
     }
 
     @GetMapping("/trainerusers/{id}/delete")
-    public String deleteUser(Model model, @PathVariable Long id) {
+    public String deleteTrainerUser(Model model, @PathVariable Long id) {
         userService.deleteUser(id);
         return "redirect:/trainerusers";
     }
@@ -59,5 +60,18 @@ public class FrontendController {
     public String postRegisterStudentUser(StudentUserDTO studentUserDTO){
         userService.registerStudentUser(studentUserDTO);
         return "redirect:/";
+    }
+
+    @GetMapping("/studentusers")
+    public String getAllStudentUsers(Model model){
+        final List<StudentUserDTO> allStudentUsers = userService.getAllStudentUsers();
+        model.addAttribute("listOfAllStudentUsers", allStudentUsers);
+        return "studentusers";
+    }
+
+    @GetMapping("/studentusers/{id}/delete")
+    public String deleteStudentUser(Model model, @PathVariable Long id){
+        userService.deleteUser(id);
+        return "redirect:/studentusers";
     }
 }

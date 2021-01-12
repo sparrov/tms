@@ -33,4 +33,20 @@ public class StudentUserMapper {
         userEntity.setUserType(UserType.STUDENT);
         return userEntity;
     }
+
+    public StudentUserDTO mapEntityToDto(UserEntity userEntity) {
+        StudentUserDTO studentUserDTO = new StudentUserDTO();
+        studentUserDTO.setId(userEntity.getId());
+        studentUserDTO.setLogin(userEntity.getLogin());
+        studentUserDTO.setPassword(userEntity.getPassword());
+        studentUserDTO.setFirstName(userEntity.getFirstName());
+        studentUserDTO.setLastName(userEntity.getLastName());
+        String status = "nieaktywne";
+        if (userEntity.getIsActive()) {
+            status = "aktywne";
+        }
+        studentUserDTO.setIsActive(status);
+        studentUserDTO.setUserTypeDescription(userEntity.getUserType().getDisplayName());
+        return studentUserDTO;
+    }
 }
