@@ -23,19 +23,27 @@ public class UserMapper {
         userDTO.setPassword(userEntity.getPassword());
         userDTO.setFirstName(userEntity.getFirstName());
         userDTO.setLastName(userEntity.getLastName());
-        userDTO.setIsActive(userEntity.getIsActive());
-        userDTO.setUserType(userEntity.getUserType());
+        String status = "nieaktywne";
+        if (userEntity.getIsActive()) {
+            status = "aktywne";
+        }
+        userDTO.setIsActive(status);
+        userDTO.setUserType(userEntity.getUserType().getDisplayName());
         return userDTO;
     }
 
-    public UserEntity mapDtoToEntity(UserDTO userDTO){
+    public UserEntity mapDtoToEntity(UserDTO userDTO) {
 
         final UserEntity userEntity = new UserEntity();
         userEntity.setLogin(userDTO.getLogin());
         userEntity.setPassword(securityService.encodeUserPassword(userDTO));
         userEntity.setFirstName(userDTO.getFirstName());
         userEntity.setLastName(userDTO.getLastName());
-        userEntity.setIsActive(userDTO.getIsActive());
+        Boolean status = false;
+        if (userDTO.getIsActive().equals("aktywne")) {
+            status = true;
+        }
+        userEntity.setIsActive(status);
         userEntity.setUserType(UserType.TRAINER);
         return userEntity;
     }

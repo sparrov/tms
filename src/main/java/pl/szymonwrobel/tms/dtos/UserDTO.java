@@ -12,20 +12,20 @@ public class UserDTO {
     private String password;
     private String firstName;
     private String lastName;
-    private Boolean isActive;
-    private UserType userType;
+    private String isActive;
+    private String userTypeDescription;
 
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String login, String password, String firstName, String lastName, Boolean isActive, UserType userType) {
+    public UserDTO(Long id, String login, String password, String firstName, String lastName, String isActive, String userTypeDescription) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.isActive = isActive;
-        this.userType = userType;
+        this.userTypeDescription = userTypeDescription;
     }
 
     public Long getId() {
@@ -73,21 +73,21 @@ public class UserDTO {
         return this;
     }
 
-    public Boolean getIsActive() {
+    public String getIsActive() {
         return isActive;
     }
 
-    public UserDTO setIsActive(Boolean isActive) {
+    public UserDTO setIsActive(String isActive) {
         this.isActive = isActive;
         return this;
     }
 
-    public UserType getUserType() {
-        return userType;
+    public String getUserType() {
+        return userTypeDescription;
     }
 
-    public UserDTO setUserType(UserType userType) {
-        this.userType = userType;
+    public UserDTO setUserType(String userTypeDescription) {
+        this.userTypeDescription = userTypeDescription;
         return this;
     }
 }
