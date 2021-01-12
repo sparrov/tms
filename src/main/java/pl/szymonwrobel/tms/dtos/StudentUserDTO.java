@@ -3,7 +3,7 @@ package pl.szymonwrobel.tms.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class UserDTO {
+public class StudentUserDTO {
 
     private Long id;
     private String login;
@@ -14,10 +14,10 @@ public class UserDTO {
     private String isActive;
     private String userTypeDescription;
 
-    public UserDTO() {
+    public StudentUserDTO() {
     }
 
-    public UserDTO(Long id, String login, String password, String firstName, String lastName, String isActive, String userTypeDescription) {
+    public StudentUserDTO(Long id, String login, String password, String firstName, String lastName, String isActive, String userTypeDescription) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -31,7 +31,7 @@ public class UserDTO {
         return id;
     }
 
-    public UserDTO setId(Long id) {
+    public StudentUserDTO setId(Long id) {
         this.id = id;
         return this;
     }
@@ -40,7 +40,7 @@ public class UserDTO {
         return login;
     }
 
-    public UserDTO setLogin(String login) {
+    public StudentUserDTO setLogin(String login) {
         this.login = login;
         return this;
     }
@@ -49,7 +49,7 @@ public class UserDTO {
         return password;
     }
 
-    public UserDTO setPassword(String password) {
+    public StudentUserDTO setPassword(String password) {
         this.password = password;
         return this;
     }
@@ -58,7 +58,7 @@ public class UserDTO {
         return firstName;
     }
 
-    public UserDTO setFirstName(String firstName) {
+    public StudentUserDTO setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
@@ -67,7 +67,7 @@ public class UserDTO {
         return lastName;
     }
 
-    public UserDTO setLastName(String lastName) {
+    public StudentUserDTO setLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
@@ -76,16 +76,16 @@ public class UserDTO {
         return isActive;
     }
 
-    public UserDTO setIsActive(String isActive) {
+    public StudentUserDTO setIsActive(String isActive) {
         this.isActive = isActive;
         return this;
     }
 
-    public String getUserType() {
+    public String getUserTypeDescription() {
         return userTypeDescription;
     }
 
-    public UserDTO setUserType(String userTypeDescription) {
+    public StudentUserDTO setUserTypeDescription(String userTypeDescription) {
         this.userTypeDescription = userTypeDescription;
         return this;
     }

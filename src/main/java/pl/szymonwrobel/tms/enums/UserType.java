@@ -2,7 +2,7 @@ package pl.szymonwrobel.tms.enums;
 
 public enum UserType {
     ADMIN("Administrator"),
-    TRAINER("Trener"),
+    TRAINER("Prowadzący"),
     STUDENT("Uczestnik");
 
     private final String displayName;

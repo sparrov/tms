@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.szymonwrobel.tms.dtos.StudentUserDTO;
 import pl.szymonwrobel.tms.dtos.UserDTO;
 import pl.szymonwrobel.tms.services.UserService;
 
@@ -50,13 +51,13 @@ public class FrontendController {
 
     @GetMapping("/registerstudentuser")
     public String registerStudentUser(Model model){
-        model.addAttribute("studentuserdto", new UserDTO());
+        model.addAttribute("studentuserdto", new StudentUserDTO());
         return "registerstudentuser";
     }
 
     @PostMapping("/registerstudentuser")
-    public String postRegisterStudentUser(UserDTO userDTO){
-        userService.registerStudentUser(userDTO);
+    public String postRegisterStudentUser(StudentUserDTO studentUserDTO){
+        userService.registerStudentUser(studentUserDTO);
         return "redirect:/";
     }
 }

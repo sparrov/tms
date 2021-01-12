@@ -2,6 +2,7 @@ package pl.szymonwrobel.tms.services;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.szymonwrobel.tms.dtos.StudentUserDTO;
 import pl.szymonwrobel.tms.dtos.UserDTO;
 import pl.szymonwrobel.tms.repositories.UserRepository;
 
@@ -27,6 +28,13 @@ public class SecurityService {
         int strength = 10; // work factor of bcrypt
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());
         String encodedPassword = bCryptPasswordEncoder.encode(userDTO.getPassword());
+        return encodedPassword;
+    }
+
+    public String encodeUserPassword(StudentUserDTO studentUserDTO){
+        int strength = 10; // work factor of bcrypt
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());
+        String encodedPassword = bCryptPasswordEncoder.encode(studentUserDTO.getPassword());
         return encodedPassword;
     }
 }
