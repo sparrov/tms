@@ -2,7 +2,7 @@ package pl.szymonwrobel.tms.controllers.restcontrollers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.szymonwrobel.tms.dtos.UserDTO;
+import pl.szymonwrobel.tms.dtos.TrainerUserDTO;
 import pl.szymonwrobel.tms.services.UserService;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class TrainerUsersController {
     }
 
     @GetMapping("/rest/trainerusers")
-    public List<UserDTO> getAllTrainers() {
+    public List<TrainerUserDTO> getAllTrainers() {
         return userService.getAllTrainerUsers();
     }
 }

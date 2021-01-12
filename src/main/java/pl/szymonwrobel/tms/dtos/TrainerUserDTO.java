@@ -3,7 +3,7 @@ package pl.szymonwrobel.tms.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class UserDTO {
+public class TrainerUserDTO {
 
     private Long id;
     private String login;
@@ -14,10 +14,10 @@ public class UserDTO {
     private String isActive;
     private String userTypeDescription;
 
-    public UserDTO() {
+    public TrainerUserDTO() {
     }
 
-    public UserDTO(Long id, String login, String password, String firstName, String lastName, String isActive, String userTypeDescription) {
+    public TrainerUserDTO(Long id, String login, String password, String firstName, String lastName, String isActive, String userTypeDescription) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -31,7 +31,7 @@ public class UserDTO {
         return id;
     }
 
-    public UserDTO setId(Long id) {
+    public TrainerUserDTO setId(Long id) {
         this.id = id;
         return this;
     }
@@ -40,7 +40,7 @@ public class UserDTO {
         return login;
     }
 
-    public UserDTO setLogin(String login) {
+    public TrainerUserDTO setLogin(String login) {
         this.login = login;
         return this;
     }
@@ -49,7 +49,7 @@ public class UserDTO {
         return password;
     }
 
-    public UserDTO setPassword(String password) {
+    public TrainerUserDTO setPassword(String password) {
         this.password = password;
         return this;
     }
@@ -58,7 +58,7 @@ public class UserDTO {
         return firstName;
     }
 
-    public UserDTO setFirstName(String firstName) {
+    public TrainerUserDTO setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
@@ -67,7 +67,7 @@ public class UserDTO {
         return lastName;
     }
 
-    public UserDTO setLastName(String lastName) {
+    public TrainerUserDTO setLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
@@ -76,7 +76,7 @@ public class UserDTO {
         return isActive;
     }
 
-    public UserDTO setIsActive(String isActive) {
+    public TrainerUserDTO setIsActive(String isActive) {
         this.isActive = isActive;
         return this;
     }
@@ -85,7 +85,7 @@ public class UserDTO {
         return userTypeDescription;
     }
 
-    public UserDTO setUserType(String userTypeDescription) {
+    public TrainerUserDTO setUserType(String userTypeDescription) {
         this.userTypeDescription = userTypeDescription;
         return this;
     }

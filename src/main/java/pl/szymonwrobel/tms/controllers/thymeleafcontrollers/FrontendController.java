@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.szymonwrobel.tms.dtos.StudentUserDTO;
-import pl.szymonwrobel.tms.dtos.UserDTO;
+import pl.szymonwrobel.tms.dtos.TrainerUserDTO;
 import pl.szymonwrobel.tms.services.UserService;
 
 import java.util.List;
@@ -26,19 +26,19 @@ public class FrontendController {
 
     @GetMapping("/addtraineruser")
     public String createTrainerUser(Model model) {
-        model.addAttribute("traineruserdto", new UserDTO());
+        model.addAttribute("traineruserdto", new TrainerUserDTO());
         return "addtraineruser";
     }
 
     @PostMapping("/addtraineruser")
-    public String postCreateTrainerUser(Model model, UserDTO userDTO) {
-        userService.createTrainerUser(userDTO);
+    public String postCreateTrainerUser(Model model, TrainerUserDTO trainerUserDTO) {
+        userService.createTrainerUser(trainerUserDTO);
         return "redirect:/";
     }
 
     @GetMapping("/trainerusers")
     public String getAllTrainerUsers(Model model) {
-        final List<UserDTO> allTrainerUsers = userService.getAllTrainerUsers();
+        final List<TrainerUserDTO> allTrainerUsers = userService.getAllTrainerUsers();
         model.addAttribute("listOfAllTrainerUsers", allTrainerUsers);
         return "trainerusers";
     }
