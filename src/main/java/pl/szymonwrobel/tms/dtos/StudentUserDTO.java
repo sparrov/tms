@@ -3,6 +3,8 @@ package pl.szymonwrobel.tms.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.List;
+
 public class StudentUserDTO {
 
     private Long id;
@@ -13,11 +15,13 @@ public class StudentUserDTO {
     private String lastName;
     private String isActive;
     private String userTypeDescription;
+    private List<String> appliedTrainingsNames;
+    private List<Long> appliedTrainingsIds;
 
     public StudentUserDTO() {
     }
 
-    public StudentUserDTO(Long id, String login, String password, String firstName, String lastName, String isActive, String userTypeDescription) {
+    public StudentUserDTO(Long id, String login, String password, String firstName, String lastName, String isActive, String userTypeDescription, List<String> appliedTrainingsNames, List<Long> appliedTrainingsIds) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -25,7 +29,11 @@ public class StudentUserDTO {
         this.lastName = lastName;
         this.isActive = isActive;
         this.userTypeDescription = userTypeDescription;
+        this.appliedTrainingsNames = appliedTrainingsNames;
+        this.appliedTrainingsIds = appliedTrainingsIds;
     }
+
+
 
     public Long getId() {
         return id;
@@ -87,6 +95,24 @@ public class StudentUserDTO {
 
     public StudentUserDTO setUserTypeDescription(String userTypeDescription) {
         this.userTypeDescription = userTypeDescription;
+        return this;
+    }
+
+    public List<String> getAppliedTrainingsNames() {
+        return appliedTrainingsNames;
+    }
+
+    public StudentUserDTO setAppliedTrainingsNames(List<String> appliedTrainingsNames) {
+        this.appliedTrainingsNames = appliedTrainingsNames;
+        return this;
+    }
+
+    public List<Long> getAppliedTrainingsIds() {
+        return appliedTrainingsIds;
+    }
+
+    public StudentUserDTO setAppliedTrainingsIds(List<Long> appliedTrainingsIds) {
+        this.appliedTrainingsIds = appliedTrainingsIds;
         return this;
     }
 }

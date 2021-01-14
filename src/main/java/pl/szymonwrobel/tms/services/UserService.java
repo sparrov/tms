@@ -30,7 +30,7 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
-    public void registerStudentUser(StudentUserDTO studentUserDTO) {
+    public void createStudentUser(StudentUserDTO studentUserDTO) {
         UserEntity userEntity = studentUserMapper.mapDtoToEntity(studentUserDTO);
         userRepository.save(userEntity);
     }

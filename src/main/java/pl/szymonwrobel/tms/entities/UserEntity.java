@@ -3,6 +3,8 @@ package pl.szymonwrobel.tms.entities;
 import pl.szymonwrobel.tms.enums.UserType;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class UserEntity {
@@ -20,10 +22,13 @@ public class UserEntity {
     private String firstName;
     private String lastName;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<TrainingApplicationEntity> applications = new HashSet<>();
+
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String login, String password, UserType userType, Boolean isActive, String firstName, String lastName) {
+    public UserEntity(Long id, String login, String password, UserType userType, Boolean isActive, String firstName, String lastName, Set<TrainingApplicationEntity> applications) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -31,7 +36,9 @@ public class UserEntity {
         this.isActive = isActive;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.applications = applications;
     }
+
 
     public UserEntity(String login, String password, UserType userType, Boolean isActive, String firstName, String lastName) {
         this.login = login;
@@ -102,6 +109,15 @@ public class UserEntity {
 
     public UserEntity setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public Set<TrainingApplicationEntity> getApplications() {
+        return applications;
+    }
+
+    public UserEntity setApplications(Set<TrainingApplicationEntity> applications) {
+        this.applications = applications;
         return this;
     }
 }

@@ -13,12 +13,12 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a th:href="@{/}" th:text="home"></a></li>
-        <li class="breadcrumb-item active" aria-current="page" th:text="registerstudentuser"></li>
+        <li class="breadcrumb-item active" aria-current="page" th:text="addstudentuser"></li>
     </ol>
 </nav>
 <h3>Rejestracja nowego uczestnika:</h3>
 <div class="form">
-    <form method="post" th:action="@{/registerstudentuser}" th:object="${studentuserdto}">
+    <form method="post" th:action="@{/addstudentuser}" th:object="${studentuserdto}">
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="loginInput">Nazwa użtkownika:</label>
             <div class="col-sm-10">

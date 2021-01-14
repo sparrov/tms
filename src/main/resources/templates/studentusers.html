@@ -28,6 +28,7 @@
         <th scope="col">Nazwisko</th>
         <th scope="col">Status konta</th>
         <th scope="col">Typ konta</th>
+        <th scope="col">Szkolenia:</th>
         <th scope="col"></th>
     </tr>
     </thead>
@@ -39,6 +40,12 @@
         <th scope="row" th:text="${studentUser.lastName}"></th>
         <th scope="row" th:text="${studentUser.isActive}"></th>
         <th scope="row" th:text="${studentUser.userTypeDescription}"></th>
+        <th scope="row">
+            <ul>
+                <li th:each="training : ${studentUser.getAppliedTrainingsNames()}"
+                    th:text="${training}"></li>
+            </ul>
+        </th>
         <th scope="row"><a class="btn btn-secondary btn-lg"
                            th:href="@{/studentusers/{id}/delete(id=${studentUser.id})}">Usuń</a></th>
     </tr>

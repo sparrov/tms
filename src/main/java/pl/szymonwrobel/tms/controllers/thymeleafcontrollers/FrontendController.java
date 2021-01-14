@@ -1,6 +1,5 @@
 package pl.szymonwrobel.tms.controllers.thymeleafcontrollers;
 
-import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.szymonwrobel.tms.dtos.StudentUserDTO;
 import pl.szymonwrobel.tms.dtos.TrainerUserDTO;
+import pl.szymonwrobel.tms.entities.TrainingApplicationEntity;
+import pl.szymonwrobel.tms.entities.TrainingEntity;
+import pl.szymonwrobel.tms.services.TrainingApplicationService;
+import pl.szymonwrobel.tms.services.TrainingService;
 import pl.szymonwrobel.tms.services.UserService;
 
 import java.util.List;
@@ -15,9 +18,13 @@ import java.util.List;
 @Controller
 public class FrontendController {
     private final UserService userService;
+    private final TrainingService trainingService;
+    private final TrainingApplicationService trainingApplicationService;
 
-    public FrontendController(UserService userService) {
+    public FrontendController(UserService userService, TrainingService trainingService, TrainingApplicationService trainingApplicationService) {
         this.userService = userService;
+        this.trainingService = trainingService;
+        this.trainingApplicationService = trainingApplicationService;
     }
 
     @GetMapping("/")
@@ -50,16 +57,22 @@ public class FrontendController {
         return "redirect:/trainerusers";
     }
 
-    @GetMapping("/registerstudentuser")
-    public String registerStudentUser(Model model){
+    @GetMapping("/addstudentuser")
+    public String createStudentUser(Model model){
         model.addAttribute("studentuserdto", new StudentUserDTO());
-        return "registerstudentuser";
+        return "addstudentuser";
     }
 
-    @PostMapping("/registerstudentuser")
-    public String postRegisterStudentUser(StudentUserDTO studentUserDTO){
-        userService.registerStudentUser(studentUserDTO);
+    @PostMapping("/addstudentuser")
+    public String postCreateStudentUser(StudentUserDTO studentUserDTO){
+        userService.createStudentUser(studentUserDTO);
         return "redirect:/";
+    }
+
+    @GetMapping("/studentusers/{id}/delete")
+    public String deleteStudentUser(Model model, @PathVariable Long id){
+        userService.deleteUser(id);
+        return "redirect:/studentusers";
     }
 
     @GetMapping("/studentusers")
@@ -69,9 +82,17 @@ public class FrontendController {
         return "studentusers";
     }
 
-    @GetMapping("/studentusers/{id}/delete")
-    public String deleteStudentUser(Model model, @PathVariable Long id){
-        userService.deleteUser(id);
-        return "redirect:/studentusers";
+    @GetMapping("/applyfortraining")
+    public String applyForTraining(Model model){
+        model.addAttribute("application", new TrainingApplicationEntity());
+        final List<TrainingEntity> allTrainings = trainingService.getAllTrainings();
+        model.addAttribute("trainings", allTrainings);
+        return "applyfortraining";
+    }
+//TODO:
+    @PostMapping("/applyfortraining")
+    public String postApplyForTraining(TrainingApplicationEntity trainingApplicationEntity){
+        trainingApplicationService.createApplicationForTraining(trainingApplicationEntity);
+        return "redirect:/";
     }
 }
