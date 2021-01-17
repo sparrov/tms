@@ -32,7 +32,7 @@ public class TrainingApplicationMapper {
     public TrainingApplicationEntity mapDtoToEntity(TrainingApplicationDTO trainingApplicationDTO) {
         final TrainingApplicationEntity trainingApplicationEntity = new TrainingApplicationEntity();
         trainingApplicationEntity.setId(trainingApplicationDTO.getId());
-        //TODO: czy tak może być?
+
         Optional<TrainingEntity> trainingEntity = trainingRepository
                 .findById(trainingApplicationDTO.getTrainingId());
         trainingApplicationEntity.setTraining(trainingEntity
