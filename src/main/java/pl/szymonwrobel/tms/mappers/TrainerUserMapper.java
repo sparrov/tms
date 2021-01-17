@@ -23,11 +23,7 @@ public class TrainerUserMapper {
         trainerUserDTO.setPassword(userEntity.getPassword());
         trainerUserDTO.setFirstName(userEntity.getFirstName());
         trainerUserDTO.setLastName(userEntity.getLastName());
-        String status = "nieaktywne";
-        if (userEntity.getIsActive()) {
-            status = "aktywne";
-        }
-        trainerUserDTO.setIsActive(status);
+        trainerUserDTO.setIsActive(userEntity.getIsActive() ? "aktywne" : "nieaktywne");
         trainerUserDTO.setUserType(userEntity.getUserType().getDisplayName());
         return trainerUserDTO;
     }
@@ -39,11 +35,7 @@ public class TrainerUserMapper {
         userEntity.setPassword(securityService.encodeUserPassword(trainerUserDTO));
         userEntity.setFirstName(trainerUserDTO.getFirstName());
         userEntity.setLastName(trainerUserDTO.getLastName());
-        Boolean status = false;
-        if (trainerUserDTO.getIsActive().equals("aktywne")) {
-            status = true;
-        }
-        userEntity.setIsActive(status);
+        userEntity.setIsActive(trainerUserDTO.getIsActive().equals("aktywne") ? true : false);
         userEntity.setUserType(UserType.TRAINER);
         return userEntity;
     }

@@ -30,15 +30,8 @@ public class StudentUserMapper {
         userEntity.setPassword(securityService.encodeUserPassword(studentUserDTO));
         userEntity.setFirstName(studentUserDTO.getFirstName());
         userEntity.setLastName(studentUserDTO.getLastName());
-        //TODO: a może można zrobić to lepiej?
-        Boolean isActive = false;
-        if (studentUserDTO.getIsActive() == null) {
-            studentUserDTO.setIsActive("nieaktywne");
-        }
-        else if (studentUserDTO.getIsActive().equals("aktywne")){
-            isActive = true;
-        }
-        userEntity.setIsActive(isActive);
+        userEntity.setIsActive(studentUserDTO.getIsActive() != null &&
+                studentUserDTO.getIsActive().equals("aktywne"));
         userEntity.setUserType(UserType.STUDENT);
         final List<TrainingApplicationEntity> applies =
                 trainingApplicationRepository
@@ -56,11 +49,7 @@ public class StudentUserMapper {
         studentUserDTO.setPassword(userEntity.getPassword());
         studentUserDTO.setFirstName(userEntity.getFirstName());
         studentUserDTO.setLastName(userEntity.getLastName());
-        String status = "nieaktywne";
-        if (userEntity.getIsActive()) {
-            status = "aktywne";
-        }
-        studentUserDTO.setIsActive(status);
+        studentUserDTO.setIsActive(userEntity.getIsActive() ? "aktywne" : "nieaktywne");
         studentUserDTO.setUserTypeDescription(userEntity.getUserType().getDisplayName());
         final List<String> applies = userEntity
                 .getApplications()

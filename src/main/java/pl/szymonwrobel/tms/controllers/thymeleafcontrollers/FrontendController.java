@@ -7,14 +7,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.szymonwrobel.tms.dtos.StudentUserDTO;
 import pl.szymonwrobel.tms.dtos.TrainerUserDTO;
-import pl.szymonwrobel.tms.entities.TrainingApplicationEntity;
-import pl.szymonwrobel.tms.entities.TrainingEntity;
+import pl.szymonwrobel.tms.dtos.TrainingApplicationDTO;
+import pl.szymonwrobel.tms.dtos.TrainingDTO;
 import pl.szymonwrobel.tms.services.TrainingApplicationService;
 import pl.szymonwrobel.tms.services.TrainingService;
 import pl.szymonwrobel.tms.services.UserService;
 
 import java.util.List;
-
 @Controller
 public class FrontendController {
     private final UserService userService;
@@ -84,15 +83,15 @@ public class FrontendController {
 
     @GetMapping("/applyfortraining")
     public String applyForTraining(Model model){
-        model.addAttribute("application", new TrainingApplicationEntity());
-        final List<TrainingEntity> allTrainings = trainingService.getAllTrainings();
+        model.addAttribute("applicationdto", new TrainingApplicationDTO());
+        final List<TrainingDTO> allTrainings = trainingService.getAllTrainings();
         model.addAttribute("trainings", allTrainings);
         return "applyfortraining";
     }
-//TODO:
+
     @PostMapping("/applyfortraining")
-    public String postApplyForTraining(TrainingApplicationEntity trainingApplicationEntity){
-        trainingApplicationService.createApplicationForTraining(trainingApplicationEntity);
+    public String postApplyForTraining(TrainingApplicationDTO trainingApplicationDTO){
+        trainingApplicationService.createApplicationForTraining(trainingApplicationDTO);
         return "redirect:/";
     }
 }

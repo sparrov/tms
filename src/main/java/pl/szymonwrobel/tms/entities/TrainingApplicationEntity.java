@@ -14,7 +14,6 @@ public class TrainingApplicationEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private TrainingEntity training;
 
-    //TODO: sprawdzić, dlaczego tutaj trzeba dodać cascade = CascadeType.ALL
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private UserEntity user;
 
