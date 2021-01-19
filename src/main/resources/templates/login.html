@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>TMS - Training Management System</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <link th:rel="stylesheet" th:href="@{signin.css}"/>
+</head>
+<body class="text-center">
+    <form class="form-signin" name="f" th:action="@{/login}" method="post">
+        <img class="mb-4" src="/img/tms-logo_200x200.png" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Logowanie</h1>
+        <div th:if="${param.error}" class="alert alert-danger" role="alert">
+            Nieprawidłowe dane logowania.
+        </div>
+        <div th:if="${param.logout}" class="alert alert-success" role="alert">
+            Pomyślnie wylogowano.
+        </div>
+        <label for="username" class="sr-only">Nazwa użytkownika</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Nazwa użytkownika" required autofocus>
+        <label for="password" class="sr-only">Hasło</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Hasło" required>
+        <div class="checkbox mb-3">
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+    </form>
+</body>
+</html>

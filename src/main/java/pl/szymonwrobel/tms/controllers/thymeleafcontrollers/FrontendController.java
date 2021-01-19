@@ -2,9 +2,7 @@ package pl.szymonwrobel.tms.controllers.thymeleafcontrollers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.szymonwrobel.tms.dtos.StudentUserDTO;
 import pl.szymonwrobel.tms.dtos.TrainerUserDTO;
 import pl.szymonwrobel.tms.dtos.TrainingApplicationDTO;
@@ -94,4 +92,10 @@ public class FrontendController {
         trainingApplicationService.createApplicationForTraining(trainingApplicationDTO);
         return "redirect:/";
     }
+
+    @GetMapping(value = "/login")
+    public String login() {
+        return "login";
+    }
+
 }
