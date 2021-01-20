@@ -1,60 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>TMS - Training Management System</title>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
-    <link th:rel="stylesheet" th:href="@{style.css}"/>
-    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-</head>
+<head th:replace="/fragments/head :: head"></head>
 <body>
-<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<nav th:replace="/fragments/navigation :: nav"></nav>
 
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout" />
-</form>
+<div class="content">
+    <div sec:authorize="isAuthenticated()">
+        This content is only shown to authenticated users.
+    </div>
+    <div sec:authorize="hasAuthority('ADMIN')">
+        This content is only shown to administrators.
+    </div>
+    <div sec:authorize="hasAuthority('TRAINER')">
+        This content is only shown to trainers.
+    </div>
+    <div sec:authorize="hasAuthority('STUDENT')">
+        This content is only shown to students.
+    </div>
+    <div sec:authorize="hasRole('USER')">
+        This content is only shown to users.
+    </div>
 
-<nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-        Bootstrap
-    </a>
-
-    <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-</nav>
-
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page" th:text="home"></li>
-    </ol>
-</nav>
-
-<div sec:authorize="isAuthenticated()">
-    This content is only shown to authenticated users.
+    <a class="btn btn-primary btn-lg" th:href="@{/login}">Zaloguj się</a>
+    <a class="btn btn-primary btn-lg" th:href="@{/addtraineruser}">Dodaj prowadzącego</a>
+    <a class="btn btn-primary btn-lg" th:href="@{/trainerusers}">Lista prowadzących</a>
+    <a class="btn btn-primary btn-lg" th:href="@{/addstudentuser}">Dodaj uczestnika</a>
+    <a class="btn btn-primary btn-lg" th:href="@{/studentusers}">Lista uczestników</a>
+    <a class="btn btn-primary btn-lg" th:href="@{/applyfortraining}">Rejestracja nowego uczestnika</a>
 </div>
-<div sec:authorize="hasAuthority('ADMIN')">
-    This content is only shown to administrators.
-</div>
-<div sec:authorize="hasRole('USER')">
-    This content is only shown to users.
-</div>
-
-Logged user: <span sec:authentication="name">Bob</span>
-Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
-
-<h1>Panel użytkownika</h1>
-
-<a class="btn btn-primary btn-lg" th:href="@{/addtraineruser}">Dodaj prowadzącego</a>
-<a class="btn btn-primary btn-lg" th:href="@{/trainerusers}">Lista prowadzących</a>
-<a class="btn btn-primary btn-lg" th:href="@{/addstudentuser}">Dodaj uczestnika</a>
-<a class="btn btn-primary btn-lg" th:href="@{/studentusers}">Lista uczestników</a>
-<a class="btn btn-primary btn-lg" th:href="@{/applyfortraining}">Rejestracja nowego uczestnika</a>
-
-
+<nav th:replace="/fragments/footer :: footer"></nav>
 </body>
 </html>

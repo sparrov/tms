@@ -22,26 +22,48 @@
             }
         }
     </style>
-    <link th:rel="stylesheet" th:href="@{signin.css}"/>
+    <link th:rel="stylesheet" th:href="@{/styles/signin.css}"/>
 </head>
-<body class="text-center">
-    <form class="form-signin" name="f" th:action="@{/login}" method="post">
-        <img class="mb-4" src="/img/tms-logo_200x200.png" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Logowanie</h1>
-        <div th:if="${param.error}" class="alert alert-danger" role="alert">
-            Nieprawidłowe dane logowania.
+<body class="text-center d-flex flex-column h-100">
+<nav th:fragment="nav" class="navbar sticky-top navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" th:href="@{/}" title="Training Management System">
+            <img src="/img/tms-logo_200x200.png" width="30" height="30" class="d-inline-block align-top" alt=""
+                 loading="lazy">
+            TMS - Training Management System
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+
+            </ul>
         </div>
-        <div th:if="${param.logout}" class="alert alert-success" role="alert">
-            Pomyślnie wylogowano.
-        </div>
-        <label for="username" class="sr-only">Nazwa użytkownika</label>
-        <input type="text" id="username" name="username" class="form-control" placeholder="Nazwa użytkownika" required autofocus>
-        <label for="password" class="sr-only">Hasło</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Hasło" required>
-        <div class="checkbox mb-3">
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
-    </form>
+    </nav>
+    <a class="btn btn-outline-primary" th:href="@{/applyfortraining}" role="button">Zarejestruj się</a>
+</nav>
+
+<form class="form-signin" name="f" th:action="@{/login}" method="post">
+    <img class="mb-4" src="/img/tms-logo_200x200.png" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Logowanie</h1>
+    <div th:if="${param.error}" class="alert alert-danger" role="alert">
+        Nieprawidłowe dane logowania.
+    </div>
+    <div th:if="${param.logout}" class="alert alert-success" role="alert">
+        Pomyślnie wylogowano.
+    </div>
+    <label for="username" class="sr-only">Nazwa użytkownika</label>
+    <input type="text" id="username" name="username" class="form-control" placeholder="Nazwa użytkownika" required
+           autofocus>
+    <label for="password" class="sr-only">Hasło</label>
+    <input type="password" id="password" name="password" class="form-control" placeholder="Hasło" required>
+    <div class="checkbox mb-3">
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj</button>
+</form>
+
+<footer class="footer mt-auto py-3">
+    <div class="container">
+        <span class="text-muted">&copy; 2021</span>
+    </div>
+</footer>
 </body>
 </html>

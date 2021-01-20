@@ -35,17 +35,25 @@ public class FrontendController {
         return "addtraineruser";
     }
 
-    @PostMapping("/addtraineruser")
+/*    @PostMapping("/addtraineruser")
     public String postCreateTrainerUser(Model model, TrainerUserDTO trainerUserDTO) {
         userService.createTrainerUser(trainerUserDTO);
         return "redirect:/";
-    }
+    }*/
 
     @GetMapping("/trainerusers")
     public String getAllTrainerUsers(Model model) {
+        model.addAttribute("traineruserdto", new TrainerUserDTO());
         final List<TrainerUserDTO> allTrainerUsers = userService.getAllTrainerUsers();
         model.addAttribute("listOfAllTrainerUsers", allTrainerUsers);
+        model.addAttribute("objecttoadd", "Dodaj prowadzącego");
         return "trainerusers";
+    }
+
+    @PostMapping("/trainerusers")
+    public String postCreateTrainerUser(Model model, TrainerUserDTO trainerUserDTO) {
+        userService.createTrainerUser(trainerUserDTO);
+        return "redirect:/trainerusers";
     }
 
     @GetMapping("/trainerusers/{id}/delete")
@@ -54,17 +62,17 @@ public class FrontendController {
         return "redirect:/trainerusers";
     }
 
-    @GetMapping("/addstudentuser")
+/*    @GetMapping("/addstudentuser")
     public String createStudentUser(Model model){
         model.addAttribute("studentuserdto", new StudentUserDTO());
         return "addstudentuser";
-    }
+    }*/
 
-    @PostMapping("/addstudentuser")
+/*    @PostMapping("/addstudentuser")
     public String postCreateStudentUser(StudentUserDTO studentUserDTO){
         userService.createStudentUser(studentUserDTO);
-        return "redirect:/";
-    }
+        return "addstudentuser";
+    }*/
 
     @GetMapping("/studentusers/{id}/delete")
     public String deleteStudentUser(Model model, @PathVariable Long id){
@@ -76,7 +84,14 @@ public class FrontendController {
     public String getAllStudentUsers(Model model){
         final List<StudentUserDTO> allStudentUsers = userService.getAllStudentUsers();
         model.addAttribute("listOfAllStudentUsers", allStudentUsers);
+        model.addAttribute("studentuserdto", new StudentUserDTO());
         return "studentusers";
+    }
+
+    @PostMapping("/studentusers")
+    public String postCreateStudentUser(StudentUserDTO studentUserDTO){
+        userService.createStudentUser(studentUserDTO);
+        return "redirect:/studentusers";
     }
 
     @GetMapping("/applyfortraining")

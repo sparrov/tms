@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<nav th:fragment="nav" class="navbar sticky-top navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" th:href="@{/}" title="Training Management System">
+            <img src="/img/tms-logo_200x200.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+            TMS - Training Management System
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                    <a class="nav-link" th:href="@{/trainerusers}">Prowadzący</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                    <a class="nav-link" th:href="@{/studentusers}">Uczestnicy</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <form class="form-inline" th:action="@{/logout}" method="post">
+        <span class="navbar-text mr-2"><span sec:authentication="name">Login</span><span sec:authentication="principal.authorities">[ROLE_USER, ROLE_TRAINER, ROLE_ADMIN]</span>
+</span>
+        <button class="btn btn-outline-primary" type="submit">Wyloguj</button>
+    </form>
+</nav>

@@ -1,47 +1,97 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>TMS - All trainer users</title>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
-    <link th:rel="stylesheet" th:href="@{style.css}"/>
-    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-</head>
+<head th:replace="/fragments/head :: head"></head>
 <body>
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a th:href="@{/}" th:text="home"></a></li>
-        <li class="breadcrumb-item active" aria-current="page" th:text="trainerusers"></li>
-    </ol>
-</nav>
-<h3>Lista prowadzących:</h3>
+<nav th:replace="/fragments/navigation :: nav"></nav>
+<div th:replace="/fragments/modal :: modal(~{::#reg_form},'Dodaj nowego prowadzącego')">
+    <div id="reg_form">
+        <div class="form">
+            <form method="post" th:action="@{/trainerusers}" th:object="${traineruserdto}">
+                <div class="modal-body">
 
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th scope="col">Lp.</th>
-        <th scope="col">Login</th>
-        <th scope="col">Imię</th>
-        <th scope="col">Nazwisko</th>
-        <th scope="col">Status konta</th>
-        <th scope="col">Typ konta</th>
-        <th scope="col"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="trainerUser : ${listOfAllTrainerUsers}">
-        <th scope="row" th:text="${trainerUserStat.index+1}"></th>
-        <th scope="row" th:text="${trainerUser.login}"></th>
-        <th scope="row" th:text="${trainerUser.firstName}"></th>
-        <th scope="row" th:text="${trainerUser.lastName}"></th>
-        <th scope="row" th:text="${trainerUser.isActive}"></th>
-        <th scope="row" th:text="${trainerUser.userTypeDescription}"></th>
-        <th scope="row"><a class="btn btn-secondary btn-lg"
-                           th:href="@{/trainerusers/{id}/delete(id=${trainerUser.id})}">Usuń</a></th>
-    </tr>
-    </tbody>
-</table>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="loginInput">Nazwa użtkownika:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="loginInput" type="text" th:field="*{login}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="passwordInput">Hasło:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="passwordInput" type="password" th:field="*{password}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="firstNameInput">Imię:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="firstNameInput" type="text" th:field="*{firstName}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="lastNameInput">Nazwisko:</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="lastNameInput" type="text" th:field="*{lastName}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="isActiveSelect">Aktywność konta:</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="isActiveSelect" th:field="*{isActive}">
+                                <option th:value="true" selected>Aktywne</option>
+                                <option th:value="false">Nieaktywne</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="content">
+
+    <div th:replace="/fragments/modal :: buttonTriggerModal(title='Dodaj prowadzącego')"></div>
+
+    <h3>Lista prowadzących:</h3>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Lp.</th>
+            <th scope="col">Login</th>
+            <th scope="col">Imię</th>
+            <th scope="col">Nazwisko</th>
+            <th scope="col">Status konta</th>
+            <th scope="col">Typ konta</th>
+            <th scope="col">Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="trainerUser : ${listOfAllTrainerUsers}">
+            <th scope="row" th:text="${trainerUserStat.index+1}"></th>
+            <th scope="row" th:text="${trainerUser.login}"></th>
+            <th scope="row" th:text="${trainerUser.firstName}"></th>
+            <th scope="row" th:text="${trainerUser.lastName}"></th>
+            <th scope="row" th:text="${trainerUser.isActive}"></th>
+            <th scope="row" th:text="${trainerUser.userTypeDescription}"></th>
+            <th scope="row" class="listOfActions">
+                <ul>
+                    <li><a class="btn btn-outline-success btn-sm"
+                           th:href="@{/trainerusers/{id}/delete(id=${trainerUser.id})}">Zmień hasło</a>
+                    </li>
+                    <li><a class="btn btn-outline-danger btn-sm"
+                           th:href="@{/trainerusers/{id}/delete(id=${trainerUser.id})}">Usuń</a>
+                    </li>
+                </ul>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<nav th:replace="/fragments/footer :: footer"></nav>
 </body>
 </html>

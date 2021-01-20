@@ -9,12 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import pl.szymonwrobel.tms.entities.UserEntity;
-import pl.szymonwrobel.tms.enums.UserType;
 import pl.szymonwrobel.tms.repositories.UserRepository;
 import pl.szymonwrobel.tms.services.UserDetailsServiceImpl;
-
-import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -52,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/webjars/**", "/signin.css", "/img/tms-logo_200x200.png").permitAll()
+                .antMatchers("/webjars/**", "/img/**", "/styles/**","/applyfortraining").permitAll()
                 .antMatchers("/addtraineruser").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
