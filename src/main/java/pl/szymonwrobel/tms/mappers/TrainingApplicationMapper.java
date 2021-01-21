@@ -11,12 +11,10 @@ import java.util.Optional;
 @Component
 public class TrainingApplicationMapper {
 
-    private final UserMapper userMapper;
     private final StudentUserMapper studentUserMapper;
     private final TrainingRepository trainingRepository;
 
-    public TrainingApplicationMapper(UserMapper userMapper, StudentUserMapper studentUserMapper, TrainingRepository trainingRepository) {
-        this.userMapper = userMapper;
+    public TrainingApplicationMapper(StudentUserMapper studentUserMapper, TrainingRepository trainingRepository) {
         this.studentUserMapper = studentUserMapper;
         this.trainingRepository = trainingRepository;
     }
@@ -24,7 +22,7 @@ public class TrainingApplicationMapper {
     public TrainingApplicationDTO mapEntityToDto(TrainingApplicationEntity trainingApplicationEntity) {
         final TrainingApplicationDTO trainingApplicationDTO = new TrainingApplicationDTO();
         trainingApplicationDTO.setId(trainingApplicationEntity.getId());
-        trainingApplicationDTO.setStudentUserDTO(userMapper.mapEntityToStudentUserDto(trainingApplicationEntity.getUser()));
+        trainingApplicationDTO.setStudentUserDTO(studentUserMapper.mapEntityToDto(trainingApplicationEntity.getUser()));
         trainingApplicationDTO.setTrainingId(trainingApplicationEntity.getTraining().getId());
         return trainingApplicationDTO;
     }

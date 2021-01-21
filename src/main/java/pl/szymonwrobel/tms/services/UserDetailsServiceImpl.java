@@ -5,8 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.szymonwrobel.tms.MyUserDetails;
+import pl.szymonwrobel.tms.dtos.UserDTO;
 import pl.szymonwrobel.tms.entities.UserEntity;
+import pl.szymonwrobel.tms.mappers.UserMapper;
 import pl.szymonwrobel.tms.repositories.UserRepository;
 
 @Service
@@ -14,9 +15,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
     final private UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserDetailsServiceImpl(UserRepository userRepository) {
+    public UserDetailsServiceImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this. userMapper = userMapper;
     }
 
     @Override
@@ -25,6 +28,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (userEntity == null) {
             throw new UsernameNotFoundException("Could not find user");
         }
-        return new MyUserDetails(userEntity);
+        return userMapper.mapEntityToDto(userEntity);
     }
 }

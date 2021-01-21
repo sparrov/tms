@@ -1,9 +1,11 @@
 package pl.szymonwrobel.tms.entities;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import pl.szymonwrobel.tms.enums.UserType;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,6 +23,9 @@ public class UserEntity {
     private Boolean isActive;
     private String firstName;
     private String lastName;
+    //TODO:'Basic' attribute type should not be a container - prośba o rozwinięcie tematu
+    @ElementCollection
+    private List<SimpleGrantedAuthority> authorities;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<TrainingApplicationEntity> applications = new HashSet<>();
@@ -28,7 +33,7 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String login, String password, UserType userType, Boolean isActive, String firstName, String lastName, Set<TrainingApplicationEntity> applications) {
+    public UserEntity(Long id, String login, String password, UserType userType, Boolean isActive, String firstName, String lastName, List<SimpleGrantedAuthority> authorities, Set<TrainingApplicationEntity> applications) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -37,6 +42,7 @@ public class UserEntity {
         this.firstName = firstName;
         this.lastName = lastName;
         this.applications = applications;
+        this.authorities = authorities;
     }
 
 
@@ -109,6 +115,15 @@ public class UserEntity {
 
     public UserEntity setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public List<SimpleGrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    public UserEntity setAuthorities(List<SimpleGrantedAuthority> authorities) {
+        this.authorities = authorities;
         return this;
     }
 

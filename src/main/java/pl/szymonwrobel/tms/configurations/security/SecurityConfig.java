@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import pl.szymonwrobel.tms.mappers.UserMapper;
 import pl.szymonwrobel.tms.repositories.UserRepository;
 import pl.szymonwrobel.tms.services.UserDetailsServiceImpl;
 
@@ -17,13 +18,15 @@ import pl.szymonwrobel.tms.services.UserDetailsServiceImpl;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public SecurityConfig(UserRepository userRepository) {
+    public SecurityConfig(UserRepository userRepository,UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl(userRepository);
+        return new UserDetailsServiceImpl(userRepository, userMapper);
     }
 
     @Bean
