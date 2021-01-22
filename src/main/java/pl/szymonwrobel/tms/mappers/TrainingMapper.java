@@ -38,6 +38,7 @@ public class TrainingMapper {
         final TrainingEntity trainingEntity = new TrainingEntity();
         trainingEntity.setName(trainingDTO.getName());
         //TODO: upewnić się, czy null jest obsłużony prawidłowo?
+        //TODO: Jak zdebugować to przed dodaniem if-a
         if (trainingDTO.getApplications() == null) {
             trainingEntity.setApplications(Collections.EMPTY_SET);
         } else {

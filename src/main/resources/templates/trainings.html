@@ -16,7 +16,7 @@
         <tr>
             <th scope="col">Lp.</th>
             <th scope="col">Nazwa</th>
-            <th scope="col">Aplikacje</th>
+            <th sec:authorize="hasAuthority('ADMIN')" scope="col">Aplikacje</th>
             <th sec:authorize="hasAuthority('ADMIN')" scope="col">Akcja</th>
 
         </tr>
@@ -26,9 +26,9 @@
             <th scope="row" th:text="${trainingStat.index+1}"></th>
             <th scope="row" th:text="${training.name}"></th>
             <th sec:authorize="hasAuthority('ADMIN')" scope="row" th:text="${training.applications}"></th>
-            <th scope="row" class="listOfActions">
+            <th sec:authorize="hasAuthority('ADMIN')" scope="row" class="listOfActions">
                 <ul>
-                    <li sec:authorize="hasAuthority('ADMIN')">
+                    <li>
                         <a class="btn btn-outline-secondary btn-sm"
                            th:href="@{/training/edit/{id}(id=${training.id})}">Edytuj</a></li>
                     <li><a class="btn btn-outline-danger btn-sm"

@@ -30,12 +30,27 @@ public class TrainingService {
         return allTrainingsDTOs;
     }
 
-    public void deleteTraining(Long id) {
-        trainingRepository.deleteById(id);
-    }
-
     public void createTraining(TrainingDTO trainingDTO) {
         TrainingEntity trainingEntity = trainingMapper.mapDtoToEntity(trainingDTO);
         trainingRepository.save(trainingEntity);
     }
+
+    public void deleteTraining(Long id) {
+        trainingRepository.deleteById(id);
+    }
+
+    public TrainingDTO findTrainingById(Long id) {
+        TrainingDTO trainingDTO = trainingRepository
+                .findById(id)
+                .map(trainingMapper::mapEntityToDto).orElse(new TrainingDTO());
+        return trainingDTO;
+    }
+
+    public void updateTraining(Long id, TrainingDTO trainingDTO) {
+        TrainingEntity trainingEntity = new TrainingEntity();
+        trainingEntity = trainingMapper.mapDtoToEntity(trainingDTO);
+        trainingRepository.saveAndFlush(trainingEntity.setId(id));
+    }
+
+
 }

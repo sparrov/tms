@@ -41,17 +41,14 @@ public class TrainingController {
 
     @GetMapping("/training/edit/{id}")
     public String editTraining(@PathVariable Long id, Model model) {
-        final TrainingEntity trainingEntity = trainingService
-                .trainingRepository
-                .findById(id)
-                .orElse(new TrainingEntity());
-        model.addAttribute("trainingdto", trainingEntity);
+        final TrainingDTO trainingDTO = trainingService.findTrainingById(id);
+        model.addAttribute("trainingdto", trainingDTO);
         return "training";
     }
 
     @PostMapping("/training/update/{id}")
-    public String postEditTraining(@PathVariable Long id, TrainingEntity trainingEntity) {
-        trainingService.trainingRepository.saveAndFlush(trainingEntity.setId(id));
+    public String postEditedTraining(@PathVariable Long id, TrainingDTO trainingDTO) {
+        trainingService.updateTraining(id, trainingDTO);
         return "redirect:/trainings";
     }
 
