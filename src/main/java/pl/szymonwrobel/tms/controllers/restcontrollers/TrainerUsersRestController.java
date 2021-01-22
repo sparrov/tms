@@ -8,11 +8,11 @@ import pl.szymonwrobel.tms.services.UserService;
 import java.util.List;
 
 @RestController
-public class TrainerUsersController {
+public class TrainerUsersRestController {
 
     private final UserService userService;
 
-    public TrainerUsersController(UserService userService) {
+    public TrainerUsersRestController(UserService userService) {
         this.userService = userService;
     }
 

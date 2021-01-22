@@ -30,7 +30,7 @@
                 <ul>
                     <li sec:authorize="hasAuthority('ADMIN')">
                         <a class="btn btn-outline-secondary btn-sm"
-                           th:href="@{/trainings/{id}/edit(id=${training.id})}">Edytuj</a></li>
+                           th:href="@{/training/edit/{id}(id=${training.id})}">Edytuj</a></li>
                     <li><a class="btn btn-outline-danger btn-sm"
                            th:href="@{/trainings/{id}/delete(id=${training.id})}">Usuń</a></li>
                 </ul>
