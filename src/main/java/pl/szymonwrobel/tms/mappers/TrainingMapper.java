@@ -7,9 +7,7 @@ import pl.szymonwrobel.tms.entities.TrainingEntity;
 import pl.szymonwrobel.tms.repositories.TrainingApplicationRepository;
 import pl.szymonwrobel.tms.repositories.TrainingRepository;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -36,13 +34,17 @@ public class TrainingMapper {
         return trainingDTO;
     }
 
-    public TrainingEntity mapDtoToEntity(TrainingDTO trainingDTO){
+    public TrainingEntity mapDtoToEntity(TrainingDTO trainingDTO) {
         final TrainingEntity trainingEntity = new TrainingEntity();
-        trainingEntity.setId(trainingDTO.getId());
         trainingEntity.setName(trainingDTO.getName());
-        final Set<TrainingApplicationEntity> allTrainingsApplications = new HashSet<>(trainingApplicationRepository
-                .findAllById(trainingDTO.getApplications()));
-        trainingEntity.setApplications(allTrainingsApplications);
+        //TODO: upewnić się, czy null jest obsłużony prawidłowo?
+        if (trainingDTO.getApplications() == null) {
+            trainingEntity.setApplications(Collections.EMPTY_SET);
+        } else {
+            final Set<TrainingApplicationEntity> allTrainingsApplications = new HashSet<>(trainingApplicationRepository
+                    .findAllById(trainingDTO.getApplications()));
+            trainingEntity.setApplications(allTrainingsApplications);
+        }
         return trainingEntity;
     }
 

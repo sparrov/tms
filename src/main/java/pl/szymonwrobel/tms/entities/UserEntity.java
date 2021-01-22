@@ -1,8 +1,6 @@
 package pl.szymonwrobel.tms.entities;
-
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import pl.szymonwrobel.tms.enums.UserType;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;

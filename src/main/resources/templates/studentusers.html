@@ -3,7 +3,7 @@
 <head th:replace="/fragments/head :: head"></head>
 <body>
 <nav th:replace="/fragments/navigation :: nav"></nav>
-<div th:replace="/fragments/modal :: modal(~{::#reg_form},'Dodaj nowego uczestnika')">
+<div th:replace="/fragments/modal :: modal(~{::#reg_form},'Dodawanie nowego uczestnika')">
     <div id="reg_form">
         <div class="form">
             <form method="post" th:action="@{/studentusers}" th:object="${studentuserdto}">
@@ -78,8 +78,10 @@
             </th>
             <th scope="row" class="listOfActions">
                 <ul>
+<!--
                     <li><a class="btn btn-outline-success btn-sm"
                            th:href="@{/studentusers/{id}/delete(id=${studentUser.id})}">Zmień hasło</a></li>
+-->
                     <li><a class="btn btn-outline-danger btn-sm"
                            th:href="@{/studentusers/{id}/delete(id=${studentUser.id})}">Usuń</a></li>
                 </ul>

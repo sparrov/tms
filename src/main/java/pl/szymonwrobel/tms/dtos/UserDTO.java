@@ -17,19 +17,19 @@ public class UserDTO implements UserDetails {
     private String firstName;
     private String lastName;
     private boolean isActive;
-    private String userTypeDescription;
+    private String userType;
 
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String login, String password, String firstName, String lastName, boolean isActive, String userTypeDescription) {
+    public UserDTO(Long id, String login, String password, String firstName, String lastName, boolean isActive, String userType) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.isActive = isActive;
-        this.userTypeDescription = userTypeDescription;
+        this.userType = userType;
     }
 
     public Long getId() {
@@ -86,18 +86,18 @@ public class UserDTO implements UserDetails {
         return this;
     }
 
-    public String getUserTypeDescription() {
-        return userTypeDescription;
+    public String getUserType() {
+        return userType;
     }
 
-    public UserDTO setUserTypeDescription(String userTypeDescription) {
-        this.userTypeDescription = userTypeDescription;
+    public UserDTO setUserType(String userType) {
+        this.userType = userType;
         return this;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(getUserTypeDescription());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(getUserType());
         return Arrays.asList(authority);
     }
 

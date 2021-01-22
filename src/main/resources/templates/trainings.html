@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head"></head>
+<body>
+<nav th:replace="/fragments/navigation :: nav"></nav>
+<div class="content">
+
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <a class="btn btn-primary" th:href="@{/addtraining}">Dodaj kurs</a>
+    </div>
+
+    <h3>Lista kursów:</h3>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Lp.</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Aplikacje</th>
+            <th sec:authorize="hasAuthority('ADMIN')" scope="col">Akcja</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="training : ${listOfAllTrainings}">
+            <th scope="row" th:text="${trainingStat.index+1}"></th>
+            <th scope="row" th:text="${training.name}"></th>
+            <th sec:authorize="hasAuthority('ADMIN')" scope="row" th:text="${training.applications}"></th>
+            <th scope="row" class="listOfActions">
+                <ul>
+                    <li sec:authorize="hasAuthority('ADMIN')">
+                        <a class="btn btn-outline-secondary btn-sm"
+                           th:href="@{/trainings/{id}/edit(id=${training.id})}">Edytuj</a></li>
+                    <li><a class="btn btn-outline-danger btn-sm"
+                           th:href="@{/trainings/{id}/delete(id=${training.id})}">Usuń</a></li>
+                </ul>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<nav th:replace="/fragments/footer :: footer"></nav>
+</body>
+</html>

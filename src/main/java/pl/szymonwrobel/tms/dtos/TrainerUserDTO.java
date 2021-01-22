@@ -2,10 +2,12 @@ package pl.szymonwrobel.tms.dtos;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotEmpty;
 
 public class TrainerUserDTO {
 
     private Long id;
+    @NotEmpty
     private String login;
     @JsonIgnore
     private String password;

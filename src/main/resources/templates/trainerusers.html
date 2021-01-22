@@ -3,7 +3,7 @@
 <head th:replace="/fragments/head :: head"></head>
 <body>
 <nav th:replace="/fragments/navigation :: nav"></nav>
-<div th:replace="/fragments/modal :: modal(~{::#reg_form},'Dodaj nowego prowadzącego')">
+<div th:replace="/fragments/modal :: modal(~{::#reg_form},'Dodawanie nowego prowadzącego')">
     <div id="reg_form">
         <div class="form">
             <form method="post" th:action="@{/trainerusers}" th:object="${traineruserdto}">
@@ -79,12 +79,12 @@
             <th scope="row" th:text="${trainerUser.userTypeDescription}"></th>
             <th scope="row" class="listOfActions">
                 <ul>
+<!--
                     <li><a class="btn btn-outline-success btn-sm"
-                           th:href="@{/trainerusers/{id}/delete(id=${trainerUser.id})}">Zmień hasło</a>
-                    </li>
+                           th:href="@{/trainerusers/{id}/delete(id=${trainerUser.id})}">Zmień hasło</a></li>
+-->
                     <li><a class="btn btn-outline-danger btn-sm"
-                           th:href="@{/trainerusers/{id}/delete(id=${trainerUser.id})}">Usuń</a>
-                    </li>
+                           th:href="@{/trainerusers/{id}/delete(id=${trainerUser.id})}">Usuń</a></li>
                 </ul>
             </th>
         </tr>

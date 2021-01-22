@@ -8,7 +8,7 @@ import pl.szymonwrobel.tms.entities.UserEntity;
 import pl.szymonwrobel.tms.enums.UserType;
 
 import java.util.Arrays;
-//TODO: czy nie lepiej byłoby stworzyć interfejs funkcyjny Mapper?
+//TODO: czy nie lepiej byłoby stworzyć interfejs funkcyjny Mapper z dwoma metodami do implemetacji w klasach encji?
 @Component
 public class UserMapper {
 
@@ -20,7 +20,7 @@ public class UserMapper {
         userDTO.setFirstName(userEntity.getFirstName());
         userDTO.setLastName(userEntity.getLastName());
         userDTO.setIsActive(userEntity.getIsActive());
-        userDTO.setUserTypeDescription(userEntity.getUserType().getDisplayName());
+        userDTO.setUserType(userEntity.getUserType().name());
         userDTO.getAuthorities();
         return userDTO;
     }
@@ -32,8 +32,8 @@ public class UserMapper {
         userEntity.setFirstName(userDTO.getFirstName());
         userEntity.setLastName(userDTO.getLastName());
         userEntity.setIsActive(userDTO.getIsActive());
-        userEntity.setUserType(UserType.valueOf(userDTO.getUserTypeDescription()));
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userDTO.getUserTypeDescription());
+        userEntity.setUserType(UserType.valueOf(userDTO.getUserType()));
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userDTO.getUserType());
         userEntity.setAuthorities(Arrays.asList(authority));
         return userEntity;
     }

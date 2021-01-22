@@ -16,17 +16,17 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final TrainerUserMapper userMapper;
+    private final TrainerUserMapper trainerUserMapper;
     private final StudentUserMapper studentUserMapper;
 
-    public UserService(UserRepository userRepository, TrainerUserMapper userMapper, StudentUserMapper studentUserMapper) {
+    public UserService(UserRepository userRepository, TrainerUserMapper trainerUserMapper, StudentUserMapper studentUserMapper) {
         this.userRepository = userRepository;
-        this.userMapper = userMapper;
+        this.trainerUserMapper = trainerUserMapper;
         this.studentUserMapper = studentUserMapper;
     }
 
     public void createTrainerUser(TrainerUserDTO trainerUserDTO){
-        UserEntity userEntity = userMapper.mapDtoToEntity(trainerUserDTO);
+        UserEntity userEntity = trainerUserMapper.mapDtoToEntity(trainerUserDTO);
         userRepository.save(userEntity);
     }
 
@@ -41,7 +41,7 @@ public class UserService {
 
         final List<TrainerUserDTO> allTrainerUsersDTOs = allTrainerUsersEntities
                 .stream()
-                .map(userMapper::mapEntityToDto)
+                .map(trainerUserMapper::mapEntityToDto)
                 .collect(Collectors.toList());
         return allTrainerUsersDTOs;
     }

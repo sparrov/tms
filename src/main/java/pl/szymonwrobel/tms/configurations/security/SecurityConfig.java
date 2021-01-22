@@ -51,8 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/trainerusers/1/delete", "/studentusers/1/delete").denyAll() //TODO: blokada przed usunięciem admina z db
                 .antMatchers("/webjars/**", "/img/**", "/styles/**","/applyfortraining").permitAll()
-                .antMatchers("/addtraineruser").hasAuthority("ADMIN")
+                .antMatchers("/addtraineruser", "/**/**/delete").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
