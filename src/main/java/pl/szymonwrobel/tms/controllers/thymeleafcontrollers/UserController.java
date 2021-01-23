@@ -65,6 +65,7 @@ public class UserController {
     }
 
     @GetMapping("/studentusers/delete/{id}")
+    //@Secured(role) - zabezpieczenie przed kasowaniem nieuprawnionych
     public String deleteStudentUser(@PathVariable Long id, Model model) {
         userService.deleteUser(id);
         return "redirect:/studentusers";

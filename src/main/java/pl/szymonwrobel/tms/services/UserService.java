@@ -26,6 +26,7 @@ public class UserService {
     }
 
     public void createTrainerUser(TrainerUserDTO trainerUserDTO){
+        //sprawdzić czy user jest w bazie - jeżeli TAK, rzucić wyjątek!
         UserEntity userEntity = trainerUserMapper.mapDtoToEntity(trainerUserDTO);
         userRepository.save(userEntity);
     }

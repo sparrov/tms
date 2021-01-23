@@ -21,8 +21,8 @@ public class UserEntity {
     private Boolean isActive;
     private String firstName;
     private String lastName;
-    //TODO:'Basic' attribute type should not be a container - prośba o rozwinięcie tematu
-    @ElementCollection
+
+    @ElementCollection //automatyczna relacja 1:wielu, któa tworzy dodatkową tabelę  user_entity_authorities - dzięki temu nie muszę tworzyć osobnej encji i relacji
     private List<SimpleGrantedAuthority> authorities;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

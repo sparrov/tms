@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head th:replace="/fragments/head :: head"></head>
+<head th:replace="fragments/head :: head"></head>
 <body>
-<nav th:replace="/fragments/navigation :: nav"></nav>
+<nav th:replace="fragments/navigation :: nav"></nav>
 
 <div class="content">
     <div sec:authorize="isAuthenticated()">
@@ -28,6 +28,6 @@
     <a class="btn btn-primary btn-lg" th:href="@{/studentusers}">Lista uczestników</a>
     <a class="btn btn-primary btn-lg" th:href="@{/applyfortraining}">Rejestracja nowego uczestnika</a>
 </div>
-<nav th:replace="/fragments/footer :: footer"></nav>
+<nav th:replace="fragments/footer :: footer"></nav>
 </body>
 </html>

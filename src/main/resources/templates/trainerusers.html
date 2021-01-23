@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/fragments/head :: head"></head>
+<head th:replace="fragments/head :: head"></head>
 <body>
-<nav th:replace="/fragments/navigation :: nav"></nav>
-<div th:replace="/fragments/modal :: modal(~{::#reg_form},'Dodawanie nowego prowadzącego')">
+<nav th:replace="fragments/navigation :: nav"></nav>
+<div th:replace="fragments/modal :: modal(~{::#reg_form},'Dodawanie nowego prowadzącego')">
     <div id="reg_form">
         <div class="form">
             <form method="post" th:action="@{/trainerusers}" th:object="${traineruserdto}">
@@ -24,7 +24,7 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="firstNameInput">Imię:</label>
                         <div class="col-sm-8">
-                            <input class="form-control" id="firstNameInput" type="text" th:field="*{firstName}">
+                            <input class="form-control" id="firstNameInput" type="text" th:field="*{firstName}" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -53,7 +53,7 @@
 </div>
 <div class="content">
 
-    <div th:replace="/fragments/modal :: buttonTriggerModal(title='Dodaj prowadzącego')"></div>
+    <div th:replace="fragments/modal :: buttonTriggerModal(title='Dodaj prowadzącego')"></div>
 
     <h3>Lista prowadzących:</h3>
 
@@ -92,6 +92,6 @@
     </table>
 </div>
 
-<nav th:replace="/fragments/footer :: footer"></nav>
+<nav th:replace="fragments/footer :: footer"></nav>
 </body>
 </html>

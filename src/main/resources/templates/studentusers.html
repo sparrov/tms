@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/fragments/head :: head"></head>
+<head th:replace="fragments/head :: head"></head>
 <body>
-<nav th:replace="/fragments/navigation :: nav"></nav>
-<div th:replace="/fragments/modal :: modal(~{::#reg_form},'Dodawanie nowego uczestnika')">
+<nav th:replace="fragments/navigation :: nav"></nav>
+<div th:replace="fragments/modal :: modal(~{::#reg_form},'Dodawanie nowego uczestnika')">
     <div id="reg_form">
         <div class="form">
             <form method="post" th:action="@{/studentusers}" th:object="${studentuserdto}">
@@ -45,7 +45,7 @@
 
 <div class="content">
 
-    <div th:replace="/fragments/modal :: buttonTriggerModal(title='Dodaj uczestnika')"></div>
+    <div th:replace="fragments/modal :: buttonTriggerModal(title='Dodaj uczestnika')"></div>
 
     <h3>Lista zarejestrowanych uczestników:</h3>
 
@@ -91,6 +91,6 @@
     </table>
 </div>
 
-<nav th:replace="/fragments/footer :: footer"></nav>
+<nav th:replace="fragments/footer :: footer"></nav>
 </body>
 </html>

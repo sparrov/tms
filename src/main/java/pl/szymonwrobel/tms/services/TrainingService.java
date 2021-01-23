@@ -38,7 +38,7 @@ public class TrainingService {
     public void deleteTraining(Long id) {
         trainingRepository.deleteById(id);
     }
-
+//TODO: metoda orEls a może jakoś inaczej?
     public TrainingDTO findTrainingById(Long id) {
         TrainingDTO trainingDTO = trainingRepository
                 .findById(id)
@@ -47,8 +47,7 @@ public class TrainingService {
     }
 
     public void updateTraining(Long id, TrainingDTO trainingDTO) {
-        TrainingEntity trainingEntity = new TrainingEntity();
-        trainingEntity = trainingMapper.mapDtoToEntity(trainingDTO);
+        TrainingEntity trainingEntity = trainingMapper.mapDtoToEntity(trainingDTO);
         trainingRepository.saveAndFlush(trainingEntity.setId(id));
     }
 
