@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
-//TODO: czy implementacja UserDetails jest ok, czy powinienem stworzyć osobną klasę np. MyUserDetails i dodać do niej referencję do UserDTO?
+
 public class UserDTO implements UserDetails {
 
     private Long id;

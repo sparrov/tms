@@ -1,8 +1,8 @@
 package pl.szymonwrobel.tms.services;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import pl.szymonwrobel.tms.dtos.TrainingDTO;
-import pl.szymonwrobel.tms.entities.TrainingApplicationEntity;
 import pl.szymonwrobel.tms.entities.TrainingEntity;
 import pl.szymonwrobel.tms.mappers.TrainingMapper;
 import pl.szymonwrobel.tms.repositories.TrainingRepository;
@@ -36,13 +36,21 @@ public class TrainingService {
     }
 
     public void deleteTraining(Long id) {
-        trainingRepository.deleteById(id);
+        try {
+            trainingRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EmptyResultDataAccessException("No training found "
+                    + "with the training id: " + id, 1);//TODO: czym jest ta jedynka?
+        }
+
     }
-//TODO: metoda orEls a może jakoś inaczej?
+
     public TrainingDTO findTrainingById(Long id) {
         TrainingDTO trainingDTO = trainingRepository
                 .findById(id)
-                .map(trainingMapper::mapEntityToDto).orElse(new TrainingDTO());
+                .map(trainingMapper::mapEntityToDto)
+                .orElseThrow(() -> new IllegalArgumentException("No training found "
+                        + "with the training id: " + id));
         return trainingDTO;
     }
 

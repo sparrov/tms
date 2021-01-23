@@ -8,7 +8,7 @@ import pl.szymonwrobel.tms.entities.UserEntity;
 import pl.szymonwrobel.tms.enums.UserType;
 
 import java.util.Arrays;
-//TODO: czy nie lepiej byłoby stworzyć interfejs funkcyjny Mapper z dwoma metodami do implemetacji w klasach encji?
+
 @Component
 public class UserMapper {
 

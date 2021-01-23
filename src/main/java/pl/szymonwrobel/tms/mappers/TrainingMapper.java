@@ -37,12 +37,12 @@ public class TrainingMapper {
     public TrainingEntity mapDtoToEntity(TrainingDTO trainingDTO) {
         final TrainingEntity trainingEntity = new TrainingEntity();
         trainingEntity.setName(trainingDTO.getName());
-        //TODO: upewnić się, czy null jest obsłużony prawidłowo?
-        //TODO: Jak zdebugować to przed dodaniem if-a
+
         if (trainingDTO.getApplications() == null) {
-            trainingEntity.setApplications(Collections.EMPTY_SET);
+            trainingEntity.setApplications(Collections.emptySet());
         } else {
-            final Set<TrainingApplicationEntity> allTrainingsApplications = new HashSet<>(trainingApplicationRepository
+            final Set<TrainingApplicationEntity> allTrainingsApplications =
+                    new HashSet<>(trainingApplicationRepository
                     .findAllById(trainingDTO.getApplications()));
             trainingEntity.setApplications(allTrainingsApplications);
         }

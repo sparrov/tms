@@ -2,6 +2,9 @@ package pl.szymonwrobel.tms.entities;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import pl.szymonwrobel.tms.enums.UserType;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,16 +15,39 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @NotEmpty
+    @Column(unique=true, length = 24)
+    @Size(min = 3, max = 24)
     private String login;
+
+    @NotNull
+    @NotEmpty
+    @Column(length = 60, nullable = false)
+    @Size(min = 8, max = 60)
     private String password;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
+    @NotNull
     private Boolean isActive;
+
+    @NotNull
+    @NotEmpty
+    @Column(length = 24)
+    @Size(min = 3, max = 24)
     private String firstName;
+
+    @NotNull
+    @NotEmpty
+    @Column(length = 24)
+    @Size(min = 3, max = 24)
     private String lastName;
 
+    //TODO: @NotNull - do ustalenia
     @ElementCollection //automatyczna relacja 1:wielu, któa tworzy dodatkową tabelę  user_entity_authorities - dzięki temu nie muszę tworzyć osobnej encji i relacji
     private List<SimpleGrantedAuthority> authorities;
 

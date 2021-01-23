@@ -7,26 +7,18 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import pl.szymonwrobel.tms.mappers.UserMapper;
-import pl.szymonwrobel.tms.repositories.UserRepository;
-import pl.szymonwrobel.tms.services.UserDetailsServiceImpl;
+import pl.szymonwrobel.tms.services.UserService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
 
-    public SecurityConfig(UserRepository userRepository,UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
+    private final UserService userService;
 
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl(userRepository, userMapper);
+    public SecurityConfig(UserService userService) {
+        this.userService = userService;
     }
 
     @Bean
@@ -37,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setUserDetailsService(userService);
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
@@ -53,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/trainerusers/delete/1", "/studentusers/delete/1").denyAll() //TODO: blokada przed usunięciem admina z db
                 .antMatchers("/webjars/**", "/img/**", "/styles/**","/applyfortraining").permitAll()
-                .antMatchers("/addtraineruser", "/**/delete/**").hasAuthority("ADMIN")
+                //.antMatchers("/addtraineruser", "/**/delete/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

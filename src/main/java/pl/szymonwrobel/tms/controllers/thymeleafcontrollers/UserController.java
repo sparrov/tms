@@ -7,12 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.szymonwrobel.tms.dtos.StudentUserDTO;
 import pl.szymonwrobel.tms.dtos.TrainerUserDTO;
+import pl.szymonwrobel.tms.exceptions.UserAlreadyExistAuthenticationException;
 import pl.szymonwrobel.tms.services.UserService;
 import java.util.List;
-
-//TODO: w jaki sposób weryfikować, czy dodawany user nie jest już w bazie i nie jest nadpisywany (adnotacja unique?)
-//TODO: validation B indi ngResult
-//TODO: jak nazywać kontrolery, jeśli w jednym projekcie mamy thymeleafa i REST?
 
 @Controller
 public class UserController {
@@ -39,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/trainerusers")
-    public String postCreateTrainerUser(Model model, TrainerUserDTO trainerUserDTO) {
+    public String postCreateTrainerUser(Model model, TrainerUserDTO trainerUserDTO) throws UserAlreadyExistAuthenticationException {
         userService.createTrainerUser(trainerUserDTO);
         return "redirect:/trainerusers";
     }
@@ -65,7 +62,6 @@ public class UserController {
     }
 
     @GetMapping("/studentusers/delete/{id}")
-    //@Secured(role) - zabezpieczenie przed kasowaniem nieuprawnionych
     public String deleteStudentUser(@PathVariable Long id, Model model) {
         userService.deleteUser(id);
         return "redirect:/studentusers";

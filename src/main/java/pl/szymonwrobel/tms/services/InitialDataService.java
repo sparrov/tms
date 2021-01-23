@@ -46,7 +46,7 @@ public class InitialDataService implements CommandLineRunner {
     private TrainingApplicationEntity trainingApplication4;
 
     public void createAdminUser() {
-        adminUser = new UserEntity(null, "admin", securityService.encodeUserPassword("test"), UserType.ADMIN, true, "Administator", "Admistratorski", List.of(new SimpleGrantedAuthority("ADMIN")), Collections.EMPTY_SET);
+        adminUser = new UserEntity(null, "admin", securityService.encodeUserPassword("test1234"), UserType.ADMIN, true, "Administator", "Admistratorski", List.of(new SimpleGrantedAuthority("ADMIN")), Collections.EMPTY_SET);
         userRepository.save(adminUser);
     }
 
@@ -60,17 +60,17 @@ public class InitialDataService implements CommandLineRunner {
     }
 
     public void createSampleUsers() {
-        trainerUser1 = new UserEntity(null, "trenerUser1", securityService.encodeUserPassword("123456"), UserType.TRAINER, true, "Prowadzący1", "Prowadzący1", List.of(new SimpleGrantedAuthority("TRAINER")), Collections.EMPTY_SET);
+        trainerUser1 = new UserEntity(null, "trenerUser1", securityService.encodeUserPassword("12345678"), UserType.TRAINER, true, "Prowadzący1", "Prowadzący1", List.of(new SimpleGrantedAuthority("TRAINER")), Collections.EMPTY_SET);
         userRepository.save(trainerUser1);
-        trainerUser2 = new UserEntity(null, "trenerUser2", securityService.encodeUserPassword("123456"), UserType.TRAINER, true, "Prowadzący2", "Prowadzący2", List.of(new SimpleGrantedAuthority("TRAINER")), Collections.EMPTY_SET);
+        trainerUser2 = new UserEntity(null, "trenerUser2", securityService.encodeUserPassword("12345678"), UserType.TRAINER, true, "Prowadzący2", "Prowadzący2", List.of(new SimpleGrantedAuthority("TRAINER")), Collections.EMPTY_SET);
         userRepository.save(trainerUser2);
-        trainerUser3 = new UserEntity(null, "trenerUser3", securityService.encodeUserPassword("123456"), UserType.TRAINER, true, "Prowadzący3", "Prowadzący3", List.of(new SimpleGrantedAuthority("TRAINER")), Collections.EMPTY_SET);
+        trainerUser3 = new UserEntity(null, "trenerUser3", securityService.encodeUserPassword("12345678"), UserType.TRAINER, true, "Prowadzący3", "Prowadzący3", List.of(new SimpleGrantedAuthority("TRAINER")), Collections.EMPTY_SET);
         userRepository.save(trainerUser3);
-        studentUser1 = new UserEntity(null, "studentUser1", securityService.encodeUserPassword("123456"), UserType.STUDENT, true, "Student1", "Student1", List.of(new SimpleGrantedAuthority("TRAINER")), Collections.EMPTY_SET);
+        studentUser1 = new UserEntity(null, "studentUser1", securityService.encodeUserPassword("12345678"), UserType.STUDENT, true, "Student1", "Student1", List.of(new SimpleGrantedAuthority("TRAINER")), Collections.EMPTY_SET);
         userRepository.save(studentUser1);
-        studentUser2 = new UserEntity(null, "studentUser2", securityService.encodeUserPassword("123456"), UserType.STUDENT, true, "Student2", "Student2", List.of(new SimpleGrantedAuthority("TRAINER")), Collections.EMPTY_SET);
+        studentUser2 = new UserEntity(null, "studentUser2", securityService.encodeUserPassword("12345678"), UserType.STUDENT, true, "Student2", "Student2", List.of(new SimpleGrantedAuthority("TRAINER")), Collections.EMPTY_SET);
         userRepository.save(studentUser2);
-        studentUser3 = new UserEntity(null, "studentUser3", securityService.encodeUserPassword("123456"), UserType.STUDENT, true, "Student3", "Student3", List.of(new SimpleGrantedAuthority("TRAINER")), Collections.EMPTY_SET);
+        studentUser3 = new UserEntity(null, "studentUser3", securityService.encodeUserPassword("12345678"), UserType.STUDENT, true, "Student3", "Student3", List.of(new SimpleGrantedAuthority("TRAINER")), Collections.EMPTY_SET);
         userRepository.save(studentUser3);
     }
 
