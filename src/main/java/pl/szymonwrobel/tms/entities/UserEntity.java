@@ -47,7 +47,7 @@ public class UserEntity {
     @Size(min = 3, max = 24)
     private String lastName;
 
-    //TODO: @NotNull - do ustalenia
+    //@NotNull //TODO: do ustalenia
     @ElementCollection //automatyczna relacja 1:wielu, któa tworzy dodatkową tabelę  user_entity_authorities - dzięki temu nie muszę tworzyć osobnej encji i relacji
     private List<SimpleGrantedAuthority> authorities;
 

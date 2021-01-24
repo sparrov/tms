@@ -26,10 +26,10 @@ public class StudentUserMapper {
 
     public UserEntity mapDtoToEntity(StudentUserDTO studentUserDTO) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setLogin(studentUserDTO.getLogin());
+        userEntity.setLogin(studentUserDTO.getLogin().toLowerCase().replace(" ",""));
         userEntity.setPassword(securityService.encodeUserPassword(studentUserDTO));
-        userEntity.setFirstName(studentUserDTO.getFirstName());
-        userEntity.setLastName(studentUserDTO.getLastName());
+        userEntity.setFirstName(studentUserDTO.getFirstName().replace(" ",""));
+        userEntity.setLastName(studentUserDTO.getLastName().replace(" ",""));
         userEntity.setIsActive(studentUserDTO.getIsActive() != null &&
                 studentUserDTO.getIsActive().equals("aktywne"));
         userEntity.setUserType(UserType.STUDENT);

@@ -31,24 +31,33 @@ public class UserService implements UserDetailsService {
         this.studentUserMapper = studentUserMapper;
         this.userMapper = userMapper;
     }
-
-    public void createTrainerUser(TrainerUserDTO trainerUserDTO) throws UserAlreadyExistAuthenticationException {
-        //sprawdzić czy user jest w bazie - jeżeli TAK, rzucić wyjątek!
-        UserEntity newUserEntity = trainerUserMapper.mapDtoToEntity(trainerUserDTO);
-        Boolean usersLogin = userRepository
-                .findAll()
-                .stream()
-                .anyMatch(u -> u.getLogin().equalsIgnoreCase(newUserEntity.getLogin()));
-
-        if (usersLogin == false) {
-            userRepository.save(newUserEntity);
+//TODO: sprawdzić, czy jest OK
+    public void createTrainerUser(TrainerUserDTO trainerUserDTO)
+            throws UserAlreadyExistAuthenticationException {
+        UserEntity newTrainerUserEntity = trainerUserMapper.mapDtoToEntity(trainerUserDTO);
+        if (isUserLoginUnique(newTrainerUserEntity)) {
+            userRepository.save(newTrainerUserEntity);
+        } else {
+            throw new UserAlreadyExistAuthenticationException("Login: "
+                    + newTrainerUserEntity.getLogin() + " is not valid");
         }
 
+/*        Boolean usersLogin = userRepository
+                .findAll()
+                .stream()
+                .anyMatch(u -> u.getLogin().equalsIgnoreCase(newUserEntity.getLogin()));*/
     }
 
-    public void createStudentUser(StudentUserDTO studentUserDTO) {
-        UserEntity userEntity = studentUserMapper.mapDtoToEntity(studentUserDTO);
-        userRepository.save(userEntity);
+    public void createStudentUser(StudentUserDTO studentUserDTO)
+            throws UserAlreadyExistAuthenticationException {
+        UserEntity newStudentUserEntity = studentUserMapper.mapDtoToEntity(studentUserDTO);
+        userRepository.save(newStudentUserEntity);
+        if (isUserLoginUnique(newStudentUserEntity)) {
+            userRepository.save(newStudentUserEntity);
+        } else {
+            throw new UserAlreadyExistAuthenticationException("Login: "
+                    + newStudentUserEntity.getLogin() + " is not valid");
+        }
     }
 
     public List<TrainerUserDTO> getAllTrainerUsers() {
@@ -84,5 +93,13 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("Could not find user");
         }
         return userMapper.mapEntityToDto(userEntity);
+    }
+
+    public Boolean isUserLoginUnique(UserEntity newUserEntity) {
+        final List<UserEntity> listOfAllUsersLogins = userRepository.findUserEntitiesByLogin(newUserEntity.getLogin());
+        Boolean isLoginUnique = listOfAllUsersLogins
+                .stream()
+                .noneMatch(u -> u.getLogin().equals(newUserEntity.getLogin()));
+        return isLoginUnique;
     }
 }

@@ -56,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/studentusers")
-    public String postCreateStudentUser(StudentUserDTO studentUserDTO) {
+    public String postCreateStudentUser(StudentUserDTO studentUserDTO) throws UserAlreadyExistAuthenticationException {
         userService.createStudentUser(studentUserDTO);
         return "redirect:/studentusers";
     }

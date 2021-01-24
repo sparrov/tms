@@ -28,9 +28,9 @@ public class UserMapper {
     public UserEntity mapDtoToEntity(UserDTO userDTO) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(userDTO.getId());
-        userEntity.setLogin(userDTO.getLogin());
-        userEntity.setFirstName(userDTO.getFirstName());
-        userEntity.setLastName(userDTO.getLastName());
+        userEntity.setLogin(userDTO.getLogin().toLowerCase().replace(" ",""));
+        userEntity.setFirstName(userDTO.getFirstName().replace(" ",""));
+        userEntity.setLastName(userDTO.getLastName().replace(" ",""));
         userEntity.setIsActive(userDTO.getIsActive());
         userEntity.setUserType(UserType.valueOf(userDTO.getUserType()));
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userDTO.getUserType());

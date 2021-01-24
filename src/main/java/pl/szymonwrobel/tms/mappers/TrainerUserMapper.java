@@ -31,10 +31,10 @@ public class TrainerUserMapper {
     public UserEntity mapDtoToEntity(TrainerUserDTO trainerUserDTO) {
 
         final UserEntity userEntity = new UserEntity();
-        userEntity.setLogin(trainerUserDTO.getLogin());
+        userEntity.setLogin(trainerUserDTO.getLogin().toLowerCase().replace(" ",""));
         userEntity.setPassword(securityService.encodeUserPassword(trainerUserDTO));
-        userEntity.setFirstName(trainerUserDTO.getFirstName());
-        userEntity.setLastName(trainerUserDTO.getLastName());
+        userEntity.setFirstName(trainerUserDTO.getFirstName().replace(" ",""));
+        userEntity.setLastName(trainerUserDTO.getLastName().replace(" ",""));
         userEntity.setIsActive(trainerUserDTO.getIsActive().equals("aktywne") ? true : false);
         userEntity.setUserType(UserType.TRAINER);
         return userEntity;
