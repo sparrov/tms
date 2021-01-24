@@ -12,13 +12,15 @@ public class TrainingApplicationService {
     private final TrainingApplicationRepository trainingApplicationRepository;
     private final TrainingApplicationMapper trainingApplicationMapper;
 
-    public TrainingApplicationService(TrainingApplicationRepository trainingApplicationRepository, TrainingApplicationMapper trainingApplicationMapper) {
+    public TrainingApplicationService(TrainingApplicationRepository trainingApplicationRepository,
+                                      TrainingApplicationMapper trainingApplicationMapper) {
         this.trainingApplicationRepository = trainingApplicationRepository;
         this. trainingApplicationMapper = trainingApplicationMapper;
     }
 
     public void createApplicationForTraining(TrainingApplicationDTO trainingApplicationDTO) {
-        TrainingApplicationEntity trainingApplicationEntity = trainingApplicationMapper.mapDtoToEntity(trainingApplicationDTO);
+        TrainingApplicationEntity trainingApplicationEntity =
+                trainingApplicationMapper.mapDtoToEntity(trainingApplicationDTO);
         trainingApplicationRepository.save(trainingApplicationEntity);
     }
 }

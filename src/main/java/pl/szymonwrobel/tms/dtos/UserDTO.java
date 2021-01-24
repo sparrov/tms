@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -22,7 +21,8 @@ public class UserDTO implements UserDetails {
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String login, String password, String firstName, String lastName, boolean isActive, String userType) {
+    public UserDTO(Long id, String login, String password, String firstName, String lastName,
+                   boolean isActive, String userType) {
         this.id = id;
         this.login = login;
         this.password = password;

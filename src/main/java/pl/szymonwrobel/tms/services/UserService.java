@@ -1,5 +1,6 @@
 package pl.szymonwrobel.tms.services;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,13 +26,22 @@ public class UserService implements UserDetailsService {
     private final StudentUserMapper studentUserMapper;
     private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, TrainerUserMapper trainerUserMapper, StudentUserMapper studentUserMapper, UserMapper userMapper) {
+    public UserService(UserRepository userRepository, TrainerUserMapper trainerUserMapper,
+                       StudentUserMapper studentUserMapper, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.trainerUserMapper = trainerUserMapper;
         this.studentUserMapper = studentUserMapper;
         this.userMapper = userMapper;
     }
-//TODO: sprawdzić, czy jest OK
+
+    public Boolean isUserLoginUnique(UserEntity newUserEntity) {
+        final Boolean isLoginUnique = userRepository
+                .findUserEntitiesByLogin(newUserEntity.getLogin())
+                .isEmpty();
+        return isLoginUnique;
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void createTrainerUser(TrainerUserDTO trainerUserDTO)
             throws UserAlreadyExistAuthenticationException {
         UserEntity newTrainerUserEntity = trainerUserMapper.mapDtoToEntity(trainerUserDTO);
@@ -41,17 +51,12 @@ public class UserService implements UserDetailsService {
             throw new UserAlreadyExistAuthenticationException("Login: "
                     + newTrainerUserEntity.getLogin() + " is not valid");
         }
-
-/*        Boolean usersLogin = userRepository
-                .findAll()
-                .stream()
-                .anyMatch(u -> u.getLogin().equalsIgnoreCase(newUserEntity.getLogin()));*/
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void createStudentUser(StudentUserDTO studentUserDTO)
             throws UserAlreadyExistAuthenticationException {
         UserEntity newStudentUserEntity = studentUserMapper.mapDtoToEntity(studentUserDTO);
-        userRepository.save(newStudentUserEntity);
         if (isUserLoginUnique(newStudentUserEntity)) {
             userRepository.save(newStudentUserEntity);
         } else {
@@ -60,6 +65,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<TrainerUserDTO> getAllTrainerUsers() {
         final List<UserEntity> allTrainerUsersEntities = userRepository
                 .findAllByUserType(UserType.TRAINER);
@@ -71,11 +77,12 @@ public class UserService implements UserDetailsService {
         return allTrainerUsersDTOs;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
-
+    @PreAuthorize("hasAnyAuthority('ADMIN','TRAINER')")
     public List<StudentUserDTO> getAllStudentUsers() {
         List<UserEntity> allStudentUsersEntities = userRepository.findAllByUserType(UserType.STUDENT);
 
@@ -95,11 +102,4 @@ public class UserService implements UserDetailsService {
         return userMapper.mapEntityToDto(userEntity);
     }
 
-    public Boolean isUserLoginUnique(UserEntity newUserEntity) {
-        final List<UserEntity> listOfAllUsersLogins = userRepository.findUserEntitiesByLogin(newUserEntity.getLogin());
-        Boolean isLoginUnique = listOfAllUsersLogins
-                .stream()
-                .noneMatch(u -> u.getLogin().equals(newUserEntity.getLogin()));
-        return isLoginUnique;
-    }
 }

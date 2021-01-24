@@ -19,21 +19,24 @@ public class SecurityService {
 
     public String encodeUserPassword(String plainPassword){
         int strength = 10; // work factor of bcrypt
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength,
+                new SecureRandom());
         String encodedPassword = bCryptPasswordEncoder.encode(plainPassword);
         return encodedPassword;
     }
 
     public String encodeUserPassword(TrainerUserDTO trainerUserDTO){
-        int strength = 10; // work factor of bcrypt
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());
+        int strength = 10;
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength,
+                new SecureRandom());
         String encodedPassword = bCryptPasswordEncoder.encode(trainerUserDTO.getPassword());
         return encodedPassword;
     }
 
     public String encodeUserPassword(StudentUserDTO studentUserDTO){
-        int strength = 10; // work factor of bcrypt
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());
+        int strength = 10;
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength,
+                new SecureRandom());
         String encodedPassword = bCryptPasswordEncoder.encode(studentUserDTO.getPassword());
         return encodedPassword;
     }

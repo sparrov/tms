@@ -36,7 +36,8 @@ public class UserController {
     }
 
     @PostMapping("/trainerusers")
-    public String postCreateTrainerUser(Model model, TrainerUserDTO trainerUserDTO) throws UserAlreadyExistAuthenticationException {
+    public String postCreateTrainerUser(Model model, TrainerUserDTO trainerUserDTO)
+            throws UserAlreadyExistAuthenticationException {
         userService.createTrainerUser(trainerUserDTO);
         return "redirect:/trainerusers";
     }
@@ -56,7 +57,8 @@ public class UserController {
     }
 
     @PostMapping("/studentusers")
-    public String postCreateStudentUser(StudentUserDTO studentUserDTO) throws UserAlreadyExistAuthenticationException {
+    public String postCreateStudentUser(StudentUserDTO studentUserDTO)
+            throws UserAlreadyExistAuthenticationException {
         userService.createStudentUser(studentUserDTO);
         return "redirect:/studentusers";
     }

@@ -14,7 +14,6 @@ import pl.szymonwrobel.tms.services.UserService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     private final UserService userService;
 
     public SecurityConfig(UserService userService) {
@@ -43,9 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/trainerusers/delete/1", "/studentusers/delete/1").denyAll() //TODO: blokada przed usunięciem admina z db
-                .antMatchers("/webjars/**", "/img/**", "/styles/**","/applyfortraining").permitAll()
-                //.antMatchers("/addtraineruser", "/**/delete/**").hasAuthority("ADMIN")
+                .antMatchers("/webjars/**","/img/**","/styles/**",
+                        "/applyfortraining").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -55,6 +53,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll();
     }
-
 }
 

@@ -21,7 +21,9 @@ public class StudentUserDTO {
     public StudentUserDTO() {
     }
 
-    public StudentUserDTO(Long id, String login, String password, String firstName, String lastName, String isActive, String userTypeDescription, List<String> appliedTrainingsNames, List<Long> appliedTrainingsIds) {
+    public StudentUserDTO(Long id, String login, String password, String firstName, String lastName,
+                          String isActive, String userTypeDescription,
+                          List<String> appliedTrainingsNames, List<Long> appliedTrainingsIds) {
         this.id = id;
         this.login = login;
         this.password = password;

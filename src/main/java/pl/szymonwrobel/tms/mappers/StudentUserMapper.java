@@ -19,7 +19,8 @@ public class StudentUserMapper {
     private final SecurityService securityService;
     private final TrainingApplicationRepository trainingApplicationRepository;
 
-    public StudentUserMapper(SecurityService securityService, TrainingApplicationRepository trainingApplicationRepository) {
+    public StudentUserMapper(SecurityService securityService,
+                             TrainingApplicationRepository trainingApplicationRepository) {
         this.securityService = securityService;
         this.trainingApplicationRepository = trainingApplicationRepository;
     }

@@ -19,7 +19,8 @@ public class TrainerUserDTO {
     public TrainerUserDTO() {
     }
 
-    public TrainerUserDTO(Long id, String login, String password, String firstName, String lastName, String isActive, String userTypeDescription) {
+    public TrainerUserDTO(Long id, String login, String password, String firstName, String lastName,
+                          String isActive, String userTypeDescription) {
         this.id = id;
         this.login = login;
         this.password = password;

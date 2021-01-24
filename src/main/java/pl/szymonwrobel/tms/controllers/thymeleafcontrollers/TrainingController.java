@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.szymonwrobel.tms.dtos.TrainingDTO;
-import pl.szymonwrobel.tms.entities.TrainingEntity;
 import pl.szymonwrobel.tms.services.TrainingService;
 
 import java.util.List;

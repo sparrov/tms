@@ -1,6 +1,7 @@
 package pl.szymonwrobel.tms.services;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import pl.szymonwrobel.tms.dtos.TrainingDTO;
 import pl.szymonwrobel.tms.entities.TrainingEntity;
@@ -30,11 +31,13 @@ public class TrainingService {
         return allTrainingsDTOs;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void createTraining(TrainingDTO trainingDTO) {
         TrainingEntity trainingEntity = trainingMapper.mapDtoToEntity(trainingDTO);
         trainingRepository.save(trainingEntity);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteTraining(Long id) {
         try {
             trainingRepository.deleteById(id);
@@ -42,9 +45,9 @@ public class TrainingService {
             throw new EmptyResultDataAccessException("No training found "
                     + "with the training id: " + id, 1);//TODO: czym jest ta jedynka?
         }
-
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','TRAINER','STUDENT')")
     public TrainingDTO findTrainingById(Long id) {
         TrainingDTO trainingDTO = trainingRepository
                 .findById(id)
@@ -54,10 +57,9 @@ public class TrainingService {
         return trainingDTO;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void updateTraining(Long id, TrainingDTO trainingDTO) {
         TrainingEntity trainingEntity = trainingMapper.mapDtoToEntity(trainingDTO);
         trainingRepository.saveAndFlush(trainingEntity.setId(id));
     }
-
-
 }
