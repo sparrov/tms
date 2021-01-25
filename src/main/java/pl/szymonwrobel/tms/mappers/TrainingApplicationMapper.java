@@ -6,6 +6,7 @@ import pl.szymonwrobel.tms.entities.TrainingApplicationEntity;
 import pl.szymonwrobel.tms.entities.TrainingEntity;
 import pl.szymonwrobel.tms.repositories.TrainingRepository;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
@@ -22,6 +23,7 @@ public class TrainingApplicationMapper {
     public TrainingApplicationDTO mapEntityToDto(TrainingApplicationEntity trainingApplicationEntity) {
         final TrainingApplicationDTO trainingApplicationDTO = new TrainingApplicationDTO();
         trainingApplicationDTO.setId(trainingApplicationEntity.getId());
+        trainingApplicationDTO.setDate(trainingApplicationEntity.getDate());
         trainingApplicationDTO.setStudentUserDTO(studentUserMapper.mapEntityToDto(trainingApplicationEntity.getUser()));
         trainingApplicationDTO.setTrainingId(trainingApplicationEntity.getTraining().getId());
         trainingApplicationDTO.setTrainingName(trainingApplicationEntity.getTraining().getName());
@@ -32,6 +34,7 @@ public class TrainingApplicationMapper {
     public TrainingApplicationEntity mapDtoToEntity(TrainingApplicationDTO trainingApplicationDTO) {
         final TrainingApplicationEntity trainingApplicationEntity = new TrainingApplicationEntity();
         trainingApplicationEntity.setId(trainingApplicationDTO.getId());
+        trainingApplicationEntity.setDate(LocalDate.now());
         Optional<TrainingEntity> trainingEntity = trainingRepository
                 .findById(trainingApplicationDTO.getTrainingId());
         trainingApplicationEntity.setTraining(trainingEntity

@@ -15,6 +15,7 @@ import pl.szymonwrobel.tms.repositories.UserRepository;
 
 import javax.management.ObjectName;
 import javax.management.relation.Role;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -84,13 +85,13 @@ public class InitialDataService implements CommandLineRunner {
     }
 
     public void createSampleApplications() {
-        trainingApplication1 = new TrainingApplicationEntity(null, training1, studentUser1, true);
+        trainingApplication1 = new TrainingApplicationEntity(null, LocalDate.of(2020,10,07), training1, studentUser1, true);
         trainingApplicationRepository.save(trainingApplication1);
-        trainingApplication2 = new TrainingApplicationEntity(null, training2, studentUser2, true);
+        trainingApplication2 = new TrainingApplicationEntity(null, LocalDate.of(2020,12,25), training2, studentUser2, true);
         trainingApplicationRepository.save(trainingApplication2);
-        trainingApplication3 = new TrainingApplicationEntity(null, training3, studentUser3, true);
+        trainingApplication3 = new TrainingApplicationEntity(null, LocalDate.of(2021,1,21), training3, studentUser3, true);
         trainingApplicationRepository.save(trainingApplication3);
-        trainingApplication4 = new TrainingApplicationEntity(null, training2, studentUser1, false);
+        trainingApplication4 = new TrainingApplicationEntity(null, LocalDate.of(2021,1,25), training2, studentUser1, false);
         trainingApplicationRepository.save(trainingApplication4);
     }
 

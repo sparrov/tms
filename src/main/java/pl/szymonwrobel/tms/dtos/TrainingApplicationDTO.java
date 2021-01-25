@@ -1,8 +1,11 @@
 package pl.szymonwrobel.tms.dtos;
 
+import java.time.LocalDate;
+
 public class TrainingApplicationDTO {
 
     private Long id;
+    private LocalDate date;
     private StudentUserDTO studentUserDTO;
     private Long trainingId;
     private String trainingName;
@@ -12,9 +15,10 @@ public class TrainingApplicationDTO {
     public TrainingApplicationDTO() {
     }
 
-    public TrainingApplicationDTO(Long id, StudentUserDTO studentUserDTO, Long trainingId,
-                                  String isConfirmed, String trainingName) {
+    public TrainingApplicationDTO(Long id, LocalDate date, StudentUserDTO studentUserDTO,
+                                  Long trainingId, String isConfirmed, String trainingName) {
         this.id = id;
+        this.date = date;
         this.studentUserDTO = studentUserDTO;
         this.trainingId = trainingId;
         this.isConfirmed = isConfirmed;
@@ -27,6 +31,15 @@ public class TrainingApplicationDTO {
 
     public TrainingApplicationDTO setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public TrainingApplicationDTO setDate(LocalDate date) {
+        this.date = date;
         return this;
     }
 

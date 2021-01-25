@@ -36,7 +36,7 @@ public class TrainingApplicationService {
                 trainingApplicationEntities
                         .stream()
                         .map(trainingApplicationMapper::mapEntityToDto)
-                        .sorted(Comparator.comparing(o -> o.getStudentUserDTO().getLogin()))
+                        .sorted(Comparator.comparing(o -> o.getDate()))
                         .collect(Collectors.toList());
         return trainingApplicationDTOs;
     }

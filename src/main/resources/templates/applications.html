@@ -11,6 +11,7 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">Lp.</th>
+            <th scope="col">Data</th>
             <th scope="col">Nazwa użytkownika</th>
             <th scope="col">Imię</th>
             <th scope="col">Nazwisko</th>
@@ -23,6 +24,7 @@
         <tbody>
         <tr th:each="trainingApplication : ${listOfAllTrainingApplicastions}">
             <th scope="row" th:text="${trainingApplicationStat.index+1}"></th>
+            <th scope="row" th:text="${trainingApplication.getDate()}"></th>
             <th scope="row" th:text="${trainingApplication.studentUserDTO.login}"></th>
             <th scope="row" th:text="${trainingApplication.studentUserDTO.firstName}"></th>
             <th scope="row" th:text="${trainingApplication.studentUserDTO.lastName}"></th>

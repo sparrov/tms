@@ -1,6 +1,7 @@
 package pl.szymonwrobel.tms.entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +11,7 @@ public class TrainingApplicationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private LocalDate date;
     @ManyToOne(fetch = FetchType.EAGER)
     private TrainingEntity training;
 
@@ -22,9 +23,10 @@ public class TrainingApplicationEntity {
     public TrainingApplicationEntity() {
     }
 
-    public TrainingApplicationEntity(Long id, TrainingEntity training, UserEntity user,
-                                     Boolean isConfirmed) {
+    public TrainingApplicationEntity(Long id, LocalDate date, TrainingEntity training,
+                                     UserEntity user, Boolean isConfirmed) {
         this.id = id;
+        this.date = date;
         this.training = training;
         this.user = user;
         this.isConfirmed = isConfirmed;
@@ -36,6 +38,15 @@ public class TrainingApplicationEntity {
 
     public TrainingApplicationEntity setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public TrainingApplicationEntity setDate(LocalDate date) {
+        this.date = date;
         return this;
     }
 
