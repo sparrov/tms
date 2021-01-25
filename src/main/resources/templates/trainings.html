@@ -12,12 +12,13 @@
     <h3>Lista kursów:</h3>
 
     <table class="table table-hover">
-        <thead>
+        <thead class="thead-dark">
         <tr>
             <th scope="col">Lp.</th>
             <th scope="col">Nazwa</th>
-            <th sec:authorize="hasAuthority('ADMIN')" scope="col">Aplikacje</th>
-            <th sec:authorize="hasAuthority('ADMIN')" scope="col">Akcja</th>
+            <th sec:authorize="hasAuthority('ADMIN')" scope="col">Liczba aplikacji</th>
+            <th sec:authorize="hasAuthority('ADMIN')" scope="col">ID aplikacji</th>
+            <th sec:authorize="hasAuthority('ADMIN')" scope="col">Akcje</th>
 
         </tr>
         </thead>
@@ -25,6 +26,7 @@
         <tr th:each="training : ${listOfAllTrainings}">
             <th scope="row" th:text="${trainingStat.index+1}"></th>
             <th scope="row" th:text="${training.name}"></th>
+            <th sec:authorize="hasAuthority('ADMIN')" scope="row" th:text="${training.applications.size()}"></th>
             <th sec:authorize="hasAuthority('ADMIN')" scope="row" th:text="${training.applications}"></th>
             <th sec:authorize="hasAuthority('ADMIN')" scope="row" class="listOfActions">
                 <ul>

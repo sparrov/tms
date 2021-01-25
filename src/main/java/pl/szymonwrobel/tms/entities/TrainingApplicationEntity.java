@@ -14,16 +14,20 @@ public class TrainingApplicationEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private TrainingEntity training;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE})
     private UserEntity user;
+
+    private Boolean isConfirmed;
 
     public TrainingApplicationEntity() {
     }
 
-    public TrainingApplicationEntity(Long id, TrainingEntity training, UserEntity user) {
+    public TrainingApplicationEntity(Long id, TrainingEntity training, UserEntity user,
+                                     Boolean isConfirmed) {
         this.id = id;
         this.training = training;
         this.user = user;
+        this.isConfirmed = isConfirmed;
     }
 
     public Long getId() {
@@ -50,6 +54,15 @@ public class TrainingApplicationEntity {
 
     public TrainingApplicationEntity setUser(UserEntity user) {
         this.user = user;
+        return this;
+    }
+
+    public Boolean getIsConfirmed() {
+        return isConfirmed;
+    }
+
+    public TrainingApplicationEntity setIsConfirmed(Boolean isConfirmed) {
+        this.isConfirmed = isConfirmed;
         return this;
     }
 }

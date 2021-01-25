@@ -69,16 +69,6 @@ public class UserEntity {
         this.authorities = authorities;
     }
 
-
-    public UserEntity(String login, String password, UserType userType, Boolean isActive, String firstName, String lastName) {
-        this.login = login;
-        this.password = password;
-        this.userType = userType;
-        this.isActive = isActive;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
     public Long getId() {
         return id;
     }

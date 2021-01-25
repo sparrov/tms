@@ -8,6 +8,7 @@ import pl.szymonwrobel.tms.entities.TrainingEntity;
 import pl.szymonwrobel.tms.mappers.TrainingMapper;
 import pl.szymonwrobel.tms.repositories.TrainingRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,7 @@ public class TrainingService {
         final List<TrainingDTO> allTrainingsDTOs = allTrainingsEntities
                 .stream()
                 .map(trainingMapper::mapEntityToDto)
+                .sorted(Comparator.comparing(o -> o.getName()))
                 .collect(Collectors.toList());
         return allTrainingsDTOs;
     }

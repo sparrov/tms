@@ -15,6 +15,7 @@ import pl.szymonwrobel.tms.mappers.TrainerUserMapper;
 import pl.szymonwrobel.tms.mappers.UserMapper;
 import pl.szymonwrobel.tms.repositories.UserRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,6 +74,7 @@ public class UserService implements UserDetailsService {
         final List<TrainerUserDTO> allTrainerUsersDTOs = allTrainerUsersEntities
                 .stream()
                 .map(trainerUserMapper::mapEntityToDto)
+                .sorted(Comparator.comparing(o -> o.getLogin()))
                 .collect(Collectors.toList());
         return allTrainerUsersDTOs;
     }
@@ -89,6 +91,7 @@ public class UserService implements UserDetailsService {
         final List<StudentUserDTO> allStudentUsersDTOs = allStudentUsersEntities
                 .stream()
                 .map(studentUserMapper::mapEntityToDto)
+                .sorted(Comparator.comparing(o -> o.getLogin()))
                 .collect(Collectors.toList());
         return allStudentUsersDTOs;
     }

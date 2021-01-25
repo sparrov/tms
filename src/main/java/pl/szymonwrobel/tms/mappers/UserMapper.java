@@ -2,7 +2,6 @@ package pl.szymonwrobel.tms.mappers;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
-import pl.szymonwrobel.tms.dtos.StudentUserDTO;
 import pl.szymonwrobel.tms.dtos.UserDTO;
 import pl.szymonwrobel.tms.entities.UserEntity;
 import pl.szymonwrobel.tms.enums.UserType;
@@ -37,5 +36,4 @@ public class UserMapper {
         userEntity.setAuthorities(Arrays.asList(authority));
         return userEntity;
     }
-
 }

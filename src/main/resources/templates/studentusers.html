@@ -50,15 +50,15 @@
     <h3>Lista zarejestrowanych uczestników:</h3>
 
     <table class="table table-hover">
-        <thead>
+        <thead class="thead-dark">
         <tr>
             <th scope="col">Lp.</th>
-            <th scope="col">Login</th>
+            <th scope="col">Nazwa użytkownika</th>
             <th scope="col">Imię</th>
             <th scope="col">Nazwisko</th>
             <th scope="col">Status konta</th>
             <th scope="col">Typ konta</th>
-            <th scope="col">Szkolenia:</th>
+            <th scope="col">Szkolenia</th>
             <th scope="col">Akcje</th>
         </tr>
         </thead>
@@ -68,7 +68,9 @@
             <th scope="row" th:text="${studentUser.login}"></th>
             <th scope="row" th:text="${studentUser.firstName}"></th>
             <th scope="row" th:text="${studentUser.lastName}"></th>
-            <th scope="row" th:text="${studentUser.isActive}"></th>
+            <th scope="row" th:text="${studentUser.isActive}"
+                th:class="${studentUser.isActive == 'nieaktywne'}
+                     ? 'text-danger' : 'text-success'"></th>
             <th scope="row" th:text="${studentUser.userTypeDescription}"></th>
             <th scope="row" class="listOfTraining">
                 <ul>

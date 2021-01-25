@@ -58,10 +58,10 @@
     <h3>Lista prowadzących:</h3>
 
     <table class="table table-hover">
-        <thead>
+        <thead class="thead-dark">
         <tr>
             <th scope="col">Lp.</th>
-            <th scope="col">Login</th>
+            <th scope="col">Nazwa użytkownika</th>
             <th scope="col">Imię</th>
             <th scope="col">Nazwisko</th>
             <th scope="col">Status konta</th>
@@ -75,7 +75,9 @@
             <th scope="row" th:text="${trainerUser.login}"></th>
             <th scope="row" th:text="${trainerUser.firstName}"></th>
             <th scope="row" th:text="${trainerUser.lastName}"></th>
-            <th scope="row" th:text="${trainerUser.isActive}"></th>
+            <th scope="row" th:text="${trainerUser.isActive}"
+                th:class="${trainerUser.isActive == 'nieaktywne'}
+                     ? 'text-danger' : 'text-success'"></th>
             <th scope="row" th:text="${trainerUser.userTypeDescription}"></th>
             <th scope="row" class="listOfActions">
                 <ul>

@@ -5,14 +5,20 @@ public class TrainingApplicationDTO {
     private Long id;
     private StudentUserDTO studentUserDTO;
     private Long trainingId;
+    private String trainingName;
+    private String isConfirmed;
+
 
     public TrainingApplicationDTO() {
     }
 
-    public TrainingApplicationDTO(Long id, StudentUserDTO studentUserDTO, Long trainingId) {
+    public TrainingApplicationDTO(Long id, StudentUserDTO studentUserDTO, Long trainingId,
+                                  String isConfirmed, String trainingName) {
         this.id = id;
         this.studentUserDTO = studentUserDTO;
         this.trainingId = trainingId;
+        this.isConfirmed = isConfirmed;
+        this.trainingName = trainingName;
     }
 
     public Long getId() {
@@ -39,6 +45,24 @@ public class TrainingApplicationDTO {
 
     public TrainingApplicationDTO setTrainingId(Long trainingId) {
         this.trainingId = trainingId;
+        return this;
+    }
+
+    public String getTrainingName() {
+        return trainingName;
+    }
+
+    public TrainingApplicationDTO setTrainingName(String trainingName) {
+        this.trainingName = trainingName;
+        return this;
+    }
+
+    public String getIsConfirmed() {
+        return isConfirmed;
+    }
+
+    public TrainingApplicationDTO setIsConfirmed(String isConfirmed) {
+        this.isConfirmed = isConfirmed;
         return this;
     }
 }

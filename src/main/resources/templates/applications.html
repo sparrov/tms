@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<nav th:replace="fragments/navigation :: nav"></nav>
+<div class="content">
+
+    <h3>Lista złożonych aplikacji:</h3>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Lp.</th>
+            <th scope="col">Nazwa użytkownika</th>
+            <th scope="col">Imię</th>
+            <th scope="col">Nazwisko</th>
+            <th scope="col">Szkolenie</th>
+            <th scope="col">Status</th>
+            <th scope="col">Akcje</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="trainingApplication : ${listOfAllTrainingApplicastions}">
+            <th scope="row" th:text="${trainingApplicationStat.index+1}"></th>
+            <th scope="row" th:text="${trainingApplication.studentUserDTO.login}"></th>
+            <th scope="row" th:text="${trainingApplication.studentUserDTO.firstName}"></th>
+            <th scope="row" th:text="${trainingApplication.studentUserDTO.lastName}"></th>
+            <th scope="row" th:text="${trainingApplication.trainingName}"></th>
+            <th scope="row" th:text="${trainingApplication.isConfirmed}"
+                th:class="${trainingApplication.isConfirmed == 'niezatwierdzona'}
+                     ? 'text-danger' : 'text-success'"></th>
+            <th sec:authorize="hasAuthority('ADMIN')" scope="row" class="listOfActions">
+                <ul>
+                    <li th:if="${trainingApplication.isConfirmed == 'niezatwierdzona'}">
+                        <a class="btn btn-outline-success btn-sm"
+                           th:href="@{/applications/update/{id}(id=${trainingApplication.id})}">Zatwierdź</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-outline-danger btn-sm"
+                           th:href="@{/applications/delete/{id}(id=${trainingApplication.id})}">Usuń</a>
+                    </li>
+                </ul>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<nav th:replace="fragments/footer :: footer"></nav>
+</body>
+</html>

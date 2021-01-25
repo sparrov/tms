@@ -17,13 +17,16 @@
                 <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','TRAINER')">
                     <a class="nav-link" th:href="@{/trainings}">Kursy</a>
                 </li>
+                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                    <a class="nav-link" th:href="@{/applications}">Aplikacje</a>
+                </li>
             </ul>
         </div>
     </nav>
     <form class="form-inline" th:action="@{/logout}" method="post">
         <span class="navbar-text mr-2">
-            <span sec:authentication="name">Login</span>
-            <span sec:authentication="principal.authorities">[USER], [TRAINER], [ADMIN]</span>
+            <b sec:authentication="name">Login</b>
+            <i sec:authentication="principal.authorities">[USER], [TRAINER], [ADMIN]</i>
 
         </span>
         <button class="btn btn-outline-primary" type="submit">Wyloguj</button>

@@ -24,18 +24,22 @@ public class TrainingApplicationMapper {
         trainingApplicationDTO.setId(trainingApplicationEntity.getId());
         trainingApplicationDTO.setStudentUserDTO(studentUserMapper.mapEntityToDto(trainingApplicationEntity.getUser()));
         trainingApplicationDTO.setTrainingId(trainingApplicationEntity.getTraining().getId());
+        trainingApplicationDTO.setTrainingName(trainingApplicationEntity.getTraining().getName());
+        trainingApplicationDTO.setIsConfirmed(trainingApplicationEntity.getIsConfirmed() ? "zatwierdzona" : "niezatwierdzona");
         return trainingApplicationDTO;
     }
 
     public TrainingApplicationEntity mapDtoToEntity(TrainingApplicationDTO trainingApplicationDTO) {
         final TrainingApplicationEntity trainingApplicationEntity = new TrainingApplicationEntity();
         trainingApplicationEntity.setId(trainingApplicationDTO.getId());
-
         Optional<TrainingEntity> trainingEntity = trainingRepository
                 .findById(trainingApplicationDTO.getTrainingId());
         trainingApplicationEntity.setTraining(trainingEntity
-                .orElseThrow(() -> new RuntimeException("training doesn't exist")));
+                .orElseThrow(() -> new RuntimeException("Training doesn't exist")));
         trainingApplicationEntity.setUser(studentUserMapper.mapDtoToEntity(trainingApplicationDTO.getStudentUserDTO()));
+        if (trainingApplicationDTO.getIsConfirmed() == null){
+            trainingApplicationEntity.setIsConfirmed(false);
+        } else {trainingApplicationEntity.setIsConfirmed(true);}
         return trainingApplicationEntity;
     }
 }
