@@ -15,29 +15,26 @@ public class TrainerUserMapper {
         this.securityService = securityService;
     }
 
-
-    public TrainerUserDTO mapEntityToDto(UserEntity userEntity) {
+    public TrainerUserDTO toDto(UserEntity userEntity) {
         final TrainerUserDTO trainerUserDTO = new TrainerUserDTO();
         trainerUserDTO.setId(userEntity.getId());
         trainerUserDTO.setLogin(userEntity.getLogin());
         trainerUserDTO.setPassword(userEntity.getPassword());
         trainerUserDTO.setFirstName(userEntity.getFirstName());
         trainerUserDTO.setLastName(userEntity.getLastName());
-        trainerUserDTO.setIsActive(userEntity.getIsActive() ? "aktywne" : "nieaktywne");
+        trainerUserDTO.setIsActive(userEntity.getIsActive());
         trainerUserDTO.setUserType(userEntity.getUserType().getDisplayName());
         return trainerUserDTO;
     }
 
-    public UserEntity mapDtoToEntity(TrainerUserDTO trainerUserDTO) {
-
+    public UserEntity toEntity(TrainerUserDTO trainerUserDTO) {
         final UserEntity userEntity = new UserEntity();
-        userEntity.setLogin(trainerUserDTO.getLogin().toLowerCase().replace(" ",""));
+        userEntity.setLogin(trainerUserDTO.getLogin().toLowerCase().replace(" ", ""));
         userEntity.setPassword(securityService.encodeUserPassword(trainerUserDTO));
-        userEntity.setFirstName(trainerUserDTO.getFirstName().replace(" ",""));
-        userEntity.setLastName(trainerUserDTO.getLastName().replace(" ",""));
-        userEntity.setIsActive(trainerUserDTO.getIsActive().equals("aktywne") ? true : false);
+        userEntity.setFirstName(trainerUserDTO.getFirstName().replace(" ", ""));
+        userEntity.setLastName(trainerUserDTO.getLastName().replace(" ", ""));
+        userEntity.setIsActive(trainerUserDTO.getIsActive().equals(true) ? true : false);
         userEntity.setUserType(UserType.TRAINER);
         return userEntity;
     }
-
 }

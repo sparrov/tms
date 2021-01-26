@@ -9,20 +9,10 @@ public class TrainingApplicationDTO {
     private StudentUserDTO studentUserDTO;
     private Long trainingId;
     private String trainingName;
-    private String isConfirmed;
+    private Boolean isConfirmed;
 
 
     public TrainingApplicationDTO() {
-    }
-
-    public TrainingApplicationDTO(Long id, LocalDate date, StudentUserDTO studentUserDTO,
-                                  Long trainingId, String isConfirmed, String trainingName) {
-        this.id = id;
-        this.date = date;
-        this.studentUserDTO = studentUserDTO;
-        this.trainingId = trainingId;
-        this.isConfirmed = isConfirmed;
-        this.trainingName = trainingName;
     }
 
     public Long getId() {
@@ -70,11 +60,11 @@ public class TrainingApplicationDTO {
         return this;
     }
 
-    public String getIsConfirmed() {
+    public Boolean getIsConfirmed() {
         return isConfirmed;
     }
 
-    public TrainingApplicationDTO setIsConfirmed(String isConfirmed) {
+    public TrainingApplicationDTO setIsConfirmed(Boolean isConfirmed) {
         this.isConfirmed = isConfirmed;
         return this;
     }

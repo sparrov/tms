@@ -25,7 +25,7 @@ public class TrainingApplicationService {
 
     public void createApplicationForTraining(TrainingApplicationDTO trainingApplicationDTO) {
         TrainingApplicationEntity trainingApplicationEntity =
-                trainingApplicationMapper.mapDtoToEntity(trainingApplicationDTO);
+                trainingApplicationMapper.toEntity(trainingApplicationDTO);
         trainingApplicationRepository.save(trainingApplicationEntity);
     }
 
@@ -35,7 +35,7 @@ public class TrainingApplicationService {
         final List<TrainingApplicationDTO> trainingApplicationDTOs =
                 trainingApplicationEntities
                         .stream()
-                        .map(trainingApplicationMapper::mapEntityToDto)
+                        .map(trainingApplicationMapper::toDto)
                         .sorted(Comparator.comparing(o -> o.getDate()))
                         .collect(Collectors.toList());
         return trainingApplicationDTOs;
@@ -46,10 +46,10 @@ public class TrainingApplicationService {
         trainingApplicationRepository.deleteById(id);
     }
 
-    public TrainingApplicationDTO findTrainingApplicationById(Long id) {
+    private TrainingApplicationDTO getTrainingApplicationById(Long id) {
         final TrainingApplicationDTO trainingApplicationDTO = trainingApplicationRepository
                 .findById(id)
-                .map(trainingApplicationMapper::mapEntityToDto)
+                .map(trainingApplicationMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("No training application found "
                         + "with the training application id: " + id));
         return trainingApplicationDTO;
@@ -57,10 +57,10 @@ public class TrainingApplicationService {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     public void updateTrainingApplication(Long id) {
-        TrainingApplicationDTO trainingApplicationDTO = findTrainingApplicationById(id);
-        trainingApplicationDTO.setIsConfirmed("zatwierdzona");
+        TrainingApplicationDTO trainingApplicationDTO = getTrainingApplicationById(id);
+        trainingApplicationDTO.setIsConfirmed(true);
         TrainingApplicationEntity trainingApplicationEntity = trainingApplicationMapper
-                .mapDtoToEntity(trainingApplicationDTO);
+                .toEntity(trainingApplicationDTO);
         trainingApplicationRepository.saveAndFlush(trainingApplicationEntity);
     }
 }

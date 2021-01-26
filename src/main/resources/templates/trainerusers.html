@@ -6,7 +6,7 @@
 <div th:replace="fragments/modal :: modal(~{::#reg_form},'Dodawanie nowego prowadzącego')">
     <div id="reg_form">
         <div class="form">
-            <form method="post" th:action="@{/trainerusers}" th:object="${traineruserdto}">
+            <form method="post" th:action="@{/trainerusers}" th:object="${trainerUserDto}">
                 <div class="modal-body">
 
                     <div class="form-group row">
@@ -75,9 +75,9 @@
             <th scope="row" th:text="${trainerUser.login}"></th>
             <th scope="row" th:text="${trainerUser.firstName}"></th>
             <th scope="row" th:text="${trainerUser.lastName}"></th>
-            <th scope="row" th:text="${trainerUser.isActive}"
-                th:class="${trainerUser.isActive == 'nieaktywne'}
-                     ? 'text-danger' : 'text-success'"></th>
+            <th scope="row" th:text="${trainerUser.isActive == true ? 'aktywne' : 'nieaktywne'}"
+                th:class="${trainerUser.isActive == true}
+                     ? 'text-success' : 'text-danger'"></th>
             <th scope="row" th:text="${trainerUser.userTypeDescription}"></th>
             <th scope="row" class="listOfActions">
                 <ul>

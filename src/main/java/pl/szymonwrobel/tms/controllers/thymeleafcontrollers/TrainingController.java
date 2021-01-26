@@ -20,39 +20,39 @@ public class TrainingController {
     }
 
     @GetMapping("/trainings")
-    public String getAllTrainings(Model model) {
+    public String getAllTrainingsToRead(Model model) {
         final List<TrainingDTO> allTrainings = trainingService.getAllTrainings();
         model.addAttribute("listOfAllTrainings", allTrainings);
         return "trainings";
     }
 
     @GetMapping("/addtraining")
-    public String createTraining(Model model) {
-        model.addAttribute("trainingdto", new TrainingDTO());
+    public String getTrainingToCreate(Model model) {
+        model.addAttribute("trainingDto", new TrainingDTO());
         return "addtraining";
     }
 
     @PostMapping("/addtraining")
-    public String postCreateTraining(Model model, TrainingDTO trainingDTO) {
+    public String postTrainingToCreate(Model model, TrainingDTO trainingDTO) {
         trainingService.createTraining(trainingDTO);
         return "redirect:/trainings";
     }
 
     @GetMapping("/training/edit/{id}")
-    public String editTraining(@PathVariable Long id, Model model) {
+    public String getTrainingToEdit(@PathVariable Long id, Model model) {
         final TrainingDTO trainingDTO = trainingService.findTrainingById(id);
-        model.addAttribute("trainingdto", trainingDTO);
+        model.addAttribute("trainingDto", trainingDTO);
         return "training";
     }
 
     @PostMapping("/training/update/{id}")
-    public String postEditedTraining(@PathVariable Long id, TrainingDTO trainingDTO) {
+    public String postTrainingToUpdate(@PathVariable Long id, TrainingDTO trainingDTO) {
         trainingService.updateTraining(id, trainingDTO);
         return "redirect:/trainings";
     }
 
     @GetMapping("/trainings/{id}/delete")
-    public String deleteTrainingById(@PathVariable Long id) {
+    public String getTrainingToDelete(@PathVariable Long id) {
         trainingService.deleteTraining(id);
         return "redirect:/trainings";
     }

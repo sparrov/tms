@@ -6,15 +6,9 @@ public class TrainingDTO {
 
     private Long id;
     private String name;
-    private List<Long> applicationsIds;
+    private List<Long> applicationIds;
 
     public TrainingDTO() {
-    }
-
-    public TrainingDTO(Long id, String name, List<Long> applicationsIds) {
-        this.id = id;
-        this.name = name;
-        this.applicationsIds = applicationsIds;
     }
 
     public Long getId() {
@@ -35,12 +29,12 @@ public class TrainingDTO {
         return this;
     }
 
-    public List<Long> getApplications() {
-        return applicationsIds;
+    public List<Long> getApplicationIds() {
+        return applicationIds;
     }
 
-    public TrainingDTO setApplications(List<Long> applicationsIds) {
-        this.applicationsIds = applicationsIds;
+    public TrainingDTO setApplicationIds(List<Long> applicationIds) {
+        this.applicationIds = applicationIds;
         return this;
     }
 }

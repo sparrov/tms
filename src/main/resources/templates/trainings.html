@@ -26,8 +26,8 @@
         <tr th:each="training : ${listOfAllTrainings}">
             <th scope="row" th:text="${trainingStat.index+1}"></th>
             <th scope="row" th:text="${training.name}"></th>
-            <th sec:authorize="hasAuthority('ADMIN')" scope="row" th:text="${training.applications.size()}"></th>
-            <th sec:authorize="hasAuthority('ADMIN')" scope="row" th:text="${training.applications}"></th>
+            <th sec:authorize="hasAuthority('ADMIN')" scope="row" th:text="${training.applicationIds.size()}"></th>
+            <th sec:authorize="hasAuthority('ADMIN')" scope="row" th:text="${training.applicationIds}"></th>
             <th sec:authorize="hasAuthority('ADMIN')" scope="row" class="listOfActions">
                 <ul>
                     <li>

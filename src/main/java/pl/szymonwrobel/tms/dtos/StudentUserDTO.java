@@ -13,29 +13,13 @@ public class StudentUserDTO {
     private String password;
     private String firstName;
     private String lastName;
-    private String isActive;
+    private Boolean isActive;
     private String userTypeDescription;
-    private List<String> appliedTrainingsNames;
-    private List<Long> appliedTrainingsIds;
+    private List<String> appliedTrainingNames;
+    private List<Long> appliedTrainingIds;
 
     public StudentUserDTO() {
     }
-
-    public StudentUserDTO(Long id, String login, String password, String firstName, String lastName,
-                          String isActive, String userTypeDescription,
-                          List<String> appliedTrainingsNames, List<Long> appliedTrainingsIds) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.isActive = isActive;
-        this.userTypeDescription = userTypeDescription;
-        this.appliedTrainingsNames = appliedTrainingsNames;
-        this.appliedTrainingsIds = appliedTrainingsIds;
-    }
-
-
 
     public Long getId() {
         return id;
@@ -82,11 +66,11 @@ public class StudentUserDTO {
         return this;
     }
 
-    public String getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public StudentUserDTO setIsActive(String isActive) {
+    public StudentUserDTO setIsActive(Boolean isActive) {
         this.isActive = isActive;
         return this;
     }
@@ -100,21 +84,21 @@ public class StudentUserDTO {
         return this;
     }
 
-    public List<String> getAppliedTrainingsNames() {
-        return appliedTrainingsNames;
+    public List<String> getAppliedTrainingNames() {
+        return appliedTrainingNames;
     }
 
-    public StudentUserDTO setAppliedTrainingsNames(List<String> appliedTrainingsNames) {
-        this.appliedTrainingsNames = appliedTrainingsNames;
+    public StudentUserDTO setAppliedTrainingNames(List<String> appliedTrainingNames) {
+        this.appliedTrainingNames = appliedTrainingNames;
         return this;
     }
 
-    public List<Long> getAppliedTrainingsIds() {
-        return appliedTrainingsIds;
+    public List<Long> getAppliedTrainingIds() {
+        return appliedTrainingIds;
     }
 
-    public StudentUserDTO setAppliedTrainingsIds(List<Long> appliedTrainingsIds) {
-        this.appliedTrainingsIds = appliedTrainingsIds;
+    public StudentUserDTO setAppliedTrainingIds(List<Long> appliedTrainingIds) {
+        this.appliedTrainingIds = appliedTrainingIds;
         return this;
     }
 }

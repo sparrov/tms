@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService {
         this.userMapper = userMapper;
     }
 
-    public Boolean isUserLoginUnique(UserEntity newUserEntity) {
+    private Boolean isUserLoginUnique(UserEntity newUserEntity) {
         final Boolean isLoginUnique = userRepository
                 .findUserEntitiesByLogin(newUserEntity.getLogin())
                 .isEmpty();
@@ -45,7 +45,7 @@ public class UserService implements UserDetailsService {
     @PreAuthorize("hasAuthority('ADMIN')")
     public void createTrainerUser(TrainerUserDTO trainerUserDTO)
             throws UserAlreadyExistAuthenticationException {
-        UserEntity newTrainerUserEntity = trainerUserMapper.mapDtoToEntity(trainerUserDTO);
+        UserEntity newTrainerUserEntity = trainerUserMapper.toEntity(trainerUserDTO);
         if (isUserLoginUnique(newTrainerUserEntity)) {
             userRepository.save(newTrainerUserEntity);
         } else {
@@ -57,7 +57,7 @@ public class UserService implements UserDetailsService {
     @PreAuthorize("hasAuthority('ADMIN')")
     public void createStudentUser(StudentUserDTO studentUserDTO)
             throws UserAlreadyExistAuthenticationException {
-        UserEntity newStudentUserEntity = studentUserMapper.mapDtoToEntity(studentUserDTO);
+        UserEntity newStudentUserEntity = studentUserMapper.toEntity(studentUserDTO);
         if (isUserLoginUnique(newStudentUserEntity)) {
             userRepository.save(newStudentUserEntity);
         } else {
@@ -73,7 +73,7 @@ public class UserService implements UserDetailsService {
 
         final List<TrainerUserDTO> allTrainerUsersDTOs = allTrainerUsersEntities
                 .stream()
-                .map(trainerUserMapper::mapEntityToDto)
+                .map(trainerUserMapper::toDto)
                 .sorted(Comparator.comparing(o -> o.getLogin()))
                 .collect(Collectors.toList());
         return allTrainerUsersDTOs;
@@ -90,7 +90,7 @@ public class UserService implements UserDetailsService {
 
         final List<StudentUserDTO> allStudentUsersDTOs = allStudentUsersEntities
                 .stream()
-                .map(studentUserMapper::mapEntityToDto)
+                .map(studentUserMapper::toDto)
                 .sorted(Comparator.comparing(o -> o.getLogin()))
                 .collect(Collectors.toList());
         return allStudentUsersDTOs;
@@ -98,11 +98,10 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByLogin(login);
-        if (userEntity == null) {
-            throw new UsernameNotFoundException("Could not find user");
-        }
-        return userMapper.mapEntityToDto(userEntity);
+        UserEntity userEntity = userRepository
+                .findByLogin(login)
+                .orElseThrow(() -> new UsernameNotFoundException("Could not find user" + login));
+        return userMapper.toDto(userEntity);
     }
 
 }

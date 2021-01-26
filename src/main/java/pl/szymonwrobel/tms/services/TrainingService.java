@@ -27,7 +27,7 @@ public class TrainingService {
         final List<TrainingEntity> allTrainingsEntities = trainingRepository.findAll();
         final List<TrainingDTO> allTrainingsDTOs = allTrainingsEntities
                 .stream()
-                .map(trainingMapper::mapEntityToDto)
+                .map(trainingMapper::toDto)
                 .sorted(Comparator.comparing(o -> o.getName()))
                 .collect(Collectors.toList());
         return allTrainingsDTOs;
@@ -35,7 +35,7 @@ public class TrainingService {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     public void createTraining(TrainingDTO trainingDTO) {
-        TrainingEntity trainingEntity = trainingMapper.mapDtoToEntity(trainingDTO);
+        TrainingEntity trainingEntity = trainingMapper.toEntity(trainingDTO);
         trainingRepository.save(trainingEntity);
     }
 
@@ -53,7 +53,7 @@ public class TrainingService {
     public TrainingDTO findTrainingById(Long id) {
         TrainingDTO trainingDTO = trainingRepository
                 .findById(id)
-                .map(trainingMapper::mapEntityToDto)
+                .map(trainingMapper::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("No training found "
                         + "with the training id: " + id));
         return trainingDTO;
@@ -61,7 +61,7 @@ public class TrainingService {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     public void updateTraining(Long id, TrainingDTO trainingDTO) {
-        TrainingEntity trainingEntity = trainingMapper.mapDtoToEntity(trainingDTO);
+        TrainingEntity trainingEntity = trainingMapper.toEntity(trainingDTO);
         trainingRepository.saveAndFlush(trainingEntity.setId(id));
     }
 }

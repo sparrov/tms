@@ -6,13 +6,14 @@ import pl.szymonwrobel.tms.entities.UserEntity;
 import pl.szymonwrobel.tms.enums.UserType;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     List<UserEntity> findAllByUserType(UserType userType);
 
-    UserEntity findByLogin(String userLogin);
+    Optional<UserEntity> findByLogin(String userLogin);
 
     List<UserEntity> findUserEntitiesByLogin(String userLogin);
 }

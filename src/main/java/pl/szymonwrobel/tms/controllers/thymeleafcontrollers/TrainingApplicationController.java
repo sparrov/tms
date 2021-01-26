@@ -25,35 +25,35 @@ public class TrainingApplicationController {
     }
 
     @GetMapping("/applyfortraining")
-    public String applyForTraining(Model model) {
-        model.addAttribute("applicationdto", new TrainingApplicationDTO());
+    public String getApplyForTrainingToCreate(Model model) {
+        model.addAttribute("trainingApplicationDto", new TrainingApplicationDTO());
         final List<TrainingDTO> allTrainings = trainingService.getAllTrainings();
-        model.addAttribute("trainings", allTrainings);
+        model.addAttribute("listOfAllTrainings", allTrainings);
         return "applyfortraining";
     }
 
     @PostMapping("/applyfortraining")
-    public String postApplyForTraining(TrainingApplicationDTO trainingApplicationDTO) {
+    public String postApplyForTrainingToCreate(TrainingApplicationDTO trainingApplicationDTO) {
         trainingApplicationService.createApplicationForTraining(trainingApplicationDTO);
         return "redirect:/";
     }
 
     @GetMapping("/applications")
-    public String getAllTrainingApplications(Model model) {
-        final List<TrainingApplicationDTO> allTrainingApplicastions = trainingApplicationService
+    public String getAllTrainingApplicationsToRead(Model model) {
+        final List<TrainingApplicationDTO> allTrainingApplications = trainingApplicationService
                 .getAllTrainingApplications();
-        model.addAttribute("listOfAllTrainingApplicastions", allTrainingApplicastions);
+        model.addAttribute("listOfAllTrainingApplications", allTrainingApplications);
         return "applications";
     }
 
     @GetMapping("/applications/update/{id}")
-    public String updateTrainingApplication(@PathVariable Long id){
+    public String getTrainingApplicationToUpdate(@PathVariable Long id) {
         trainingApplicationService.updateTrainingApplication(id);
         return "redirect:/applications";
     }
 
     @GetMapping("/applications/delete/{id}")
-    public String deleteTrainingApplication(@PathVariable Long id){
+    public String getTrainingApplicationToDelete(@PathVariable Long id) {
         trainingApplicationService.deleteTrainingApplication(id);
         return "redirect:/applications";
     }

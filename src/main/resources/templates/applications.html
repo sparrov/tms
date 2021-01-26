@@ -22,19 +22,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="trainingApplication : ${listOfAllTrainingApplicastions}">
+        <tr th:each="trainingApplication : ${listOfAllTrainingApplications}">
             <th scope="row" th:text="${trainingApplicationStat.index+1}"></th>
             <th scope="row" th:text="${trainingApplication.getDate()}"></th>
             <th scope="row" th:text="${trainingApplication.studentUserDTO.login}"></th>
             <th scope="row" th:text="${trainingApplication.studentUserDTO.firstName}"></th>
             <th scope="row" th:text="${trainingApplication.studentUserDTO.lastName}"></th>
             <th scope="row" th:text="${trainingApplication.trainingName}"></th>
-            <th scope="row" th:text="${trainingApplication.isConfirmed}"
-                th:class="${trainingApplication.isConfirmed == 'niezatwierdzona'}
-                     ? 'text-danger' : 'text-success'"></th>
+            <th scope="row" th:text="${trainingApplication.isConfirmed} == true ? 'zatwierdzona' : 'niezatwierdzona'"
+                th:class="${trainingApplication.isConfirmed == true}
+                     ? 'text-success' : 'text-danger'"></th>
             <th sec:authorize="hasAuthority('ADMIN')" scope="row" class="listOfActions">
                 <ul>
-                    <li th:if="${trainingApplication.isConfirmed == 'niezatwierdzona'}">
+                    <li th:if="${trainingApplication.isConfirmed == false}">
                         <a class="btn btn-outline-success btn-sm"
                            th:href="@{/applications/update/{id}(id=${trainingApplication.id})}">Zatwierdź</a>
                     </li>

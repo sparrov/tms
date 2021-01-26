@@ -15,23 +15,25 @@ public class TrainingApplicationMapper {
     private final StudentUserMapper studentUserMapper;
     private final TrainingRepository trainingRepository;
 
-    public TrainingApplicationMapper(StudentUserMapper studentUserMapper, TrainingRepository trainingRepository) {
+    public TrainingApplicationMapper(StudentUserMapper studentUserMapper,
+                                     TrainingRepository trainingRepository) {
         this.studentUserMapper = studentUserMapper;
         this.trainingRepository = trainingRepository;
     }
 
-    public TrainingApplicationDTO mapEntityToDto(TrainingApplicationEntity trainingApplicationEntity) {
+    public TrainingApplicationDTO toDto(TrainingApplicationEntity trainingApplicationEntity) {
         final TrainingApplicationDTO trainingApplicationDTO = new TrainingApplicationDTO();
         trainingApplicationDTO.setId(trainingApplicationEntity.getId());
         trainingApplicationDTO.setDate(trainingApplicationEntity.getDate());
-        trainingApplicationDTO.setStudentUserDTO(studentUserMapper.mapEntityToDto(trainingApplicationEntity.getUser()));
+        trainingApplicationDTO.setStudentUserDTO(studentUserMapper
+                .toDto(trainingApplicationEntity.getUser()));
         trainingApplicationDTO.setTrainingId(trainingApplicationEntity.getTraining().getId());
         trainingApplicationDTO.setTrainingName(trainingApplicationEntity.getTraining().getName());
-        trainingApplicationDTO.setIsConfirmed(trainingApplicationEntity.getIsConfirmed() ? "zatwierdzona" : "niezatwierdzona");
+        trainingApplicationDTO.setIsConfirmed(trainingApplicationEntity.getIsConfirmed());
         return trainingApplicationDTO;
     }
 
-    public TrainingApplicationEntity mapDtoToEntity(TrainingApplicationDTO trainingApplicationDTO) {
+    public TrainingApplicationEntity toEntity(TrainingApplicationDTO trainingApplicationDTO) {
         final TrainingApplicationEntity trainingApplicationEntity = new TrainingApplicationEntity();
         trainingApplicationEntity.setId(trainingApplicationDTO.getId());
         trainingApplicationEntity.setDate(LocalDate.now());
@@ -39,10 +41,10 @@ public class TrainingApplicationMapper {
                 .findById(trainingApplicationDTO.getTrainingId());
         trainingApplicationEntity.setTraining(trainingEntity
                 .orElseThrow(() -> new RuntimeException("Training doesn't exist")));
-        trainingApplicationEntity.setUser(studentUserMapper.mapDtoToEntity(trainingApplicationDTO.getStudentUserDTO()));
-        if (trainingApplicationDTO.getIsConfirmed() == null){
-            trainingApplicationEntity.setIsConfirmed(false);
-        } else {trainingApplicationEntity.setIsConfirmed(true);}
+        trainingApplicationEntity.setUser(studentUserMapper
+                .toEntity(trainingApplicationDTO.getStudentUserDTO()));
+        trainingApplicationEntity.setIsConfirmed(trainingApplicationDTO
+                .getIsConfirmed() == null ? false : true);
         return trainingApplicationEntity;
     }
 }

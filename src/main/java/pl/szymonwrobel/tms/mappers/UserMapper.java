@@ -11,7 +11,7 @@ import java.util.Arrays;
 @Component
 public class UserMapper {
 
-    public UserDTO mapEntityToDto(UserEntity userEntity){
+    public UserDTO toDto(UserEntity userEntity) {
         final UserDTO userDTO = new UserDTO();
         userDTO.setId(userEntity.getId());
         userDTO.setLogin(userEntity.getLogin());
@@ -24,12 +24,12 @@ public class UserMapper {
         return userDTO;
     }
 
-    public UserEntity mapDtoToEntity(UserDTO userDTO) {
+    public UserEntity toEntity(UserDTO userDTO) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(userDTO.getId());
-        userEntity.setLogin(userDTO.getLogin().toLowerCase().replace(" ",""));
-        userEntity.setFirstName(userDTO.getFirstName().replace(" ",""));
-        userEntity.setLastName(userDTO.getLastName().replace(" ",""));
+        userEntity.setLogin(userDTO.getLogin().toLowerCase().replace(" ", ""));
+        userEntity.setFirstName(userDTO.getFirstName().replace(" ", ""));
+        userEntity.setLastName(userDTO.getLastName().replace(" ", ""));
         userEntity.setIsActive(userDTO.getIsActive());
         userEntity.setUserType(UserType.valueOf(userDTO.getUserType()));
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userDTO.getUserType());

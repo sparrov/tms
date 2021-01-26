@@ -1,6 +1,8 @@
 package pl.szymonwrobel.tms.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
@@ -8,7 +10,9 @@ import java.time.LocalDateTime;
 public class ClassesEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String subject;
     private LocalDateTime term;
 

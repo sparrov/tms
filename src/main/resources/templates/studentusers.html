@@ -6,7 +6,7 @@
 <div th:replace="fragments/modal :: modal(~{::#reg_form},'Dodawanie nowego uczestnika')">
     <div id="reg_form">
         <div class="form">
-            <form method="post" th:action="@{/studentusers}" th:object="${studentuserdto}">
+            <form method="post" th:action="@{/studentusers}" th:object="${studentUserDto}">
                 <div class="modal-body">
 
                     <div class="form-group row">
@@ -68,22 +68,18 @@
             <th scope="row" th:text="${studentUser.login}"></th>
             <th scope="row" th:text="${studentUser.firstName}"></th>
             <th scope="row" th:text="${studentUser.lastName}"></th>
-            <th scope="row" th:text="${studentUser.isActive}"
-                th:class="${studentUser.isActive == 'nieaktywne'}
-                     ? 'text-danger' : 'text-success'"></th>
+            <th scope="row" th:text="${studentUser.isActive == true} ? 'aktywne' : 'nieaktywne'"
+                th:class="${studentUser.isActive == true} ? 'text-success' : 'text-danger'">
+            </th>
             <th scope="row" th:text="${studentUser.userTypeDescription}"></th>
             <th scope="row" class="listOfTraining">
                 <ul>
-                    <li th:each="training : ${studentUser.getAppliedTrainingsNames()}"
+                    <li th:each="training : ${studentUser.getAppliedTrainingNames()}"
                         th:text="${training}"></li>
                 </ul>
             </th>
             <th scope="row" class="listOfActions">
                 <ul>
-<!--
-                    <li><a class="btn btn-outline-success btn-sm"
-                           th:href="@{/studentusers/{id}/delete(id=${studentUser.id})}">Zmień hasło</a></li>
--->
                     <li><a class="btn btn-outline-danger btn-sm"
                            th:href="@{/studentusers/delete/{id}(id=${studentUser.id})}">Usuń</a></li>
                 </ul>

@@ -16,37 +16,37 @@ public class TrainingMapper {
     final TrainingRepository trainingRepository;
     final TrainingApplicationRepository trainingApplicationRepository;
 
-    public TrainingMapper(TrainingRepository trainingRepository, TrainingApplicationRepository trainingApplicationRepository) {
+    public TrainingMapper(TrainingRepository trainingRepository,
+                          TrainingApplicationRepository trainingApplicationRepository) {
         this.trainingRepository = trainingRepository;
         this.trainingApplicationRepository = trainingApplicationRepository;
     }
 
-    public TrainingDTO mapEntityToDto(TrainingEntity trainingEntity) {
+    public TrainingDTO toDto(TrainingEntity trainingEntity) {
         final TrainingDTO trainingDTO = new TrainingDTO();
         trainingDTO.setId(trainingEntity.getId());
         trainingDTO.setName(trainingEntity.getName());
-        final List<Long> listOfApplicationsIds = trainingEntity
+        final List<Long> listOfApplicationIds = trainingEntity
                 .getApplications()
                 .stream()
                 .map(e -> e.getId())
                 .collect(Collectors.toList());
-        trainingDTO.setApplications(listOfApplicationsIds);
+        trainingDTO.setApplicationIds(listOfApplicationIds);
         return trainingDTO;
     }
 
-    public TrainingEntity mapDtoToEntity(TrainingDTO trainingDTO) {
+    public TrainingEntity toEntity(TrainingDTO trainingDTO) {
         final TrainingEntity trainingEntity = new TrainingEntity();
         trainingEntity.setName(trainingDTO.getName());
 
-        if (trainingDTO.getApplications() == null) {
+        if (trainingDTO.getApplicationIds() == null) {
             trainingEntity.setApplications(Collections.emptySet());
         } else {
-            final Set<TrainingApplicationEntity> allTrainingsApplications =
+            final Set<TrainingApplicationEntity> allTrainingApplications =
                     new HashSet<>(trainingApplicationRepository
-                    .findAllById(trainingDTO.getApplications()));
-            trainingEntity.setApplications(allTrainingsApplications);
+                            .findAllById(trainingDTO.getApplicationIds()));
+            trainingEntity.setApplications(allTrainingApplications);
         }
         return trainingEntity;
     }
-
 }

@@ -2,6 +2,7 @@ package pl.szymonwrobel.tms.dtos;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.validation.constraints.NotEmpty;
 
 public class TrainerUserDTO {
@@ -13,21 +14,10 @@ public class TrainerUserDTO {
     private String password;
     private String firstName;
     private String lastName;
-    private String isActive;
+    private Boolean isActive;
     private String userTypeDescription;
 
     public TrainerUserDTO() {
-    }
-
-    public TrainerUserDTO(Long id, String login, String password, String firstName, String lastName,
-                          String isActive, String userTypeDescription) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.isActive = isActive;
-        this.userTypeDescription = userTypeDescription;
     }
 
     public Long getId() {
@@ -75,11 +65,11 @@ public class TrainerUserDTO {
         return this;
     }
 
-    public String getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public TrainerUserDTO setIsActive(String isActive) {
+    public TrainerUserDTO setIsActive(Boolean isActive) {
         this.isActive = isActive;
         return this;
     }

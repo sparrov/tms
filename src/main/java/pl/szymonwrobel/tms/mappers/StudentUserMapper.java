@@ -25,33 +25,14 @@ public class StudentUserMapper {
         this.trainingApplicationRepository = trainingApplicationRepository;
     }
 
-    public UserEntity mapDtoToEntity(StudentUserDTO studentUserDTO) {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(studentUserDTO.getId());
-        userEntity.setLogin(studentUserDTO.getLogin().toLowerCase().replace(" ",""));
-        userEntity.setPassword(securityService.encodeUserPassword(studentUserDTO));
-        userEntity.setFirstName(studentUserDTO.getFirstName().replace(" ",""));
-        userEntity.setLastName(studentUserDTO.getLastName().replace(" ",""));
-        userEntity.setIsActive(studentUserDTO.getIsActive() != null &&
-                studentUserDTO.getIsActive().equals("aktywne"));
-        userEntity.setUserType(UserType.STUDENT);
-        final List<TrainingApplicationEntity> applies =
-                trainingApplicationRepository
-                        .findAllById(studentUserDTO.getAppliedTrainingsIds()
-                                != null ? studentUserDTO.getAppliedTrainingsIds()
-                                : Collections.emptyList());
-        userEntity.setApplications(new HashSet<>(applies));
-        return userEntity;
-    }
-
-    public StudentUserDTO mapEntityToDto(UserEntity userEntity) {
+    public StudentUserDTO toDto(UserEntity userEntity) {
         StudentUserDTO studentUserDTO = new StudentUserDTO();
         studentUserDTO.setId(userEntity.getId());
         studentUserDTO.setLogin(userEntity.getLogin());
         studentUserDTO.setPassword(userEntity.getPassword());
         studentUserDTO.setFirstName(userEntity.getFirstName());
         studentUserDTO.setLastName(userEntity.getLastName());
-        studentUserDTO.setIsActive(userEntity.getIsActive() ? "aktywne" : "nieaktywne");
+        studentUserDTO.setIsActive(userEntity.getIsActive());
         studentUserDTO.setUserTypeDescription(userEntity.getUserType().getDisplayName());
         final List<String> applies = userEntity
                 .getApplications()
@@ -59,7 +40,26 @@ public class StudentUserMapper {
                 .map(e -> e.getTraining().getName())
                 .sorted()
                 .collect(Collectors.toList());
-        studentUserDTO.setAppliedTrainingsNames(applies);
+        studentUserDTO.setAppliedTrainingNames(applies);
         return studentUserDTO;
+    }
+
+    public UserEntity toEntity(StudentUserDTO studentUserDTO) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(studentUserDTO.getId());
+        userEntity.setLogin(studentUserDTO.getLogin().toLowerCase().replace(" ", ""));
+        userEntity.setPassword(securityService.encodeUserPassword(studentUserDTO));
+        userEntity.setFirstName(studentUserDTO.getFirstName().replace(" ", ""));
+        userEntity.setLastName(studentUserDTO.getLastName().replace(" ", ""));
+        userEntity.setIsActive(studentUserDTO.getIsActive() != null &&
+                studentUserDTO.getIsActive().equals(true));
+        userEntity.setUserType(UserType.STUDENT);
+        final List<TrainingApplicationEntity> applies =
+                trainingApplicationRepository
+                        .findAllById(studentUserDTO.getAppliedTrainingIds()
+                                != null ? studentUserDTO.getAppliedTrainingIds()
+                                : Collections.emptyList());
+        userEntity.setApplications(new HashSet<>(applies));
+        return userEntity;
     }
 }
