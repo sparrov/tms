@@ -40,7 +40,7 @@ public class TrainingController {
 
     @GetMapping("/training/edit/{id}")
     public String getTrainingToEdit(@PathVariable Long id, Model model) {
-        final TrainingDTO trainingDTO = trainingService.findTrainingById(id);
+        final TrainingDTO trainingDTO = trainingService.getTrainingById(id);
         model.addAttribute("trainingDto", trainingDTO);
         return "training";
     }

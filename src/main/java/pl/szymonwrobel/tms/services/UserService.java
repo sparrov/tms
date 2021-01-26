@@ -1,5 +1,7 @@
 package pl.szymonwrobel.tms.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,6 +23,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
     private final TrainerUserMapper trainerUserMapper;
@@ -49,9 +53,12 @@ public class UserService implements UserDetailsService {
         if (isUserLoginUnique(newTrainerUserEntity)) {
             userRepository.save(newTrainerUserEntity);
         } else {
+            LOGGER.error("Dodanie nowego prowadzącego: " + newTrainerUserEntity.getLogin()
+                    + " nie powiodło się");
             throw new UserAlreadyExistAuthenticationException("Login: "
                     + newTrainerUserEntity.getLogin() + " is not valid");
         }
+        LOGGER.info("Dodano nowego prowadzącego: " + newTrainerUserEntity.getLogin());
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -61,9 +68,12 @@ public class UserService implements UserDetailsService {
         if (isUserLoginUnique(newStudentUserEntity)) {
             userRepository.save(newStudentUserEntity);
         } else {
+            LOGGER.error("Dodanie nowego uczestnika: " + newStudentUserEntity.getLogin()
+                    + " nie powiodło się");
             throw new UserAlreadyExistAuthenticationException("Login: "
                     + newStudentUserEntity.getLogin() + " is not valid");
         }
+        LOGGER.info("Dodano nowego uczestnika: " + newStudentUserEntity.getLogin());
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -80,8 +90,14 @@ public class UserService implements UserDetailsService {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public void deleteUser(Long id) throws SecurityException {
+        if (id.equals(1L)) {
+            LOGGER.info("Próba usunięcia użytkownika niedozwolona!");
+            throw new SecurityException("Operacja niedozwolona");
+        } else {
+            userRepository.deleteById(id);
+            LOGGER.info("Usunięto użytkownika ID: " + id);
+        }
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','TRAINER')")

@@ -1,10 +1,12 @@
 package pl.szymonwrobel.tms.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.szymonwrobel.tms.controllers.thymeleafcontrollers.HomeController;
 import pl.szymonwrobel.tms.entities.TrainingApplicationEntity;
 import pl.szymonwrobel.tms.entities.TrainingEntity;
 import pl.szymonwrobel.tms.entities.UserEntity;
@@ -13,17 +15,15 @@ import pl.szymonwrobel.tms.repositories.TrainingApplicationRepository;
 import pl.szymonwrobel.tms.repositories.TrainingRepository;
 import pl.szymonwrobel.tms.repositories.UserRepository;
 
-import javax.management.ObjectName;
-import javax.management.relation.Role;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
+
 
 @Service
 public class InitialDataService implements CommandLineRunner {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(InitialDataService.class);
 
     private final UserRepository userRepository;
     private final SecurityService securityService;
@@ -56,6 +56,7 @@ public class InitialDataService implements CommandLineRunner {
     public void createAdminUser() {
         adminUser = new UserEntity(null, "admin", securityService.encodeUserPassword("test1234"), UserType.ADMIN, true, "Administator", "Admistratorski", List.of(new SimpleGrantedAuthority("ADMIN")), Collections.emptySet());
         userRepository.save(adminUser);
+        LOGGER.info("Pomyślnie utworzono konto administratora systemu TMS");
     }
 
     public void createSampleTrainings() {
@@ -67,6 +68,7 @@ public class InitialDataService implements CommandLineRunner {
         trainingRepository.save(training3);
         training4 = new TrainingEntity(null, "FrontEnd developer", Collections.emptySet());
         trainingRepository.save(training4);
+        LOGGER.info("Pomyślnie dodano podstawowe kursy w systemie TMS");
     }
 
     public void createSampleUsers() {
@@ -82,6 +84,7 @@ public class InitialDataService implements CommandLineRunner {
         userRepository.save(studentUser2);
         studentUser3 = new UserEntity(null, "student3", securityService.encodeUserPassword("test1234"), UserType.STUDENT, true, "Uczestnik3", "Uczestnik3", List.of(new SimpleGrantedAuthority("STUDENT")), Collections.emptySet());
         userRepository.save(studentUser3);
+        LOGGER.info("Pomyślnie utworzono testowe konta użytkowników systemu TMS");
     }
 
     public void createSampleApplications() {
@@ -93,6 +96,7 @@ public class InitialDataService implements CommandLineRunner {
         trainingApplicationRepository.save(trainingApplication3);
         trainingApplication4 = new TrainingApplicationEntity(null, LocalDate.of(2021,1,25), training2, studentUser1, false);
         trainingApplicationRepository.save(trainingApplication4);
+        LOGGER.info("Pomyślnie złożono testowe aplikacje w systemie TMS");
     }
 
     @Override

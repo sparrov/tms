@@ -1,5 +1,7 @@
 package pl.szymonwrobel.tms.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import pl.szymonwrobel.tms.dtos.TrainingApplicationDTO;
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 @Service
 public class TrainingApplicationService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(TrainingApplicationService.class);
+
     private final TrainingApplicationRepository trainingApplicationRepository;
     private final TrainingApplicationMapper trainingApplicationMapper;
 
@@ -27,6 +31,8 @@ public class TrainingApplicationService {
         TrainingApplicationEntity trainingApplicationEntity =
                 trainingApplicationMapper.toEntity(trainingApplicationDTO);
         trainingApplicationRepository.save(trainingApplicationEntity);
+        LOGGER.info("Użytkownik: " + trainingApplicationEntity.getUser().getLogin()
+                + " złożył aplikację na kurs " + trainingApplicationEntity.getTraining().getName());
     }
 
     public List<TrainingApplicationDTO> getAllTrainingApplications() {
@@ -44,6 +50,7 @@ public class TrainingApplicationService {
     @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteTrainingApplication(Long id) {
         trainingApplicationRepository.deleteById(id);
+        LOGGER.info("Usunięto aplikację ID: " + id);
     }
 
     private TrainingApplicationDTO getTrainingApplicationById(Long id) {
@@ -62,5 +69,6 @@ public class TrainingApplicationService {
         TrainingApplicationEntity trainingApplicationEntity = trainingApplicationMapper
                 .toEntity(trainingApplicationDTO);
         trainingApplicationRepository.saveAndFlush(trainingApplicationEntity);
+        LOGGER.info("Zatwierdzono aplikację ID: " + trainingApplicationEntity.getId());
     }
 }
