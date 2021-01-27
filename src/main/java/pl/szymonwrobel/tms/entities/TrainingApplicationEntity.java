@@ -12,10 +12,10 @@ public class TrainingApplicationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate date;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private TrainingEntity training;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne
     private UserEntity user;
 
     private Boolean isConfirmed;

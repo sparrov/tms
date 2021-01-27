@@ -1,10 +1,13 @@
 package pl.szymonwrobel.tms.mappers;
 
 import org.springframework.stereotype.Component;
+import pl.szymonwrobel.tms.dtos.StudentUserDTO;
 import pl.szymonwrobel.tms.dtos.TrainingApplicationDTO;
 import pl.szymonwrobel.tms.entities.TrainingApplicationEntity;
 import pl.szymonwrobel.tms.entities.TrainingEntity;
+import pl.szymonwrobel.tms.entities.UserEntity;
 import pl.szymonwrobel.tms.repositories.TrainingRepository;
+import pl.szymonwrobel.tms.repositories.UserRepository;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -14,11 +17,14 @@ public class TrainingApplicationMapper {
 
     private final StudentUserMapper studentUserMapper;
     private final TrainingRepository trainingRepository;
+    private final UserRepository userRepository;
 
     public TrainingApplicationMapper(StudentUserMapper studentUserMapper,
-                                     TrainingRepository trainingRepository) {
+                                     TrainingRepository trainingRepository,
+                                     UserRepository userRepository) {
         this.studentUserMapper = studentUserMapper;
         this.trainingRepository = trainingRepository;
+        this.userRepository = userRepository;
     }
 
     public TrainingApplicationDTO toDto(TrainingApplicationEntity trainingApplicationEntity) {
@@ -41,10 +47,15 @@ public class TrainingApplicationMapper {
                 .findById(trainingApplicationDTO.getTrainingId());
         trainingApplicationEntity.setTraining(trainingEntity
                 .orElseThrow(() -> new RuntimeException("Training doesn't exist")));
-        trainingApplicationEntity.setUser(studentUserMapper
-                .toEntity(trainingApplicationDTO.getStudentUserDTO()));
+        UserEntity newUserEntity = studentUserMapper.toEntity(trainingApplicationDTO
+                .getStudentUserDTO());
+        userRepository.save(newUserEntity);
+        UserEntity newUserEntityFromDb = userRepository.findByLogin(
+                trainingApplicationDTO.getStudentUserDTO().getLogin())
+                .orElseThrow(() -> new RuntimeException("User doesn't exist"));
+        trainingApplicationEntity.setUser(newUserEntityFromDb);
         trainingApplicationEntity.setIsConfirmed(trainingApplicationDTO
-                .getIsConfirmed() == null ? false : true);
+                .getIsConfirmed() != null);
         return trainingApplicationEntity;
     }
 }

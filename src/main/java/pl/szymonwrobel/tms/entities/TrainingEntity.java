@@ -13,7 +13,7 @@ public class TrainingEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "training", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "training", cascade = {CascadeType.ALL})
     private Set<TrainingApplicationEntity> applications = new HashSet<>();
 
     public TrainingEntity() {

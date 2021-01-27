@@ -22,7 +22,19 @@
             </ul>
         </div>
     </nav>
-    <a class="btn btn-outline-primary" th:href="@{/login}" role="button">Zaloguj się</a>
+
+    <a sec:authorize="!isAuthenticated()" class="btn btn-outline-primary" th:href="@{/login}"
+       role="button">Zaloguj się</a>
+
+    <form sec:authorize="isAuthenticated()" class="form-inline" th:action="@{/logout}" method="post">
+        <span class="navbar-text mr-2">
+            <b sec:authentication="name">Login</b>
+            <i sec:authentication="principal.authorities">[USER], [TRAINER], [ADMIN]</i>
+        </span>
+        <button class="btn btn-outline-primary" type="submit">Wyloguj</button>
+    </form>
+
+
 </nav>
 
 <div class="content">

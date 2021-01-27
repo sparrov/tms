@@ -5,28 +5,37 @@
 <nav th:replace="fragments/navigation :: nav"></nav>
 
 <div class="content">
-    <div sec:authorize="isAuthenticated()">
-        This content is only shown to authenticated users.
-    </div>
-    <div sec:authorize="hasAuthority('ADMIN')">
-        This content is only shown to administrators.
-    </div>
-    <div sec:authorize="hasAuthority('TRAINER')">
-        This content is only shown to trainers.
-    </div>
-    <div sec:authorize="hasAuthority('STUDENT')">
-        This content is only shown to students.
-    </div>
-    <div sec:authorize="hasRole('USER')">
-        This content is only shown to users.
-    </div>
 
-    <a class="btn btn-primary btn-lg" th:href="@{/login}">Zaloguj się</a>
-    <a class="btn btn-primary btn-lg" th:href="@{/addtraineruser}">Dodaj prowadzącego</a>
-    <a class="btn btn-primary btn-lg" th:href="@{/trainerusers}">Lista prowadzących</a>
-    <a class="btn btn-primary btn-lg" th:href="@{/addstudentuser}">Dodaj uczestnika</a>
-    <a class="btn btn-primary btn-lg" th:href="@{/studentusers}">Lista uczestników</a>
-    <a class="btn btn-primary btn-lg" th:href="@{/applyfortraining}">Rejestracja nowego uczestnika</a>
+    <h3>Lista endpointów:</h3>
+    <a class="btn btn-primary btn-sm" th:href="@{/login}">Zaloguj się</a>
+    <a class="btn btn-primary btn-sm" th:href="@{/trainerusers}">Lista prowadzących</a>
+    <a class="btn btn-primary btn-sm" th:href="@{/studentusers}">Lista uczestników</a>
+    <a class="btn btn-primary btn-sm" th:href="@{/trainings}">Lista kursów</a>
+    <a class="btn btn-primary btn-sm" th:href="@{/addtraining}">Dodaj kurs</a>
+    <a class="btn btn-primary btn-sm" th:href="@{/applications}">Lista aplikacji</a>
+    <a class="btn btn-primary btn-sm" th:href="@{/applyfortraining}">Rejestracja nowego uczestnika</a>
+
+    <h3>Logi systemowe:</h3>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Lp.</th>
+            <th scope="col">Data i godzina</th>
+            <th scope="col">Log</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="logRow : ${listOfAllLogRows}">
+            <th scope="row" th:text="${logRowStat.index+1}"></th>
+            <th scope="row" th:text="${logRow.substring(0,19).trim()}"></th>
+            <th scope="row" th:text="${logRow.substring(20)}"></th>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 <nav th:replace="fragments/footer :: footer"></nav>
 </body>
