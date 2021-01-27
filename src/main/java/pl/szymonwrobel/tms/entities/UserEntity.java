@@ -1,6 +1,8 @@
 package pl.szymonwrobel.tms.entities;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import pl.szymonwrobel.tms.enums.UserType;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -17,7 +19,7 @@ public class UserEntity {
     private Long id;
 
     @NotEmpty
-    @Column(unique=true, nullable = false, length = 24)
+    @Column(unique = true, nullable = false, length = 24)
     @Size(min = 3, max = 24)
     private String login;
 
@@ -44,7 +46,8 @@ public class UserEntity {
     private String lastName;
 
     //@NotNull //TODO: do ustalenia
-    @ElementCollection //automatyczna relacja 1:wielu, któa tworzy dodatkową tabelę  user_entity_authorities - dzięki temu nie muszę tworzyć osobnej encji i relacji
+    @ElementCollection
+    //automatyczna relacja 1:wielu, któa tworzy dodatkową tabelę  user_entity_authorities - dzięki temu nie muszę tworzyć osobnej encji i relacji
     private List<SimpleGrantedAuthority> authorities;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})

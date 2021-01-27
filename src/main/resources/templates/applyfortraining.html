@@ -41,11 +41,13 @@
     <div class="reg_form_wrapper">
         <h2 class="text-center">Zapisz się na szkolenie:</h2>
         <div class="form">
-            <form class="needs-validation" novalidate method="post" th:action="@{/applyfortraining}" th:object="${trainingApplicationDto}">
+            <form class="needs-validation" novalidate method="post" th:action="@{/applyfortraining}"
+                  th:object="${trainingApplicationDto}">
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label" for="trainingSelect">Wybierz kurs:</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="trainingSelect" th:field="*{trainingId}"th:required="required">
+                        <select class="form-control" id="trainingSelect" th:field="*{trainingId}"
+                                th:required="required">
                             <option th:each="training : ${listOfAllTrainings}" th:value="${training.id}"
                                     th:text="${training.name}"></option>
                         </select>
