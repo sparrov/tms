@@ -1,16 +1,19 @@
 package pl.szymonwrobel.tms.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "trainings")
 public class TrainingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
+    @Column(nullable = false, length = 24)
     private String name;
 
     @OneToMany(mappedBy = "training", cascade = {CascadeType.ALL})

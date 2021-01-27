@@ -6,12 +6,17 @@
 <div class="content">
     <h3>Tworzenie nowego kursu:</h3>
     <div class="form">
-        <form method="post" th:action="@{/addtraining}" th:object="${trainingDto}">
+        <form class="needs-validation" novalidate method="post" th:action="@{/addtraining}" th:object="${trainingDto}">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="nameInput">Nazwa kursu:</label>
                 <div class="col-sm-10">
-                    <input class="form-control" id="nameInput" type="text" autofocus th:field="*{name}">
+                    <input class="form-control" id="nameInput" type="text" autofocus th:field="*{name}"
+                           th:required="required">
+                    <div class="invalid-feedback">
+                        Wprowadź nazwę kursu.
+                    </div>
                 </div>
+
             </div>
             <div class="form-group row">
                 <div class="col-sm-10">

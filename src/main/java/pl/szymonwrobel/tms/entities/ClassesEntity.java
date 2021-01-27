@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity(name = "classes")
 public class ClassesEntity {
 
     @Id

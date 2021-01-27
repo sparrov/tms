@@ -9,41 +9,37 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Entity
+@Entity(name = "users")
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @NotEmpty
-    @Column(unique=true, length = 24)
+    @Column(unique=true, nullable = false, length = 24)
     @Size(min = 3, max = 24)
     private String login;
 
-    @NotNull
     @NotEmpty
-    @Column(length = 60, nullable = false)
+    @Column(nullable = false, length = 60)
     @Size(min = 8, max = 60)
     private String password;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 24)
     private UserType userType;
 
     @NotNull
     private Boolean isActive;
 
-    @NotNull
     @NotEmpty
-    @Column(length = 24)
+    @Column(nullable = false, length = 24)
     @Size(min = 3, max = 24)
     private String firstName;
 
-    @NotNull
     @NotEmpty
-    @Column(length = 24)
+    @Column(nullable = false, length = 24)
     @Size(min = 3, max = 24)
     private String lastName;
 

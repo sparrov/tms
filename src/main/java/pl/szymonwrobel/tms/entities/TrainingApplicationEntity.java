@@ -5,13 +5,16 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity(name = "training_applications")
 public class TrainingApplicationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private LocalDate date;
+
     @ManyToOne
     private TrainingEntity training;
 
