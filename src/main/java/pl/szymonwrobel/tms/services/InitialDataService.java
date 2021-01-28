@@ -6,17 +6,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.szymonwrobel.tms.entities.TrainingApplicationEntity;
-import pl.szymonwrobel.tms.entities.TrainingEntity;
-import pl.szymonwrobel.tms.entities.UserEntity;
+import pl.szymonwrobel.tms.entities.*;
 import pl.szymonwrobel.tms.enums.UserType;
-import pl.szymonwrobel.tms.repositories.TrainingApplicationRepository;
-import pl.szymonwrobel.tms.repositories.TrainingRepository;
-import pl.szymonwrobel.tms.repositories.UserRepository;
+import pl.szymonwrobel.tms.repositories.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -27,12 +25,16 @@ public class InitialDataService implements CommandLineRunner {
     private final UserRepository userRepository;
     private final SecurityService securityService;
     private final TrainingRepository trainingRepository;
+    private final BlockRepository blockRepository;
+    private final ClassesRepository classesRepository;
     private final TrainingApplicationRepository trainingApplicationRepository;
 
-    public InitialDataService(UserRepository userRepository, SecurityService securityService, TrainingRepository trainingRepository, TrainingApplicationRepository trainingApplicationRepository) {
+    public InitialDataService(UserRepository userRepository, SecurityService securityService, TrainingRepository trainingRepository, BlockRepository blockRepository, ClassesRepository classesRepository, TrainingApplicationRepository trainingApplicationRepository) {
         this.userRepository = userRepository;
         this.securityService = securityService;
         this.trainingRepository = trainingRepository;
+        this.blockRepository = blockRepository;
+        this.classesRepository = classesRepository;
         this.trainingApplicationRepository = trainingApplicationRepository;
     }
 
@@ -51,6 +53,18 @@ public class InitialDataService implements CommandLineRunner {
     private TrainingApplicationEntity trainingApplication2;
     private TrainingApplicationEntity trainingApplication3;
     private TrainingApplicationEntity trainingApplication4;
+    private BlockEntity block1;
+    private BlockEntity block2;
+    private BlockEntity block3;
+    private BlockEntity block4;
+    private BlockEntity block5;
+    private BlockEntity block6;
+    private BlockEntity block7;
+    private BlockEntity block8;
+    private ClassesEntity classes1;
+    private ClassesEntity classes2;
+    private ClassesEntity classes3;
+    private ClassesEntity classes4;
 
     public void createAdminUser() {
         adminUser = new UserEntity(null, "admin", securityService.encodeUserPassword("test1234"), UserType.ADMIN, true, "Administator", "Admistratorski", List.of(new SimpleGrantedAuthority("ADMIN")), Collections.emptySet());
@@ -59,15 +73,47 @@ public class InitialDataService implements CommandLineRunner {
     }
 
     public void createSampleTrainings() {
-        training1 = new TrainingEntity(null, "Business English", Collections.emptySet());
+        training1 = new TrainingEntity(null, "Business English", Collections.emptySet(), Set.of(block1, block2, block3, block4));
         trainingRepository.save(training1);
-        training2 = new TrainingEntity(null, "Java developer", Collections.emptySet());
+        training2 = new TrainingEntity(null, "Java developer", Collections.emptySet(), Set.of());
         trainingRepository.save(training2);
-        training3 = new TrainingEntity(null, "Docker", Collections.emptySet());
+        training3 = new TrainingEntity(null, "Docker", Collections.emptySet(), Collections.emptySet());
         trainingRepository.save(training3);
-        training4 = new TrainingEntity(null, "FrontEnd developer", Collections.emptySet());
+        training4 = new TrainingEntity(null, "FrontEnd developer", Collections.emptySet(), Collections.emptySet());
         trainingRepository.save(training4);
         LOGGER.info("Pomyślnie dodano podstawowe kursy w systemie TMS");
+    }
+
+    public void createSampleBlocks() {
+        block1 = new BlockEntity(null, "Java - podstawy", Set.of(classes1, classes2, classes3, classes4));
+        blockRepository.save(block1);
+        block2 = new BlockEntity(null, "Java - zaawansowana", Collections.emptySet());
+        blockRepository.save(block2);
+        block3 = new BlockEntity(null, "Testowanie oprogramowania - podstawy", Collections.emptySet());
+        blockRepository.save(block3);
+        block4 = new BlockEntity(null, "Testowanie oprogramowania - zaawansowane", Collections.emptySet());
+        blockRepository.save(block4);
+        block5 = new BlockEntity(null, "Podstawy HTML", Collections.emptySet());
+        blockRepository.save(block5);
+        block6 = new BlockEntity(null, "Podstawy CSS", Collections.emptySet());
+        blockRepository.save(block6);
+        block7 = new BlockEntity(null, "Podstawy Javascript", Collections.emptySet());
+        blockRepository.save(block7);
+        block8 = new BlockEntity(null, "Angular", Collections.emptySet());
+        blockRepository.save(block8);
+        LOGGER.info("Pomyślnie utworzono bloki zajęć");
+    }
+
+    public void createSampleClasses() {
+        classes1 = new ClassesEntity(null, "Wprowadzenie", LocalDate.of(2021, 02, 01), LocalTime.of(8, 00), LocalTime.of(9, 00));
+        classesRepository.save(classes1);
+        classes2 = new ClassesEntity(null, "Środowisko programistyczne Javy", LocalDate.of(2021, 01, 02), LocalTime.of(9, 00), LocalTime.of(11, 00));
+        classesRepository.save(classes2);
+        classes3 = new ClassesEntity(null, "Podstawowe elementy języka Java - 1", LocalDate.of(2021, 01, 03), LocalTime.of(11, 00), LocalTime.of(13, 00));
+        classesRepository.save(classes3);
+        classes4 = new ClassesEntity(null, "Podstawowe elementy języka Java - 2", LocalDate.of(2021, 02, 04), LocalTime.of(13, 00), LocalTime.of(16, 00));
+        classesRepository.save(classes4);
+        LOGGER.info("Pomyślnie utworzono zajęcia");
     }
 
     public void createSampleUsers() {
@@ -102,6 +148,8 @@ public class InitialDataService implements CommandLineRunner {
     @Transactional
     public void run(String... args) {
         createAdminUser();
+        createSampleClasses();
+        createSampleBlocks();
         createSampleTrainings();
         createSampleUsers();
         createSampleApplications();

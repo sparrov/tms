@@ -3,6 +3,7 @@ package pl.szymonwrobel.tms.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity(name = "trainings")
@@ -13,19 +14,24 @@ public class TrainingEntity {
     private Long id;
 
     @NotEmpty
-    @Column(nullable = false, length = 24)
+    @Column(nullable = false, length = 60)
     private String name;
 
     @OneToMany(mappedBy = "training", cascade = {CascadeType.ALL})
     private Set<TrainingApplicationEntity> applications = new HashSet<>();
 
+    @OneToMany
+    @JoinColumn(name = "blocks")
+    private Set<BlockEntity> blocks = new HashSet<>();
+
     public TrainingEntity() {
     }
 
-    public TrainingEntity(Long id, String name, Set<TrainingApplicationEntity> applications) {
+    public TrainingEntity(Long id, @NotEmpty String name, Set<TrainingApplicationEntity> applications, Set<BlockEntity> blocks) {
         this.id = id;
         this.name = name;
         this.applications = applications;
+        this.blocks = blocks;
     }
 
     public Long getId() {
@@ -52,6 +58,15 @@ public class TrainingEntity {
 
     public TrainingEntity setApplications(Set<TrainingApplicationEntity> applications) {
         this.applications = applications;
+        return this;
+    }
+
+    public Set<BlockEntity> getBlocks() {
+        return blocks;
+    }
+
+    public TrainingEntity setBlocks(Set<BlockEntity> blocks) {
+        this.blocks = blocks;
         return this;
     }
 }

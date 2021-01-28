@@ -40,21 +40,19 @@ public class ApplyTaskService {
     @Scheduled(fixedRate = 30000, initialDelay = 10000)
     private void sendApplication() {
         String login = "student" + loginSuffix++;
-        Long sizeOfTrainingRepo = trainingRepository.count();
-        if (sizeOfTrainingRepo < 1) {
+        Long sizeOfTrainingList = trainingRepository.count();
+        if (sizeOfTrainingList < 1) {
             throw new IllegalArgumentException("Nie znaleziono kursów W bazie danych");
         }
-        Long randomID = ThreadLocalRandom.current().nextLong(1, sizeOfTrainingRepo + 1);
+        Long randomID = ThreadLocalRandom.current().nextLong(1, sizeOfTrainingList + 1);
         TrainingEntity trainingEntity = trainingRepository.findById(randomID).orElse(null);
 
         UserEntity randomGeneratedStudentUser = new UserEntity(null, login, securityService.encodeUserPassword(login), UserType.STUDENT, true, login, login, List.of(new SimpleGrantedAuthority("STUDENT")), null);
-        userRepository.save(randomGeneratedStudentUser);
+        UserEntity newUserEntity = userRepository.save(randomGeneratedStudentUser);
         LOGGER.info("Utworzono użytkownika: " + randomGeneratedStudentUser.getLogin());
 
-        UserEntity userEntityFromDb = userRepository.findByLogin(randomGeneratedStudentUser.getLogin()).orElse(null);
-
-        TrainingApplicationEntity trainingApplication = new TrainingApplicationEntity(null, LocalDate.now(), trainingEntity, userEntityFromDb, false);
+        TrainingApplicationEntity trainingApplication = new TrainingApplicationEntity(null, LocalDate.now(), trainingEntity, newUserEntity, false);
         trainingApplicationRepository.save(trainingApplication);
-        LOGGER.info("Otrzymano aplikację od użytkownika " + userEntityFromDb.getLogin() + " na kurs " + trainingEntity.getName());
+        LOGGER.info("Otrzymano aplikację od użytkownika " + newUserEntity.getLogin() + " na kurs " + trainingEntity.getName());
     }
 }
