@@ -2,8 +2,6 @@ package pl.szymonwrobel.tms.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity(name = "training_applications")
 public class TrainingApplicationEntity {

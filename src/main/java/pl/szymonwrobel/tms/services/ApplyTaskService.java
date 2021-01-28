@@ -44,7 +44,7 @@ public class ApplyTaskService {
         if (sizeOfTrainingRepo < 1) {
             throw new IllegalArgumentException("Nie znaleziono kursów W bazie danych");
         }
-        Long randomID = ThreadLocalRandom.current().nextLong(1, sizeOfTrainingRepo+1);
+        Long randomID = ThreadLocalRandom.current().nextLong(1, sizeOfTrainingRepo + 1);
         TrainingEntity trainingEntity = trainingRepository.findById(randomID).orElse(null);
 
         UserEntity randomGeneratedStudentUser = new UserEntity(null, login, securityService.encodeUserPassword(login), UserType.STUDENT, true, login, login, List.of(new SimpleGrantedAuthority("STUDENT")), null);

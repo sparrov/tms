@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeRestController {
 
     @GetMapping("/home")
-    public String getTmsHomeController(){
+    public String getTmsHomeController() {
         return "Hello from TMS";
     }
 }

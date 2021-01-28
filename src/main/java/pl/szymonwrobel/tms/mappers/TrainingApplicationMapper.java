@@ -1,7 +1,6 @@
 package pl.szymonwrobel.tms.mappers;
 
 import org.springframework.stereotype.Component;
-import pl.szymonwrobel.tms.dtos.StudentUserDTO;
 import pl.szymonwrobel.tms.dtos.TrainingApplicationDTO;
 import pl.szymonwrobel.tms.entities.TrainingApplicationEntity;
 import pl.szymonwrobel.tms.entities.TrainingEntity;
@@ -49,11 +48,8 @@ public class TrainingApplicationMapper {
                 .orElseThrow(() -> new RuntimeException("Training doesn't exist")));
         UserEntity newUserEntity = studentUserMapper.toEntity(trainingApplicationDTO
                 .getStudentUserDTO());
-        userRepository.save(newUserEntity);
-        UserEntity newUserEntityFromDb = userRepository.findByLogin(
-                trainingApplicationDTO.getStudentUserDTO().getLogin())
-                .orElseThrow(() -> new RuntimeException("User doesn't exist"));
-        trainingApplicationEntity.setUser(newUserEntityFromDb);
+        UserEntity userEntity = userRepository.save(newUserEntity);
+        trainingApplicationEntity.setUser(userEntity);
         trainingApplicationEntity.setIsConfirmed(trainingApplicationDTO
                 .getIsConfirmed() != null);
         return trainingApplicationEntity;

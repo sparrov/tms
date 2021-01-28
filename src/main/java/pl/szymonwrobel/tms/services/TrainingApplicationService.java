@@ -4,13 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-import pl.szymonwrobel.tms.dtos.StudentUserDTO;
 import pl.szymonwrobel.tms.dtos.TrainingApplicationDTO;
 import pl.szymonwrobel.tms.entities.TrainingApplicationEntity;
-import pl.szymonwrobel.tms.entities.UserEntity;
 import pl.szymonwrobel.tms.mappers.StudentUserMapper;
 import pl.szymonwrobel.tms.mappers.TrainingApplicationMapper;
-import pl.szymonwrobel.tms.mappers.UserMapper;
 import pl.szymonwrobel.tms.repositories.TrainingApplicationRepository;
 import pl.szymonwrobel.tms.repositories.UserRepository;
 

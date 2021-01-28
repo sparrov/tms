@@ -6,7 +6,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.szymonwrobel.tms.controllers.thymeleafcontrollers.HomeController;
 import pl.szymonwrobel.tms.entities.TrainingApplicationEntity;
 import pl.szymonwrobel.tms.entities.TrainingEntity;
 import pl.szymonwrobel.tms.entities.UserEntity;
@@ -88,13 +87,13 @@ public class InitialDataService implements CommandLineRunner {
     }
 
     public void createSampleApplications() {
-        trainingApplication1 = new TrainingApplicationEntity(null, LocalDate.of(2020,10,07), training1, studentUser1, true);
+        trainingApplication1 = new TrainingApplicationEntity(null, LocalDate.of(2020, 10, 07), training1, studentUser1, true);
         trainingApplicationRepository.save(trainingApplication1);
-        trainingApplication2 = new TrainingApplicationEntity(null, LocalDate.of(2020,12,25), training2, studentUser2, true);
+        trainingApplication2 = new TrainingApplicationEntity(null, LocalDate.of(2020, 12, 25), training2, studentUser2, true);
         trainingApplicationRepository.save(trainingApplication2);
-        trainingApplication3 = new TrainingApplicationEntity(null, LocalDate.of(2021,1,21), training3, studentUser3, true);
+        trainingApplication3 = new TrainingApplicationEntity(null, LocalDate.of(2021, 1, 21), training3, studentUser3, true);
         trainingApplicationRepository.save(trainingApplication3);
-        trainingApplication4 = new TrainingApplicationEntity(null, LocalDate.of(2021,1,25), training2, studentUser1, false);
+        trainingApplication4 = new TrainingApplicationEntity(null, LocalDate.of(2021, 1, 25), training2, studentUser1, false);
         trainingApplicationRepository.save(trainingApplication4);
         LOGGER.info("Pomyślnie złożono testowe aplikacje w systemie TMS");
     }

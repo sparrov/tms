@@ -33,7 +33,7 @@ public class TrainerUserMapper {
         userEntity.setPassword(securityService.encodeUserPassword(trainerUserDTO));
         userEntity.setFirstName(trainerUserDTO.getFirstName().replace(" ", ""));
         userEntity.setLastName(trainerUserDTO.getLastName().replace(" ", ""));
-        userEntity.setIsActive(trainerUserDTO.getIsActive().equals(true) ? true : false);
+        userEntity.setIsActive(trainerUserDTO.getIsActive().equals(true));
         userEntity.setUserType(UserType.TRAINER);
         return userEntity;
     }

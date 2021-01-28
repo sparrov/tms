@@ -10,7 +10,7 @@ import java.security.SecureRandom;
 @Service
 public class SecurityService {
 
-    public String encodeUserPassword(String plainPassword){
+    public String encodeUserPassword(String plainPassword) {
         int strength = 10; // work factor of bcrypt
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength,
                 new SecureRandom());
@@ -18,7 +18,7 @@ public class SecurityService {
         return encodedPassword;
     }
 
-    public String encodeUserPassword(TrainerUserDTO trainerUserDTO){
+    public String encodeUserPassword(TrainerUserDTO trainerUserDTO) {
         int strength = 10;
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength,
                 new SecureRandom());
@@ -26,7 +26,7 @@ public class SecurityService {
         return encodedPassword;
     }
 
-    public String encodeUserPassword(StudentUserDTO studentUserDTO){
+    public String encodeUserPassword(StudentUserDTO studentUserDTO) {
         int strength = 10;
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength,
                 new SecureRandom());

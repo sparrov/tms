@@ -3,6 +3,7 @@ package pl.szymonwrobel.tms.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -33,7 +34,7 @@ public class LogFileReaderService {
         try {
             while ((line = bufferFileReader.readLine()) != null) {
                 if (line.contains("Service]"))
-                listOfReadLines.add(line);
+                    listOfReadLines.add(line);
             }
         } catch (IOException ioException) {
             LOGGER.error("Bląd odczytu pliku!");
