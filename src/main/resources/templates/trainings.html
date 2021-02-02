@@ -18,6 +18,7 @@
             <th scope="col">Nazwa</th>
             <th sec:authorize="hasAuthority('ADMIN')" scope="col">Liczba aplikacji</th>
             <th sec:authorize="hasAuthority('ADMIN')" scope="col">ID aplikacji</th>
+            <th sec:authorize="hasAuthority('ADMIN')" scope="col">Bloki zajęć</th>
             <th sec:authorize="hasAuthority('ADMIN')" scope="col">Akcje</th>
 
         </tr>
@@ -28,6 +29,12 @@
             <th scope="row" th:text="${training.name}"></th>
             <th sec:authorize="hasAuthority('ADMIN')" scope="row" th:text="${training.applicationIds.size()}"></th>
             <th sec:authorize="hasAuthority('ADMIN')" scope="row" th:text="${training.applicationIds}"></th>
+            <th sec:authorize="hasAuthority('ADMIN')" scope="row">
+                <ul th:each="block : ${training.getBlocks()}">
+                    <li th:text="${block.name}"></li>
+                </ul>
+
+            </th>
             <th sec:authorize="hasAuthority('ADMIN')" scope="row" class="listOfActions">
                 <ul>
                     <li>

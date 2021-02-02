@@ -73,47 +73,15 @@ public class InitialDataService implements CommandLineRunner {
     }
 
     public void createSampleTrainings() {
-        training1 = new TrainingEntity(null, "Business English", Collections.emptySet(), Set.of(block1, block2, block3, block4));
-        trainingRepository.save(training1);
-        training2 = new TrainingEntity(null, "Java developer", Collections.emptySet(), Set.of());
-        trainingRepository.save(training2);
+        training1 = new TrainingEntity(null, "Business English", Set.of(), Set.of());
+        training1 = trainingRepository.save(training1);
+        training2 = new TrainingEntity(null, "Java developer", Collections.emptySet(), Collections.emptySet());
+        training2 = trainingRepository.save(training2);
         training3 = new TrainingEntity(null, "Docker", Collections.emptySet(), Collections.emptySet());
-        trainingRepository.save(training3);
+        training3 = trainingRepository.save(training3);
         training4 = new TrainingEntity(null, "FrontEnd developer", Collections.emptySet(), Collections.emptySet());
-        trainingRepository.save(training4);
+        training4 = trainingRepository.save(training4);
         LOGGER.info("Pomyślnie dodano podstawowe kursy w systemie TMS");
-    }
-
-    public void createSampleBlocks() {
-        block1 = new BlockEntity(null, "Java - podstawy", Set.of(classes1, classes2, classes3, classes4));
-        blockRepository.save(block1);
-        block2 = new BlockEntity(null, "Java - zaawansowana", Collections.emptySet());
-        blockRepository.save(block2);
-        block3 = new BlockEntity(null, "Testowanie oprogramowania - podstawy", Collections.emptySet());
-        blockRepository.save(block3);
-        block4 = new BlockEntity(null, "Testowanie oprogramowania - zaawansowane", Collections.emptySet());
-        blockRepository.save(block4);
-        block5 = new BlockEntity(null, "Podstawy HTML", Collections.emptySet());
-        blockRepository.save(block5);
-        block6 = new BlockEntity(null, "Podstawy CSS", Collections.emptySet());
-        blockRepository.save(block6);
-        block7 = new BlockEntity(null, "Podstawy Javascript", Collections.emptySet());
-        blockRepository.save(block7);
-        block8 = new BlockEntity(null, "Angular", Collections.emptySet());
-        blockRepository.save(block8);
-        LOGGER.info("Pomyślnie utworzono bloki zajęć");
-    }
-
-    public void createSampleClasses() {
-        classes1 = new ClassesEntity(null, "Wprowadzenie", LocalDate.of(2021, 02, 01), LocalTime.of(8, 00), LocalTime.of(9, 00));
-        classesRepository.save(classes1);
-        classes2 = new ClassesEntity(null, "Środowisko programistyczne Javy", LocalDate.of(2021, 01, 02), LocalTime.of(9, 00), LocalTime.of(11, 00));
-        classesRepository.save(classes2);
-        classes3 = new ClassesEntity(null, "Podstawowe elementy języka Java - 1", LocalDate.of(2021, 01, 03), LocalTime.of(11, 00), LocalTime.of(13, 00));
-        classesRepository.save(classes3);
-        classes4 = new ClassesEntity(null, "Podstawowe elementy języka Java - 2", LocalDate.of(2021, 02, 04), LocalTime.of(13, 00), LocalTime.of(16, 00));
-        classesRepository.save(classes4);
-        LOGGER.info("Pomyślnie utworzono zajęcia");
     }
 
     public void createSampleUsers() {
@@ -144,14 +112,46 @@ public class InitialDataService implements CommandLineRunner {
         LOGGER.info("Pomyślnie złożono testowe aplikacje w systemie TMS");
     }
 
+    public void createSampleClasses() {
+        classes1 = new ClassesEntity(null, "Wprowadzenie", LocalDate.of(2021, 02, 01), LocalTime.of(8, 00), LocalTime.of(9, 00));
+        classesRepository.save(classes1);
+        classes2 = new ClassesEntity(null, "Środowisko programistyczne Javy", LocalDate.of(2021, 01, 02), LocalTime.of(9, 00), LocalTime.of(11, 00));
+        classesRepository.save(classes2);
+        classes3 = new ClassesEntity(null, "Podstawowe elementy języka Java - 1", LocalDate.of(2021, 01, 03), LocalTime.of(11, 00), LocalTime.of(13, 00));
+        classesRepository.save(classes3);
+        classes4 = new ClassesEntity(null, "Podstawowe elementy języka Java - 2", LocalDate.of(2021, 02, 04), LocalTime.of(13, 00), LocalTime.of(16, 00));
+        classesRepository.save(classes4);
+        LOGGER.info("Pomyślnie utworzono testowe zajęcia");
+    }
+
+    public void createSampleBlocks() {
+        block1 = new BlockEntity(null, "Java - podstawy", training2, Set.of(classes1, classes2, classes3, classes4));
+        blockRepository.save(block1);
+        block2 = new BlockEntity(null, "Java - zaawansowana", training2, Collections.emptySet());
+        blockRepository.save(block2);
+        block3 = new BlockEntity(null, "Testowanie oprogramowania - podstawy", training2, Collections.emptySet());
+        blockRepository.save(block3);
+        block4 = new BlockEntity(null, "Testowanie oprogramowania - zaawansowane", training2, Collections.emptySet());
+        blockRepository.save(block4);
+        block5 = new BlockEntity(null, "Podstawy HTML", training4, Collections.emptySet());
+        blockRepository.save(block5);
+        block6 = new BlockEntity(null, "Podstawy CSS", training4, Collections.emptySet());
+        blockRepository.save(block6);
+        block7 = new BlockEntity(null, "Podstawy Javascript", training4, Collections.emptySet());
+        blockRepository.save(block7);
+        block8 = new BlockEntity(null, "Angular", training4, Collections.emptySet());
+        blockRepository.save(block8);
+        LOGGER.info("Pomyślnie utworzono testowe bloki zajęć");
+    }
+
     @Override
     @Transactional
     public void run(String... args) {
         createAdminUser();
-        createSampleClasses();
-        createSampleBlocks();
         createSampleTrainings();
         createSampleUsers();
         createSampleApplications();
+        createSampleClasses();
+        createSampleBlocks();
     }
 }

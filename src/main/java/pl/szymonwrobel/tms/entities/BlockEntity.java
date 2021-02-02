@@ -17,6 +17,9 @@ public class BlockEntity {
     @Column(nullable = false, length = 60)
     private String name;
 
+    @ManyToOne
+    private TrainingEntity training;
+
     @OneToMany
     @JoinColumn(name = "classes")
     private Set<ClassesEntity> classes = new HashSet<>();
@@ -24,9 +27,10 @@ public class BlockEntity {
     public BlockEntity() {
     }
 
-    public BlockEntity(Long id, @NotEmpty String name, Set<ClassesEntity> classes) {
+    public BlockEntity(Long id, @NotEmpty String name, TrainingEntity training, Set<ClassesEntity> classes) {
         this.id = id;
         this.name = name;
+        this.training = training;
         this.classes = classes;
     }
 
@@ -54,6 +58,15 @@ public class BlockEntity {
 
     public BlockEntity setClasses(Set<ClassesEntity> classes) {
         this.classes = classes;
+        return this;
+    }
+
+    public TrainingEntity getTraining() {
+        return training;
+    }
+
+    public BlockEntity setTraining(TrainingEntity training) {
+        this.training = training;
         return this;
     }
 }

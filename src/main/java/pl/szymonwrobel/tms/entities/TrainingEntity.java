@@ -17,21 +17,20 @@ public class TrainingEntity {
     @Column(nullable = false, length = 60)
     private String name;
 
-    @OneToMany(mappedBy = "training", cascade = {CascadeType.ALL})
-    private Set<TrainingApplicationEntity> applications = new HashSet<>();
-
-    @OneToMany
-    @JoinColumn(name = "blocks")
+    @OneToMany(mappedBy = "training", cascade = CascadeType.ALL)
     private Set<BlockEntity> blocks = new HashSet<>();
+
+    @OneToMany(mappedBy = "training", cascade = CascadeType.ALL)
+    private Set<TrainingApplicationEntity> applications = new HashSet<>();
 
     public TrainingEntity() {
     }
 
-    public TrainingEntity(Long id, @NotEmpty String name, Set<TrainingApplicationEntity> applications, Set<BlockEntity> blocks) {
+    public TrainingEntity(Long id, @NotEmpty String name, Set<BlockEntity> blocks, Set<TrainingApplicationEntity> applications) {
         this.id = id;
         this.name = name;
-        this.applications = applications;
         this.blocks = blocks;
+        this.applications = applications;
     }
 
     public Long getId() {
@@ -52,21 +51,21 @@ public class TrainingEntity {
         return this;
     }
 
-    public Set<TrainingApplicationEntity> getApplications() {
-        return applications;
-    }
-
-    public TrainingEntity setApplications(Set<TrainingApplicationEntity> applications) {
-        this.applications = applications;
-        return this;
-    }
-
     public Set<BlockEntity> getBlocks() {
         return blocks;
     }
 
     public TrainingEntity setBlocks(Set<BlockEntity> blocks) {
         this.blocks = blocks;
+        return this;
+    }
+
+    public Set<TrainingApplicationEntity> getApplications() {
+        return applications;
+    }
+
+    public TrainingEntity setApplications(Set<TrainingApplicationEntity> applications) {
+        this.applications = applications;
         return this;
     }
 }

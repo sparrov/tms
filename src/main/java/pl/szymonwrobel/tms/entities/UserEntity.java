@@ -50,7 +50,7 @@ public class UserEntity {
     //automatyczna relacja 1:wielu, któa tworzy dodatkową tabelę  user_entity_authorities - dzięki temu nie muszę tworzyć osobnej encji i relacji
     private List<SimpleGrantedAuthority> authorities;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<TrainingApplicationEntity> applications = new HashSet<>();
 
     public UserEntity() {

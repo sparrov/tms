@@ -2,15 +2,13 @@ package pl.szymonwrobel.tms.mappers;
 
 import org.springframework.stereotype.Component;
 import pl.szymonwrobel.tms.dtos.TrainingDTO;
+import pl.szymonwrobel.tms.entities.BlockEntity;
 import pl.szymonwrobel.tms.entities.TrainingApplicationEntity;
 import pl.szymonwrobel.tms.entities.TrainingEntity;
 import pl.szymonwrobel.tms.repositories.TrainingApplicationRepository;
 import pl.szymonwrobel.tms.repositories.TrainingRepository;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -29,6 +27,12 @@ public class TrainingMapper {
         final TrainingDTO trainingDTO = new TrainingDTO();
         trainingDTO.setId(trainingEntity.getId());
         trainingDTO.setName(trainingEntity.getName());
+        List<BlockEntity> listOfAllBlocks = trainingEntity
+                .getBlocks()
+                .stream()
+                .sorted(Comparator.comparing(o->o.getId()))
+                .collect(Collectors.toList());
+        trainingDTO.setBlocks(listOfAllBlocks);
         final List<Long> listOfApplicationIds = trainingEntity
                 .getApplications()
                 .stream()
